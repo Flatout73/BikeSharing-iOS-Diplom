@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Bike" representedClassName="Bike" syncable="YES" codeGenerationType="class">
+        <relationship name="ride" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ride" inverseName="bike" inverseEntity="Ride" syncable="YES"/>
+    </entity>
+    <entity name="Ride" representedClassName="Ride" syncable="YES" codeGenerationType="class">
+        <attribute name="startLatitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startLongitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="bike" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bike" inverseName="ride" inverseEntity="Bike" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Ride" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Bike" positionX="223.27734375" positionY="0.31640625" width="128" height="60"/>
+    </elements>
+</model>

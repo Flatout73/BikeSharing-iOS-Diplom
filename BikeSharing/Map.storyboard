@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="s3p-qF-n3S">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map-->
+        <scene sceneID="Rl8-xk-Ze0">
+            <objects>
+                <viewController title="Map" id="s3p-qF-n3S" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1ss-DR-WdM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="90K-mv-of4" firstAttribute="bottom" secondItem="yop-q3-yiZ" secondAttribute="bottom" id="1cs-bX-Wlo"/>
+                            <constraint firstItem="yop-q3-yiZ" firstAttribute="leading" secondItem="90K-mv-of4" secondAttribute="leading" id="EBH-yT-Jcn"/>
+                            <constraint firstItem="yop-q3-yiZ" firstAttribute="top" secondItem="90K-mv-of4" secondAttribute="top" id="bLY-Nm-bfR"/>
+                            <constraint firstItem="90K-mv-of4" firstAttribute="trailing" secondItem="yop-q3-yiZ" secondAttribute="trailing" id="ceB-qs-kWN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="90K-mv-of4"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WPV-cD-M8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="58"/>
+        </scene>
+    </scenes>
+</document>

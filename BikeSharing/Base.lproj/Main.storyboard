@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qX3-kg-dRw">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-yT-KWB" customClass="GIDSignInButton">
+                                <rect key="frame" x="127" y="437" width="161" height="32"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="jel-mY-iww"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-vM-Z7a" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="127" y="501" width="161" height="32"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="VWr-hi-99s"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ajY-vM-Z7a" firstAttribute="top" secondItem="XpF-yT-KWB" secondAttribute="bottom" constant="32" id="9bT-dE-PFZ"/>
+                            <constraint firstItem="XpF-yT-KWB" firstAttribute="width" secondItem="ajY-vM-Z7a" secondAttribute="width" id="Qvk-0V-2eu"/>
+                            <constraint firstItem="XpF-yT-KWB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Rnj-R9-bBf"/>
+                            <constraint firstItem="XpF-yT-KWB" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="f8g-Mb-zm1"/>
+                            <constraint firstItem="ajY-vM-Z7a" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="og4-vR-jNZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="fbLoginButton" destination="ajY-vM-Z7a" id="wXk-vn-RwO"/>
+                        <outlet property="googleLoginButton" destination="XpF-yT-KWB" id="41E-67-wiK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="154" y="-11"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="2Ty-rb-2kZ">
+            <objects>
+                <tabBarController id="qX3-kg-dRw" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HaQ-Hz-WFO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="a3o-JP-YWg" kind="relationship" relationship="viewControllers" id="pdd-jf-ufY"/>
+                        <segue destination="1jW-f4-Q07" kind="relationship" relationship="viewControllers" id="VQj-bI-6Jy"/>
+                        <segue destination="d5u-6L-RAD" kind="relationship" relationship="viewControllers" id="cpD-Tf-ccf"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="loginSegue" id="6Ff-Gr-Tqz"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6a0-t7-kW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="942" y="-11"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="Ey0-N8-lgi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" id="a3o-JP-YWg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="search" id="5CM-gB-hBP"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DdM-ZS-tYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1605" y="-115"/>
+        </scene>
+        <!--Rides-->
+        <scene sceneID="sTt-7A-yml">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Rides" id="1jW-f4-Q07" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="history" id="Fct-oX-1v4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dXz-ZN-Cce" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="13"/>
+        </scene>
+        <!--Accounts-->
+        <scene sceneID="06a-g5-ovN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Accounts" id="d5u-6L-RAD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="more" id="qTF-jg-V9d"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EZM-uS-406" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1641" y="127"/>
+        </scene>
+    </scenes>
+</document>
