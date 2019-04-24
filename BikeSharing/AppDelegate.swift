@@ -12,6 +12,7 @@ import Swinject
 import SwinjectStoryboard
 import GoogleSignIn
 import FBSDKCoreKit
+import SwiftyUserDefaults
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -27,6 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().delegate = self
         
         FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        if Defaults[.userId] == nil {
+            DispatchQueue.main.async {
+                self.window?.rootViewController?.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
+        }
         
         return true
     }
@@ -62,8 +69,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             urlRequest.httpMethod = "POST"
             urlRequest.httpBody = idToken?.data(using: .utf8)
             
-            URLSession.shared.dataTask(with: urlRequest) { response, data, error in
-                print(response)
+            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+                if let data = data {
+                    let user = try! JSONDecoder().decode(UserViewModel.self, from: data)
+                    UserDefaults.standard.set(user.id, forKey: "userId")
+                    
+                }
             }.resume()
             
         }
@@ -89,4 +100,8 @@ extension AppDelegate {
         let assemblies: [Assembly] = []
         return Assembler(assemblies, container: SwinjectStoryboard.defaultContainer)
     }
+}
+
+extension DefaultsKeys {
+    static let userId = DefaultsKey<Int?>("userId")
 }

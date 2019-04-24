@@ -13,4 +13,6 @@ target 'BikeSharing' do
   pod 'RxAlamofire'
   pod 'MBProgressHUD'
   pod 'FBSDKLoginKit'
+  pod 'SwiftyUserDefaults', '4.0.0-beta.2'
 end
+

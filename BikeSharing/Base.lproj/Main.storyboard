@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,22 +50,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="-11"/>
+            <point key="canvasLocation" x="112" y="-11"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="2Ty-rb-2kZ">
             <objects>
                 <tabBarController id="qX3-kg-dRw" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HaQ-Hz-WFO">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="HaQ-Hz-WFO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="a3o-JP-YWg" kind="relationship" relationship="viewControllers" id="pdd-jf-ufY"/>
                         <segue destination="1jW-f4-Q07" kind="relationship" relationship="viewControllers" id="VQj-bI-6Jy"/>
                         <segue destination="d5u-6L-RAD" kind="relationship" relationship="viewControllers" id="cpD-Tf-ccf"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="loginSegue" id="6Ff-Gr-Tqz"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginSegue" id="nt7-mZ-iny"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6a0-t7-kW6" userLabel="First Responder" sceneMemberID="firstResponder"/>

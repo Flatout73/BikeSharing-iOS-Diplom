@@ -7,16 +7,17 @@
 //
 
 import BikeSharingCore
+import RxSwift
 
-protocol RideListService {
-    func getAllRides() -> [Ride]
-}
-
-class ArticleListViewModel: RideListService {
-    func getAllRides() -> [Ride] {
-        return []
-    }
-    
-    
-    
-}
+//protocol RideListService {
+//    func getAllRides() -> Observable<[Ride]>
+//}
+//
+//class RideListViewModel: RideListService {
+//    func getAllRides() -> Observable<[Ride]> {
+//        return 
+//    }
+//    
+//    
+//    
+//}
