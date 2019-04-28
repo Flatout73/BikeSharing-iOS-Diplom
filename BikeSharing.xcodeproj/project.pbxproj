@@ -12,16 +12,31 @@
 		710D3D122263D4170031FBB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 710D3D102263D4170031FBB6 /* Main.storyboard */; };
 		710D3D172263D4190031FBB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 710D3D162263D4190031FBB6 /* Assets.xcassets */; };
 		710D3D1A2263D4190031FBB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 710D3D182263D4190031FBB6 /* LaunchScreen.storyboard */; };
+		710F7AC52273DDDC003C69E6 /* BikeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */; };
+		710F7AC72273DDEF003C69E6 /* BikeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */; };
+		714D62F6226FD834003918DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F5226FD834003918DC /* UserViewModel.swift */; };
+		714D62F8226FDF76003918DC /* RideListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F7226FDF76003918DC /* RideListRouter.swift */; };
+		714D62FA226FDFB8003918DC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F9226FDFB8003918DC /* Router.swift */; };
+		714D62FC226FE061003918DC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62FB226FE061003918DC /* MapViewController.swift */; };
+		714D62FE226FE224003918DC /* BikeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62FD226FE224003918DC /* BikeAnnotation.swift */; };
+		714D6300226FE6C9003918DC /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62FF226FE6C9003918DC /* AccountViewController.swift */; };
+		714D630322708D51003918DC /* RideListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630222708D51003918DC /* RideListViewModel.swift */; };
+		714D630522709430003918DC /* RideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630422709430003918DC /* RideViewModel.swift */; };
+		714D630722709646003918DC /* RidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630622709646003918DC /* RidesViewController.swift */; };
+		714D63092270A10B003918DC /* RideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D63082270A10A003918DC /* RideTableViewCell.swift */; };
+		714D630B2270A6D4003918DC /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630A2270A6D4003918DC /* ApiService.swift */; };
+		714D630D2270A89F003918DC /* BSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630C2270A89F003918DC /* BSError.swift */; };
+		714D63102270FC43003918DC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630F2270FC43003918DC /* DataStore.swift */; };
 		71DBA58A226E63F4005A5278 /* BikeSharingCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 71DBA588226E63F4005A5278 /* BikeSharingCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71DBA58D226E63F4005A5278 /* BikeSharingCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DBA586226E63F4005A5278 /* BikeSharingCore.framework */; };
 		71DBA58E226E63F4005A5278 /* BikeSharingCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 71DBA586226E63F4005A5278 /* BikeSharingCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		71DBA593226E6436005A5278 /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DBA592226E6436005A5278 /* Bike.swift */; };
 		71DBA596226E8898005A5278 /* RideListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DBA595226E8898005A5278 /* RideListService.swift */; };
 		71DBA597226E8A71005A5278 /* BikeSharing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 710D3D132263D4170031FBB6 /* BikeSharing.xcdatamodeld */; };
 		71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DBA598226E8A93005A5278 /* CoreDataManager.swift */; };
 		71DBA59C226E93E2005A5278 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59B226E93E2005A5278 /* Map.storyboard */; };
 		71DBA59E226E93ED005A5278 /* Rides.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59D226E93ED005A5278 /* Rides.storyboard */; };
 		71DBA5A0226E93FC005A5278 /* Accounts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59F226E93FC005A5278 /* Accounts.storyboard */; };
+		71F2A75F2275D86F0058283A /* BSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A75E2275D86F0058283A /* BSButton.swift */; };
 		71FB5B0B226E4458004FCAC2 /* RidesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */; };
 		C5C55BC9AC10A7B17EA420DE /* Pods_BikeSharing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FCC80FCF3BAA6A759DE7B68 /* Pods_BikeSharing.framework */; };
 /* End PBXBuildFile section */
@@ -60,16 +75,31 @@
 		710D3D162263D4190031FBB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		710D3D192263D4190031FBB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		710D3D1B2263D4190031FBB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInfoView.swift; sourceTree = "<group>"; };
+		710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BikeInfoView.xib; sourceTree = "<group>"; };
+		714D62F5226FD834003918DC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		714D62F7226FDF76003918DC /* RideListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RideListRouter.swift; path = ../RideListRouter.swift; sourceTree = "<group>"; };
+		714D62F9226FDFB8003918DC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		714D62FB226FE061003918DC /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		714D62FD226FE224003918DC /* BikeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeAnnotation.swift; sourceTree = "<group>"; };
+		714D62FF226FE6C9003918DC /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		714D630222708D51003918DC /* RideListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListViewModel.swift; sourceTree = "<group>"; };
+		714D630422709430003918DC /* RideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideViewModel.swift; sourceTree = "<group>"; };
+		714D630622709646003918DC /* RidesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesViewController.swift; sourceTree = "<group>"; };
+		714D63082270A10A003918DC /* RideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTableViewCell.swift; sourceTree = "<group>"; };
+		714D630A2270A6D4003918DC /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		714D630C2270A89F003918DC /* BSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSError.swift; sourceTree = "<group>"; };
+		714D630F2270FC43003918DC /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		71DBA586226E63F4005A5278 /* BikeSharingCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BikeSharingCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71DBA588226E63F4005A5278 /* BikeSharingCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSharingCore.h; sourceTree = "<group>"; };
 		71DBA589226E63F4005A5278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71DBA592226E6436005A5278 /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		71DBA595226E8898005A5278 /* RideListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListService.swift; sourceTree = "<group>"; };
 		71DBA598226E8A93005A5278 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		71DBA59A226E8ACB005A5278 /* BikeSharing.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BikeSharing.entitlements; sourceTree = "<group>"; };
 		71DBA59B226E93E2005A5278 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		71DBA59D226E93ED005A5278 /* Rides.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Rides.storyboard; sourceTree = "<group>"; };
 		71DBA59F226E93FC005A5278 /* Accounts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Accounts.storyboard; sourceTree = "<group>"; };
+		71F2A75E2275D86F0058283A /* BSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSButton.swift; sourceTree = "<group>"; };
 		71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesAssembly.swift; sourceTree = "<group>"; };
 		8F1E36CB446D96CB3E3AA107 /* Pods-BikeSharing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeSharing.debug.xcconfig"; path = "Target Support Files/Pods-BikeSharing/Pods-BikeSharing.debug.xcconfig"; sourceTree = "<group>"; };
 		95F937DDF43B6206F69736CE /* Pods-BikeSharing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeSharing.release.xcconfig"; path = "Target Support Files/Pods-BikeSharing/Pods-BikeSharing.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +165,9 @@
 		710D3D0B2263D4170031FBB6 /* BikeSharing */ = {
 			isa = PBXGroup;
 			children = (
+				714D632F2273602F003918DC /* Map */,
+				714D6301227088C1003918DC /* Rides */,
+				714D62F4226FD81F003918DC /* ViewModels */,
 				71DBA59A226E8ACB005A5278 /* BikeSharing.entitlements */,
 				71DBA594226E887C005A5278 /* Services */,
 				710D3D0C2263D4170031FBB6 /* AppDelegate.swift */,
@@ -143,12 +176,46 @@
 				710D3D162263D4190031FBB6 /* Assets.xcassets */,
 				710D3D182263D4190031FBB6 /* LaunchScreen.storyboard */,
 				710D3D1B2263D4190031FBB6 /* Info.plist */,
-				71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */,
-				71DBA59B226E93E2005A5278 /* Map.storyboard */,
-				71DBA59D226E93ED005A5278 /* Rides.storyboard */,
 				71DBA59F226E93FC005A5278 /* Accounts.storyboard */,
+				714D62FD226FE224003918DC /* BikeAnnotation.swift */,
+				714D62FF226FE6C9003918DC /* AccountViewController.swift */,
 			);
 			path = BikeSharing;
+			sourceTree = "<group>";
+		};
+		714D62F4226FD81F003918DC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				714D62F5226FD834003918DC /* UserViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		714D6301227088C1003918DC /* Rides */ = {
+			isa = PBXGroup;
+			children = (
+				714D62F7226FDF76003918DC /* RideListRouter.swift */,
+				71DBA595226E8898005A5278 /* RideListService.swift */,
+				71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */,
+				71DBA59D226E93ED005A5278 /* Rides.storyboard */,
+				714D630222708D51003918DC /* RideListViewModel.swift */,
+				714D630422709430003918DC /* RideViewModel.swift */,
+				714D630622709646003918DC /* RidesViewController.swift */,
+				714D63082270A10A003918DC /* RideTableViewCell.swift */,
+			);
+			path = Rides;
+			sourceTree = "<group>";
+		};
+		714D632F2273602F003918DC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				714D62FB226FE061003918DC /* MapViewController.swift */,
+				71DBA59B226E93E2005A5278 /* Map.storyboard */,
+				710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */,
+				710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */,
+				71F2A75E2275D86F0058283A /* BSButton.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		71DBA587226E63F4005A5278 /* BikeSharingCore */ = {
@@ -157,7 +224,8 @@
 				710D3D132263D4170031FBB6 /* BikeSharing.xcdatamodeld */,
 				71DBA588226E63F4005A5278 /* BikeSharingCore.h */,
 				71DBA589226E63F4005A5278 /* Info.plist */,
-				71DBA592226E6436005A5278 /* Bike.swift */,
+				714D62F9226FDFB8003918DC /* Router.swift */,
+				714D630F2270FC43003918DC /* DataStore.swift */,
 			);
 			path = BikeSharingCore;
 			sourceTree = "<group>";
@@ -165,8 +233,9 @@
 		71DBA594226E887C005A5278 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				71DBA595226E8898005A5278 /* RideListService.swift */,
 				71DBA598226E8A93005A5278 /* CoreDataManager.swift */,
+				714D630A2270A6D4003918DC /* ApiService.swift */,
+				714D630C2270A89F003918DC /* BSError.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -276,6 +345,7 @@
 				710D3D1A2263D4190031FBB6 /* LaunchScreen.storyboard in Resources */,
 				710D3D172263D4190031FBB6 /* Assets.xcassets in Resources */,
 				71DBA5A0226E93FC005A5278 /* Accounts.storyboard in Resources */,
+				710F7AC72273DDEF003C69E6 /* BikeInfoView.xib in Resources */,
 				710D3D122263D4170031FBB6 /* Main.storyboard in Resources */,
 				71DBA59C226E93E2005A5278 /* Map.storyboard in Resources */,
 				71DBA59E226E93ED005A5278 /* Rides.storyboard in Resources */,
@@ -312,6 +382,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework",
 			);
@@ -330,6 +401,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectStoryboard.framework",
 			);
@@ -389,11 +461,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				714D630722709646003918DC /* RidesViewController.swift in Sources */,
 				710D3D0F2263D4170031FBB6 /* LoginViewController.swift in Sources */,
+				714D62FE226FE224003918DC /* BikeAnnotation.swift in Sources */,
+				714D630522709430003918DC /* RideViewModel.swift in Sources */,
+				714D62F6226FD834003918DC /* UserViewModel.swift in Sources */,
+				710F7AC52273DDDC003C69E6 /* BikeInfoView.swift in Sources */,
+				714D62F8226FDF76003918DC /* RideListRouter.swift in Sources */,
 				710D3D0D2263D4170031FBB6 /* AppDelegate.swift in Sources */,
+				71F2A75F2275D86F0058283A /* BSButton.swift in Sources */,
+				714D630D2270A89F003918DC /* BSError.swift in Sources */,
 				71FB5B0B226E4458004FCAC2 /* RidesAssembly.swift in Sources */,
+				714D6300226FE6C9003918DC /* AccountViewController.swift in Sources */,
 				71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */,
 				71DBA596226E8898005A5278 /* RideListService.swift in Sources */,
+				714D630B2270A6D4003918DC /* ApiService.swift in Sources */,
+				714D63092270A10B003918DC /* RideTableViewCell.swift in Sources */,
+				714D630322708D51003918DC /* RideListViewModel.swift in Sources */,
+				714D62FC226FE061003918DC /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +486,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71DBA593226E6436005A5278 /* Bike.swift in Sources */,
+				714D63102270FC43003918DC /* DataStore.swift in Sources */,
+				714D62FA226FDFB8003918DC /* Router.swift in Sources */,
 				71DBA597226E8A71005A5278 /* BikeSharing.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

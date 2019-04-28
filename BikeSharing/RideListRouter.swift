@@ -9,9 +9,11 @@
 import BikeSharingCore
 
 protocol RideListRouter {
-    func showRideInfo(with ride: Ride)
+    func showRideInfo(with ride: RideViewModel)
 }
 
-class BaseRideListRouter: Router {
-    
+class BaseRideListRouter: Router, RideListRouter {
+    func showRideInfo(with ride: RideViewModel) {
+        
+    }
 }

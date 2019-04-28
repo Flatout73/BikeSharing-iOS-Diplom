@@ -18,16 +18,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="90K-mv-of4" firstAttribute="bottom" secondItem="yop-q3-yiZ" secondAttribute="bottom" id="1cs-bX-Wlo"/>
                             <constraint firstItem="yop-q3-yiZ" firstAttribute="leading" secondItem="90K-mv-of4" secondAttribute="leading" id="EBH-yT-Jcn"/>
+                            <constraint firstItem="90K-mv-of4" firstAttribute="trailing" secondItem="8qo-3j-xX0" secondAttribute="trailing" id="Lc9-6k-SPI"/>
+                            <constraint firstItem="8qo-3j-xX0" firstAttribute="leading" secondItem="90K-mv-of4" secondAttribute="leading" id="b6F-u4-JM0"/>
                             <constraint firstItem="yop-q3-yiZ" firstAttribute="top" secondItem="1ss-DR-WdM" secondAttribute="top" id="bLY-Nm-bfR"/>
                             <constraint firstItem="90K-mv-of4" firstAttribute="trailing" secondItem="yop-q3-yiZ" secondAttribute="trailing" id="ceB-qs-kWN"/>
+                            <constraint firstItem="8qo-3j-xX0" firstAttribute="top" secondItem="1ss-DR-WdM" secondAttribute="top" id="hqh-lw-TPo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="90K-mv-of4"/>
                     </view>

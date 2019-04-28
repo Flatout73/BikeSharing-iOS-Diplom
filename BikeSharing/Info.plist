@@ -74,5 +74,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To rent a bike</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To rent a bike</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To rent a bike</string>
 </dict>
 </plist>
