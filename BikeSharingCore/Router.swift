@@ -9,7 +9,7 @@
 import Foundation
 
 open class Router {
-    weak var viewController: UIViewController?
+    public weak var viewController: UIViewController?
     
     required public init(viewController: UIViewController) {
         self.viewController = viewController

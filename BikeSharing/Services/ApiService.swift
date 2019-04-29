@@ -13,7 +13,7 @@ import RxSwift
 import RxAlamofire
 
 class ApiService {
-    static let serverURL = "http://localhost:8443"
+    static let serverURL = "https://my-bike-sharing.herokuapp.com/"
     
     
     static func loginRequest(idToken: String?, completion: @escaping (Result<UserViewModel, BSError>) -> Void) {

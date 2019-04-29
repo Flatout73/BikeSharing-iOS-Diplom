@@ -22,7 +22,7 @@ class BaseRideListService: RideListService {
     
     func getAllRides() -> Observable<[RideViewModel]> {
         
-        return Observable.merge([getRidesFromCoreData(), getRidesFromServer()])
+        return Observable.concat([getRidesFromCoreData(), getRidesFromServer()])
     }
     
     private func getRidesFromServer() -> Observable<[RideViewModel]> {

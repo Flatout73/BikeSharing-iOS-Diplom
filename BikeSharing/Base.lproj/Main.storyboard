@@ -32,10 +32,18 @@
                                     <constraint firstAttribute="height" constant="32" id="VWr-hi-99s"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bike Sharing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eD-Dh-m6e">
+                                <rect key="frame" x="93" y="172" width="229" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="43"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6eD-Dh-m6e" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0RX-Gb-VFL"/>
                             <constraint firstItem="ajY-vM-Z7a" firstAttribute="top" secondItem="XpF-yT-KWB" secondAttribute="bottom" constant="32" id="9bT-dE-PFZ"/>
+                            <constraint firstItem="6eD-Dh-m6e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="128" id="MWJ-Mj-tgX"/>
                             <constraint firstItem="XpF-yT-KWB" firstAttribute="width" secondItem="ajY-vM-Z7a" secondAttribute="width" id="Qvk-0V-2eu"/>
                             <constraint firstItem="XpF-yT-KWB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Rnj-R9-bBf"/>
                             <constraint firstItem="XpF-yT-KWB" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="f8g-Mb-zm1"/>

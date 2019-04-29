@@ -9,6 +9,8 @@
 import MapKit
 import CoreLocation
 import BikeSharingCore
+import RxSwift
+import RxCocoa
 
 class MapViewController: UIViewController {
     
@@ -19,6 +21,13 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     
+    var viewModel: BikeMapViewModel!
+    
+    @IBOutlet var bikeInfoView: BikeInfoView!
+    
+    let disposeBag = DisposeBag()
+    
+    var afterScan = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +41,11 @@ class MapViewController: UIViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
+        bikeInfoView.scanButton.rx.tap.bind {
+            self.afterScan = true
+            self.performSegue(withIdentifier: "showScanner", sender: nil)
+        }.disposed(by: disposeBag)
     }
     
     func checkLocationAuthorization() {
@@ -54,6 +68,11 @@ class MapViewController: UIViewController {
         if let location = mapView.userLocation.location?.coordinate {
             let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
             mapView.setRegion(region, animated: true)
+        }
+        
+        if afterScan {
+            afterScan = false
+            self.performSegue(withIdentifier: "startRide", sender: nil)
         }
     }
 }
@@ -79,12 +98,18 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        
+        bikeInfoView.isHidden = false
     }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        if let location = userLocation.location?.coordinate {
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            mapView.setRegion(region, animated: true)
+        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()

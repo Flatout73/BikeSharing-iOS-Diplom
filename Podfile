@@ -14,5 +14,9 @@ target 'BikeSharing' do
   pod 'MBProgressHUD'
   pod 'FBSDKLoginKit'
   pod 'SwiftyUserDefaults', '4.0.0-beta.2'
+  pod 'Firebase/Core'
+  pod 'Crashlytics', '~> 3.12.0'
+  pod 'Fabric', '~> 1.9.0'
+
 end
 

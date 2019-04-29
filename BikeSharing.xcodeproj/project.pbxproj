@@ -37,6 +37,19 @@
 		71DBA59E226E93ED005A5278 /* Rides.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59D226E93ED005A5278 /* Rides.storyboard */; };
 		71DBA5A0226E93FC005A5278 /* Accounts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59F226E93FC005A5278 /* Accounts.storyboard */; };
 		71F2A75F2275D86F0058283A /* BSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A75E2275D86F0058283A /* BSButton.swift */; };
+		71F2A7622275E92B0058283A /* RideInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7612275E92B0058283A /* RideInfoViewController.swift */; };
+		71F2A7642275E96C0058283A /* RideInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7632275E96C0058283A /* RideInfoViewModel.swift */; };
+		71F2A7662275EA170058283A /* RideInfoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7652275EA170058283A /* RideInfoAssembly.swift */; };
+		71F2A7682275F3010058283A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71F2A7672275F3000058283A /* GoogleService-Info.plist */; };
+		71F2A7692275F3010058283A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71F2A7672275F3000058283A /* GoogleService-Info.plist */; };
+		71F2A76C2275FAC90058283A /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A76B2275FAC90058283A /* AnalyticsHelper.swift */; };
+		71F2A76F2275FD5D0058283A /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A76E2275FD5D0058283A /* ScannerViewController.swift */; };
+		71F2A771227614690058283A /* BikeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A770227614690058283A /* BikeViewModel.swift */; };
+		71F2A774227616FA0058283A /* BikeMapAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A773227616FA0058283A /* BikeMapAssembly.swift */; };
+		71F2A776227617FA0058283A /* BikeMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A775227617FA0058283A /* BikeMapViewModel.swift */; };
+		71F2A778227618120058283A /* BikeMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A777227618120058283A /* BikeMapService.swift */; };
+		71F2A77A2276182C0058283A /* BikeMapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7792276182C0058283A /* BikeMapRouter.swift */; };
+		71F2A77D22766F8D0058283A /* RidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A77C22766F8D0058283A /* RidingViewController.swift */; };
 		71FB5B0B226E4458004FCAC2 /* RidesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */; };
 		C5C55BC9AC10A7B17EA420DE /* Pods_BikeSharing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FCC80FCF3BAA6A759DE7B68 /* Pods_BikeSharing.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +113,18 @@
 		71DBA59D226E93ED005A5278 /* Rides.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Rides.storyboard; sourceTree = "<group>"; };
 		71DBA59F226E93FC005A5278 /* Accounts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Accounts.storyboard; sourceTree = "<group>"; };
 		71F2A75E2275D86F0058283A /* BSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSButton.swift; sourceTree = "<group>"; };
+		71F2A7612275E92B0058283A /* RideInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideInfoViewController.swift; sourceTree = "<group>"; };
+		71F2A7632275E96C0058283A /* RideInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideInfoViewModel.swift; sourceTree = "<group>"; };
+		71F2A7652275EA170058283A /* RideInfoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideInfoAssembly.swift; sourceTree = "<group>"; };
+		71F2A7672275F3000058283A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		71F2A76B2275FAC90058283A /* AnalyticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHelper.swift; sourceTree = "<group>"; };
+		71F2A76E2275FD5D0058283A /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		71F2A770227614690058283A /* BikeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeViewModel.swift; sourceTree = "<group>"; };
+		71F2A773227616FA0058283A /* BikeMapAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapAssembly.swift; sourceTree = "<group>"; };
+		71F2A775227617FA0058283A /* BikeMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapViewModel.swift; sourceTree = "<group>"; };
+		71F2A777227618120058283A /* BikeMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapService.swift; sourceTree = "<group>"; };
+		71F2A7792276182C0058283A /* BikeMapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapRouter.swift; sourceTree = "<group>"; };
+		71F2A77C22766F8D0058283A /* RidingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidingViewController.swift; sourceTree = "<group>"; };
 		71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesAssembly.swift; sourceTree = "<group>"; };
 		8F1E36CB446D96CB3E3AA107 /* Pods-BikeSharing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeSharing.debug.xcconfig"; path = "Target Support Files/Pods-BikeSharing/Pods-BikeSharing.debug.xcconfig"; sourceTree = "<group>"; };
 		95F937DDF43B6206F69736CE /* Pods-BikeSharing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BikeSharing.release.xcconfig"; path = "Target Support Files/Pods-BikeSharing/Pods-BikeSharing.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,10 +190,12 @@
 		710D3D0B2263D4170031FBB6 /* BikeSharing */ = {
 			isa = PBXGroup;
 			children = (
+				71F2A7672275F3000058283A /* GoogleService-Info.plist */,
 				714D632F2273602F003918DC /* Map */,
 				714D6301227088C1003918DC /* Rides */,
 				714D62F4226FD81F003918DC /* ViewModels */,
 				71DBA59A226E8ACB005A5278 /* BikeSharing.entitlements */,
+				71F2A772227616A80058283A /* Account */,
 				71DBA594226E887C005A5278 /* Services */,
 				710D3D0C2263D4170031FBB6 /* AppDelegate.swift */,
 				710D3D0E2263D4170031FBB6 /* LoginViewController.swift */,
@@ -176,9 +203,7 @@
 				710D3D162263D4190031FBB6 /* Assets.xcassets */,
 				710D3D182263D4190031FBB6 /* LaunchScreen.storyboard */,
 				710D3D1B2263D4190031FBB6 /* Info.plist */,
-				71DBA59F226E93FC005A5278 /* Accounts.storyboard */,
-				714D62FD226FE224003918DC /* BikeAnnotation.swift */,
-				714D62FF226FE6C9003918DC /* AccountViewController.swift */,
+				71F2A76B2275FAC90058283A /* AnalyticsHelper.swift */,
 			);
 			path = BikeSharing;
 			sourceTree = "<group>";
@@ -187,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				714D62F5226FD834003918DC /* UserViewModel.swift */,
+				714D630422709430003918DC /* RideViewModel.swift */,
+				71F2A770227614690058283A /* BikeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -194,12 +221,12 @@
 		714D6301227088C1003918DC /* Rides */ = {
 			isa = PBXGroup;
 			children = (
+				71F2A7602275E9150058283A /* RideInfo */,
 				714D62F7226FDF76003918DC /* RideListRouter.swift */,
 				71DBA595226E8898005A5278 /* RideListService.swift */,
 				71FB5B0A226E4458004FCAC2 /* RidesAssembly.swift */,
 				71DBA59D226E93ED005A5278 /* Rides.storyboard */,
 				714D630222708D51003918DC /* RideListViewModel.swift */,
-				714D630422709430003918DC /* RideViewModel.swift */,
 				714D630622709646003918DC /* RidesViewController.swift */,
 				714D63082270A10A003918DC /* RideTableViewCell.swift */,
 			);
@@ -209,11 +236,18 @@
 		714D632F2273602F003918DC /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				71F2A77B22766F530058283A /* New Group */,
+				71F2A76D2275FD440058283A /* Scanner */,
 				714D62FB226FE061003918DC /* MapViewController.swift */,
 				71DBA59B226E93E2005A5278 /* Map.storyboard */,
 				710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */,
 				710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */,
 				71F2A75E2275D86F0058283A /* BSButton.swift */,
+				714D62FD226FE224003918DC /* BikeAnnotation.swift */,
+				71F2A773227616FA0058283A /* BikeMapAssembly.swift */,
+				71F2A775227617FA0058283A /* BikeMapViewModel.swift */,
+				71F2A777227618120058283A /* BikeMapService.swift */,
+				71F2A7792276182C0058283A /* BikeMapRouter.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -238,6 +272,41 @@
 				714D630C2270A89F003918DC /* BSError.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		71F2A7602275E9150058283A /* RideInfo */ = {
+			isa = PBXGroup;
+			children = (
+				71F2A7612275E92B0058283A /* RideInfoViewController.swift */,
+				71F2A7632275E96C0058283A /* RideInfoViewModel.swift */,
+				71F2A7652275EA170058283A /* RideInfoAssembly.swift */,
+			);
+			path = RideInfo;
+			sourceTree = "<group>";
+		};
+		71F2A76D2275FD440058283A /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				71F2A76E2275FD5D0058283A /* ScannerViewController.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		71F2A772227616A80058283A /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				714D62FF226FE6C9003918DC /* AccountViewController.swift */,
+				71DBA59F226E93FC005A5278 /* Accounts.storyboard */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		71F2A77B22766F530058283A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				71F2A77C22766F8D0058283A /* RidingViewController.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +334,7 @@
 				8AE7E44B0F796B4673B5C59F /* [CP] Embed Pods Frameworks */,
 				A5EA6C446DD40D77968034FB /* [CP] Copy Pods Resources */,
 				71DBA575226E62E9005A5278 /* Embed Frameworks */,
+				71F2A76A2275F5890058283A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -343,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				710D3D1A2263D4190031FBB6 /* LaunchScreen.storyboard in Resources */,
+				71F2A7682275F3010058283A /* GoogleService-Info.plist in Resources */,
 				710D3D172263D4190031FBB6 /* Assets.xcassets in Resources */,
 				71DBA5A0226E93FC005A5278 /* Accounts.storyboard in Resources */,
 				710F7AC72273DDEF003C69E6 /* BikeInfoView.xib in Resources */,
@@ -356,12 +427,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71F2A7692275F3010058283A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		71F2A76A2275F5890058283A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+		};
 		8AE7E44B0F796B4673B5C59F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,6 +467,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
@@ -385,6 +476,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -396,6 +488,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
@@ -404,6 +497,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectStoryboard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -465,17 +559,28 @@
 				710D3D0F2263D4170031FBB6 /* LoginViewController.swift in Sources */,
 				714D62FE226FE224003918DC /* BikeAnnotation.swift in Sources */,
 				714D630522709430003918DC /* RideViewModel.swift in Sources */,
+				71F2A7622275E92B0058283A /* RideInfoViewController.swift in Sources */,
 				714D62F6226FD834003918DC /* UserViewModel.swift in Sources */,
 				710F7AC52273DDDC003C69E6 /* BikeInfoView.swift in Sources */,
 				714D62F8226FDF76003918DC /* RideListRouter.swift in Sources */,
 				710D3D0D2263D4170031FBB6 /* AppDelegate.swift in Sources */,
+				71F2A7662275EA170058283A /* RideInfoAssembly.swift in Sources */,
+				71F2A776227617FA0058283A /* BikeMapViewModel.swift in Sources */,
 				71F2A75F2275D86F0058283A /* BSButton.swift in Sources */,
 				714D630D2270A89F003918DC /* BSError.swift in Sources */,
 				71FB5B0B226E4458004FCAC2 /* RidesAssembly.swift in Sources */,
+				71F2A774227616FA0058283A /* BikeMapAssembly.swift in Sources */,
 				714D6300226FE6C9003918DC /* AccountViewController.swift in Sources */,
+				71F2A77A2276182C0058283A /* BikeMapRouter.swift in Sources */,
+				71F2A771227614690058283A /* BikeViewModel.swift in Sources */,
 				71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */,
+				71F2A7642275E96C0058283A /* RideInfoViewModel.swift in Sources */,
+				71F2A76F2275FD5D0058283A /* ScannerViewController.swift in Sources */,
+				71F2A778227618120058283A /* BikeMapService.swift in Sources */,
 				71DBA596226E8898005A5278 /* RideListService.swift in Sources */,
+				71F2A77D22766F8D0058283A /* RidingViewController.swift in Sources */,
 				714D630B2270A6D4003918DC /* ApiService.swift in Sources */,
+				71F2A76C2275FAC90058283A /* AnalyticsHelper.swift in Sources */,
 				714D63092270A10B003918DC /* RideTableViewCell.swift in Sources */,
 				714D630322708D51003918DC /* RideListViewModel.swift in Sources */,
 				714D62FC226FE061003918DC /* MapViewController.swift in Sources */,

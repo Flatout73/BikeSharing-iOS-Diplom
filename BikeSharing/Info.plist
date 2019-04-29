@@ -80,5 +80,7 @@
 	<string>To rent a bike</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To rent a bike</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan qr code</string>
 </dict>
 </plist>

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,8 +22,8 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -39,12 +40,141 @@
                         <viewLayoutGuide key="safeArea" id="90K-mv-of4"/>
                     </view>
                     <connections>
+                        <outlet property="bikeInfoView" destination="8qo-3j-xX0" id="D3p-zU-zZ4"/>
                         <outlet property="mapView" destination="yop-q3-yiZ" id="HoW-gH-tAw"/>
+                        <segue destination="jea-ms-1YW" kind="presentation" identifier="showScanner" id="BlR-va-gLy"/>
+                        <segue destination="22F-ad-x3e" kind="presentation" identifier="startRide" animates="NO" id="4Ko-2G-pw5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPV-cD-M8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38" y="58"/>
+            <point key="canvasLocation" x="93" y="104"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="LmN-Pw-Got">
+            <objects>
+                <viewController id="jea-ms-1YW" customClass="ScannerViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B7w-RT-LTb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sK7-Bp-xsT">
+                                <rect key="frame" x="16" y="60" width="35" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                                <state key="normal" title="✕">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="jea-ms-1YW" eventType="touchUpInside" id="bU7-CL-DEH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отсканируйте QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhN-G6-faS">
+                                <rect key="frame" x="113.5" y="752" width="187" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fGS-Lz-B0T" firstAttribute="bottom" secondItem="nhN-G6-faS" secondAttribute="bottom" constant="40" id="I0k-EL-3dg"/>
+                            <constraint firstItem="nhN-G6-faS" firstAttribute="centerX" secondItem="fGS-Lz-B0T" secondAttribute="centerX" id="S7R-tT-cZX"/>
+                            <constraint firstItem="sK7-Bp-xsT" firstAttribute="leading" secondItem="fGS-Lz-B0T" secondAttribute="leading" constant="16" id="l84-mA-7At"/>
+                            <constraint firstItem="sK7-Bp-xsT" firstAttribute="top" secondItem="fGS-Lz-B0T" secondAttribute="top" constant="16" id="slE-3m-VgI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fGS-Lz-B0T"/>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Efp-CD-JZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1089.8550724637682" y="69.642857142857139"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="6jx-eg-lnv">
+            <objects>
+                <viewController title="Map" id="22F-ad-x3e" customClass="RidingViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aCT-8N-sA6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xtf-qI-epc">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACE-eU-6vs">
+                                <rect key="frame" x="0.0" y="669" width="414" height="227"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RidingTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFj-4s-JdB">
+                                        <rect key="frame" x="180" y="14.5" width="86" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BikeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="t3s-Pg-AvV">
+                                        <rect key="frame" x="132" y="8" width="40" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="t3s-Pg-AvV" secondAttribute="height" multiplier="20:17" id="bkF-sK-RJs"/>
+                                            <constraint firstAttribute="width" constant="40" id="w7y-dJ-wVm"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MbL-CV-Z4E">
+                                        <rect key="frame" x="135" y="74" width="144.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lx3-bY-GvU" customClass="BSButton" customModule="BikeSharing" customModuleProvider="target">
+                                        <rect key="frame" x="167.5" y="147" width="79" height="30"/>
+                                        <viewLayoutGuide key="safeArea" id="TGv-Xf-JRq"/>
+                                        <state key="normal" title="Завершить">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="close:" destination="22F-ad-x3e" eventType="touchUpInside" id="BUf-9P-cmQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="Background"/>
+                                <constraints>
+                                    <constraint firstItem="3a2-y4-2Wy" firstAttribute="bottom" secondItem="Lx3-bY-GvU" secondAttribute="bottom" constant="16" id="8fp-Re-Zr8"/>
+                                    <constraint firstItem="MFj-4s-JdB" firstAttribute="centerX" secondItem="ACE-eU-6vs" secondAttribute="centerX" constant="16" id="IIn-Sp-AzV"/>
+                                    <constraint firstItem="Lx3-bY-GvU" firstAttribute="centerX" secondItem="MbL-CV-Z4E" secondAttribute="centerX" id="JJ1-Fr-hU1"/>
+                                    <constraint firstItem="MFj-4s-JdB" firstAttribute="leading" secondItem="t3s-Pg-AvV" secondAttribute="trailing" constant="8" id="PFJ-15-Kr5"/>
+                                    <constraint firstItem="MFj-4s-JdB" firstAttribute="centerY" secondItem="t3s-Pg-AvV" secondAttribute="centerY" id="RT7-IN-CVE"/>
+                                    <constraint firstItem="MbL-CV-Z4E" firstAttribute="top" secondItem="t3s-Pg-AvV" secondAttribute="bottom" constant="32" id="Srf-EV-4IW"/>
+                                    <constraint firstItem="MbL-CV-Z4E" firstAttribute="centerX" secondItem="ACE-eU-6vs" secondAttribute="centerX" id="XBg-aK-jzp"/>
+                                    <constraint firstItem="Lx3-bY-GvU" firstAttribute="top" secondItem="MbL-CV-Z4E" secondAttribute="bottom" constant="32" id="f8N-I8-bM2"/>
+                                    <constraint firstItem="t3s-Pg-AvV" firstAttribute="top" secondItem="ACE-eU-6vs" secondAttribute="top" constant="8" id="qNS-Lj-zF2"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="3a2-y4-2Wy"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="u99-VZ-BoG" firstAttribute="trailing" secondItem="xtf-qI-epc" secondAttribute="trailing" id="8sK-Jg-W15"/>
+                            <constraint firstItem="xtf-qI-epc" firstAttribute="top" secondItem="aCT-8N-sA6" secondAttribute="top" id="DGa-yN-MaR"/>
+                            <constraint firstItem="xtf-qI-epc" firstAttribute="leading" secondItem="u99-VZ-BoG" secondAttribute="leading" id="HOg-xb-vDa"/>
+                            <constraint firstItem="ACE-eU-6vs" firstAttribute="trailing" secondItem="u99-VZ-BoG" secondAttribute="trailing" id="RiT-Nf-mzG"/>
+                            <constraint firstItem="ACE-eU-6vs" firstAttribute="leading" secondItem="u99-VZ-BoG" secondAttribute="leading" id="UoJ-5V-Myx"/>
+                            <constraint firstAttribute="bottom" secondItem="ACE-eU-6vs" secondAttribute="bottom" id="Zlo-ba-l19"/>
+                            <constraint firstItem="u99-VZ-BoG" firstAttribute="bottom" secondItem="xtf-qI-epc" secondAttribute="bottom" id="my4-b6-z1F"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="u99-VZ-BoG"/>
+                    </view>
+                    <connections>
+                        <outlet property="timeLabel" destination="MbL-CV-Z4E" id="W7E-qP-ZiQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yla-O5-duL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="93" y="813"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BikeIcon" width="25.5" height="17.5"/>
+        <namedColor name="Background">
+            <color red="0.30000001192092896" green="0.30000001192092896" blue="0.30000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

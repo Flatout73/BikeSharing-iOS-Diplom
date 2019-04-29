@@ -10,13 +10,10 @@ import UIKit
 
 @IBDesignable class BikeInfoView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    var bike: BikeViewModel?
+
+    @IBOutlet var scanButton: BSButton!
+    @IBOutlet var routeButton: BSButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,5 +38,10 @@ import UIKit
         self.layer.cornerRadius = 8
         self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
-
+    
+    @IBAction func scan(_ sender: Any) {
+        
+    }
+    
+    
 }

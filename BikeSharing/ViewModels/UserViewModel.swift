@@ -14,5 +14,4 @@ struct UserViewModel: Codable {
     let googleId: String?
     let pictureURL: String?
     let locale: String?
-    
 }

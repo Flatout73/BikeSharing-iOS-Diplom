@@ -14,6 +14,6 @@ protocol RideListRouter {
 
 class BaseRideListRouter: Router, RideListRouter {
     func showRideInfo(with ride: RideViewModel) {
-        
+      
     }
 }

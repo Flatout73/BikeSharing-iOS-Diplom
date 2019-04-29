@@ -17,6 +17,8 @@ class RidesViewController: UIViewController {
     var viewModel: RideListViewModel! //injected
     private let disposeBag = DisposeBag()
     
+    var refreshControler = UIRefreshControl()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +29,19 @@ class RidesViewController: UIViewController {
             cell.startLabel.text = String(ride.id)
         }.disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(RideViewModel.self).subscribe({ event in
-            print("Select", event)
-        }).disposed(by: disposeBag)
+        tableView.rx.modelSelected(RideViewModel.self).bind(onNext: viewModel.showArticleInfo).disposed(by: disposeBag)
+        
+        self.tableView.refreshControl = refreshControler
+        
+        refreshControler.rx.controlEvent(.valueChanged).do(onNext: {
+            self.viewModel.triggerText.value = ""
+        })
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        AnalyticsHelper.event(name: "show_rides")
     }
 }
