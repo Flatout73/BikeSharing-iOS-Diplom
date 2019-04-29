@@ -236,7 +236,7 @@
 		714D632F2273602F003918DC /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				71F2A77B22766F530058283A /* New Group */,
+				71F2A77B22766F530058283A /* Riding */,
 				71F2A76D2275FD440058283A /* Scanner */,
 				714D62FB226FE061003918DC /* MapViewController.swift */,
 				71DBA59B226E93E2005A5278 /* Map.storyboard */,
@@ -301,12 +301,12 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
-		71F2A77B22766F530058283A /* New Group */ = {
+		71F2A77B22766F530058283A /* Riding */ = {
 			isa = PBXGroup;
 			children = (
 				71F2A77C22766F8D0058283A /* RidingViewController.swift */,
 			);
-			path = "New Group";
+			path = Riding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
