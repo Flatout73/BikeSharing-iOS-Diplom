@@ -20,7 +20,6 @@ class RideTableViewCell: UITableViewCell {
         
         mainContentView.layer.cornerRadius = 8
         mapImageView.layer.masksToBounds = true
-        mapImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

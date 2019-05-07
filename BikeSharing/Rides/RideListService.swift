@@ -21,7 +21,6 @@ class BaseRideListService: RideListService {
     let jsonDecoder = JSONDecoder()
     
     func getAllRides() -> Observable<[RideViewModel]> {
-        
         return Observable.concat([getRidesFromCoreData(), getRidesFromServer()])
     }
     

@@ -11,20 +11,20 @@ import SwinjectStoryboard
 
 class BikeMapAssembly: Assembly {
     func assemble(container: Container) {
-//        container.register(BikeMapRouter.self) { (_: Resolver, viewController: UIViewController) in
-//            return BaseBikeMapRouter(viewController: viewController)
-//        }
-//        
-//        container.register(BikeMapService.self) { _ in
-//            return BaseBikeMapService()
-//        }
-//        
-//        container.register(BikeMapViewModel.self) { (resolver: Resolver, viewController: UIViewController) in
-//            return BikeMapViewModel(service: resolver.resolve(BikeMapService.self)!, router: resolver.resolve(BikeMapRouter.self, argument: viewController)!)
-//        }
-//        
-//        container.storyboardInitCompleted(RidesViewController.self) { resolver, controller in
-//            controller.viewModel = resolver.resolve(RideListViewModel.self, argument: controller as UIViewController)
-//        }
+        container.register(BikeMapRouter.self) { (_: Resolver, viewController: UIViewController) in
+            return BaseBikeMapRouter(viewController: viewController)
+        }
+        
+        container.register(BikeMapService.self) { _ in
+            return BaseBikeMapService()
+        }
+        
+        container.register(BikeMapViewModel.self) { (resolver: Resolver, viewController: UIViewController) in
+            return BaseBikeMapViewModel(service: resolver.resolve(BikeMapService.self)!, router: resolver.resolve(BikeMapRouter.self, argument: viewController)!)
+        }
+        
+        container.storyboardInitCompleted(MapViewController.self) { resolver, controller in
+            controller.viewModel = resolver.resolve(BikeMapViewModel.self, argument: controller as UIViewController)
+        }
     }
 }

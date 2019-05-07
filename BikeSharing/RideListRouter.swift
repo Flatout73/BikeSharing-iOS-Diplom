@@ -14,6 +14,8 @@ protocol RideListRouter {
 
 class BaseRideListRouter: Router, RideListRouter {
     func showRideInfo(with ride: RideViewModel) {
-      
+        guard let controller = viewController?.storyboard?.instantiateViewController(withIdentifier: "RideInfoViewController") else { return }
+        controller.hidesBottomBarWhenPushed = true
+        viewController?.navigationController?.pushViewController(controller, animated: true)
     }
 }

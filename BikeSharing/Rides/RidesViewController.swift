@@ -33,10 +33,21 @@ class RidesViewController: UIViewController {
         
         self.tableView.refreshControl = refreshControler
         
-        refreshControler.rx.controlEvent(.valueChanged).do(onNext: {
-            self.viewModel.triggerText.value = ""
-        })
+        refreshControler.rx.controlEvent(.valueChanged)
+            .map { _ in !self.refreshControler.isRefreshing }
+            .filter { $0 == false }
+            .subscribe({ [unowned self] _ in
+                self.viewModel.triggerText.value = ""
+            })
+            .disposed(by: self.disposeBag)
         
+        refreshControler.rx.controlEvent(.valueChanged)       // user pulled down to refresh
+            .map { _ in self.refreshControler.isRefreshing }      // true -> true
+            .filter { $0 == true }                // true == true
+            .subscribe({ [unowned self] _ in
+                self.refreshControler.endRefreshing()             // end refreshing
+            })
+            .disposed(by: self.disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

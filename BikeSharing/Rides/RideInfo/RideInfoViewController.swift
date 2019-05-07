@@ -8,7 +8,12 @@
 
 import UIKit
 
-class RideInfoViewController: UITableViewController {
+class RideInfoViewController: UIViewController {
     
     var viewModel: RideInfoViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
 }

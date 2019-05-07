@@ -377,6 +377,9 @@
 					710D3D082263D4170031FBB6 = {
 						CreatedOnToolsVersion = 10.2;
 						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 1;
+							};
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};

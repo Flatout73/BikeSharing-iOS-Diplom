@@ -38,7 +38,7 @@ struct BaseRideListViewModel: RideListViewModel {
             //wait 0.3 s after the last value to fire a new value
             .debounce(0.3, scheduler: MainScheduler.instance)
             //only fire if the value is different than the last one
-            .distinctUntilChanged()
+            //.distinctUntilChanged()
             //convert Observable<String> to Observable<Weather>
             .flatMapLatest { searchString -> Observable<[RideViewModel]> in
                 return service.getAllRides()
