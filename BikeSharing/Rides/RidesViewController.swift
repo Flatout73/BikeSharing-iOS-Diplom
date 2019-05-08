@@ -25,7 +25,7 @@ class RidesViewController: UIViewController {
         
         viewModel.items.asObservable().bind(to: tableView.rx.items(cellIdentifier: "rideCell")) { row, ride, cell in
             guard let cell = cell as? RideTableViewCell else { return }
-            
+            cell.selectionStyle = .none
             cell.startLabel.text = String(ride.id)
         }.disposed(by: disposeBag)
         

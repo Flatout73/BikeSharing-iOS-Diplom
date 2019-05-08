@@ -14,8 +14,8 @@ import RxCocoa
 
 class MapViewController: UIViewController {
     
-    var bikeCoordinates = [CLLocationCoordinate2D(latitude: 55.659967, longitude: 37.225591),
-                            CLLocationCoordinate2D(latitude: 50.65996, longitude: 39.22559)]
+   // var bikeCoordinates = [CLLocationCoordinate2D(latitude: 55.659967, longitude: 37.225591),
+     //                       CLLocationCoordinate2D(latitude: 50.65996, longitude: 39.22559)]
     
     @IBOutlet var mapView: MKMapView!
     
@@ -27,11 +27,18 @@ class MapViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    var afterScan = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.addAnnotations(bikeCoordinates.map({BikeAnnotation(title: "1", locationName: "2", coordinate: $0)}))
+        viewModel.items.subscribe(onNext: { bikes in
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            
+            self.mapView.addAnnotations(bikes.map {
+                BikeAnnotation(bike: $0)
+            })
+        })
+        
+        
         mapView.delegate = self
         
         checkLocationAuthorization()
@@ -43,8 +50,8 @@ class MapViewController: UIViewController {
         }
         
         bikeInfoView.scanButton.rx.tap.bind {
-            self.afterScan = true
-            self.performSegue(withIdentifier: "showScanner", sender: nil)
+            guard let bike = self.bikeInfoView.bike else { return }
+            self.viewModel.rentBike(bike)
         }.disposed(by: disposeBag)
     }
     
@@ -68,11 +75,6 @@ class MapViewController: UIViewController {
         if let location = mapView.userLocation.location?.coordinate {
             let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
             mapView.setRegion(region, animated: true)
-        }
-        
-        if afterScan {
-            afterScan = false
-            self.performSegue(withIdentifier: "startRide", sender: nil)
         }
     }
 }
@@ -99,6 +101,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         bikeInfoView.isHidden = false
+        bikeInfoView.bike = (view.annotation as? BikeAnnotation)?.bike
     }
 }
 
@@ -107,7 +110,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let location = userLocation.location?.coordinate {
             let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
-            mapView.setRegion(region, animated: true)
+            //mapView.setRegion(region, animated: true)
         }
     }
     

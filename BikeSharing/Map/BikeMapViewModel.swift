@@ -41,7 +41,7 @@ class BaseBikeMapViewModel: BikeMapViewModel {
             .share(replay: 1)
     }
     
-    func rentBike(_ articleViewModel: BikeViewModel) {
-        
+    func rentBike(_ bike: BikeViewModel) {
+        router.scanQR()
     }
 }

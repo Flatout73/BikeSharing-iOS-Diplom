@@ -9,13 +9,13 @@
 import MapKit
 
 class BikeAnnotation: MKPointAnnotation {
-    let locationName: String
+    let bike: BikeViewModel
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.locationName = locationName
+    init(bike: BikeViewModel) {
+        self.bike = bike
         super.init()
-
-        self.title = title
-        self.coordinate = coordinate
+        
+        self.title = String(bike.id)
+        self.coordinate = CLLocationCoordinate2D(latitude: bike.location.latitude, longitude: bike.location.longitude)
     }
 }

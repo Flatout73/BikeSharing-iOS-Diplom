@@ -22,7 +22,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -42,8 +42,6 @@
                     <connections>
                         <outlet property="bikeInfoView" destination="8qo-3j-xX0" id="D3p-zU-zZ4"/>
                         <outlet property="mapView" destination="yop-q3-yiZ" id="HoW-gH-tAw"/>
-                        <segue destination="jea-ms-1YW" kind="presentation" identifier="showScanner" id="BlR-va-gLy"/>
-                        <segue destination="22F-ad-x3e" kind="presentation" identifier="startRide" animates="NO" id="4Ko-2G-pw5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPV-cD-M8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -53,7 +51,7 @@
         <!--Scanner View Controller-->
         <scene sceneID="LmN-Pw-Got">
             <objects>
-                <viewController id="jea-ms-1YW" customClass="ScannerViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScannerViewController" id="jea-ms-1YW" customClass="ScannerViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B7w-RT-LTb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +92,7 @@
         <!--Map-->
         <scene sceneID="6jx-eg-lnv">
             <objects>
-                <viewController title="Map" id="22F-ad-x3e" customClass="RidingViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RidingViewController" title="Map" id="22F-ad-x3e" customClass="RidingViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aCT-8N-sA6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

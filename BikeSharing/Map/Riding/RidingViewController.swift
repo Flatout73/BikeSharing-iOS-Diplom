@@ -14,8 +14,9 @@ class RidingViewController: UIViewController {
     @IBOutlet var timeLabel: UILabel!
     
     var startTime = Date()
-    
     let formatter = DateComponentsFormatter()
+    
+    var token: STPToken!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,8 @@ class RidingViewController: UIViewController {
         timeLabel.text = formatter.string(from: Date().timeIntervalSince(startTime))
     }
     @IBAction func close(_ sender: Any) {
+        
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

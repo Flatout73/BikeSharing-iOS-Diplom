@@ -8,6 +8,9 @@
 
 import UIKit
 import AVFoundation
+import PassKit
+import Alamofire
+import RxSwift
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
@@ -15,17 +18,26 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     let notification = UINotificationFeedbackGenerator()
     
+    let SupportedPaymentNetworks: [PKPaymentNetwork] = [.visa, .masterCard]
+    let merchantID = "merchant.ru.hse.Bike-Sharing"
+    
+    let paymentToken = PublishSubject<STPToken>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         captureSession = AVCaptureSession()
         
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+            failed()
+            return
+        }
         let videoInput: AVCaptureDeviceInput
         
         do {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
         } catch {
+            failed()
             return
         }
         
@@ -57,9 +69,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func failed() {
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                self.createPayment()
+            })
+            self.present(ac, animated: true)
+        }
+
         captureSession = nil
     }
     
@@ -93,13 +110,26 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             notification.notificationOccurred(.success)
             found(code: stringValue)
         }
-        
-        dismiss(animated: true)
     }
     
     func found(code: String) {
         print(code)
-        self.dismiss(animated: true, completion: nil)
+        createPayment()
+    }
+    
+    func createPayment() {
+        let request = PKPaymentRequest()
+        request.merchantIdentifier = merchantID
+        request.supportedNetworks = SupportedPaymentNetworks
+        request.merchantCapabilities = PKMerchantCapability.capability3DS
+        request.countryCode = "RU"
+        request.currencyCode = "RUB"
+        request.paymentSummaryItems = [
+            PKPaymentSummaryItem(label: "Поездка", amount: 1, type: .pending)
+        ]
+        guard let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
+        applePayController.delegate = self
+        self.present(applePayController, animated: true, completion: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -108,5 +138,57 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+}
+
+extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
+    
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        Stripe.setDefaultPublishableKey("pk_test_Kpmk0CInfxC2gC7IVaHse5gE00T1XkGUPN")
+        STPAPIClient.shared().createToken(with: payment) { (token, error) -> Void in
+
+            guard let token = token else {
+                if let error = error {
+                    print(error)
+                    self.paymentToken.onError(error)
+                    completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
+                }
+                return
+            }
+            
+            self.paymentToken.onNext(token)
+
+//            let headers: HTTPHeaders = [
+//                "Content-Type" : "application/json",
+//                "Accept": "application/json"
+//            ]
+//
+//            let body: [String : Any] = ["token": token.tokenId,
+//                        "amount": 1,
+//                        "description": "Поездка",
+//                ]
+
+
+//            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { (response, data, error) -> Void in
+//                if (error != nil) {
+//                    completion(PKPaymentAuthorizationStatus.Failure)
+//                } else {
+//                    completion(PKPaymentAuthorizationStatus.Success)
+//                }
+//            }
+//
+//            Alamofire.request(ApiService.serverURL + "/pay", method: .post, parameters: body, headers: headers).response(completionHandler: { data in
+//                print(data)
+//            })
+        }
+
+        
+        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        controller.dismiss(animated: true, completion: {
+            self.dismiss(animated: true)
+        })
     }
 }

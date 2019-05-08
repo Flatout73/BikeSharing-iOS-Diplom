@@ -21,7 +21,7 @@ class BaseBikeMapService: BikeMapService {
     }
     
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
-        let observable = request(.get, ApiService.serverURL + "/api/bikes", parameters: nil)
+        let observable = request(.get, ApiService.serverURL + "/api/bike", parameters: nil)
             .data()
             .flatMap { data -> Observable<[BikeViewModel]> in
                 guard let bikes = try? self.jsonDecoder.decode([BikeViewModel].self, from: data) else {

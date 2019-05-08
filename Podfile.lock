@@ -87,6 +87,9 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
+  - Stripe/ApplePay (7.0.1):
+    - Stripe/Core
+  - Stripe/Core (7.0.1)
   - SwiftyUserDefaults (4.0.0-beta.2)
   - Swinject (2.6.0)
   - SwinjectStoryboard (2.2.0):
@@ -102,6 +105,7 @@ DEPENDENCIES:
   - RxAlamofire
   - RxCocoa
   - RxSwift
+  - Stripe/ApplePay
   - SwiftyUserDefaults (= 4.0.0-beta.2)
   - Swinject (from `https://github.com/Swinject/Swinject`, tag `2.6.0`)
   - SwinjectStoryboard (from `https://github.com/Swinject/SwinjectStoryboard`, tag `2.2.0`)
@@ -129,6 +133,7 @@ SPEC REPOS:
     - RxAtomic
     - RxCocoa
     - RxSwift
+    - Stripe
     - SwiftyUserDefaults
 
 EXTERNAL SOURCES:
@@ -169,10 +174,11 @@ SPEC CHECKSUMS:
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  Stripe: b92298b31cf156fb23a029361b57e2fcb6583d57
   SwiftyUserDefaults: 39ec70433f22f3052a64bc5fbfb34f46932b8bf1
   Swinject: 48a96cda93633cf2860697b4ce76ab5db9ebaca2
   SwinjectStoryboard: 32512ef16c2b0ff5b8f823b23539c4a50f6d3383
 
-PODFILE CHECKSUM: 287a0863ac3e28ceabd4d66989cfcb42667226a5
+PODFILE CHECKSUM: abba54fabc4e59c06bf2cb6f7f1d2faef24ead9e
 
 COCOAPODS: 1.6.0

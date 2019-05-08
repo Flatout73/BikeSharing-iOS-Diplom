@@ -103,6 +103,7 @@
 		714D630A2270A6D4003918DC /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		714D630C2270A89F003918DC /* BSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSError.swift; sourceTree = "<group>"; };
 		714D630F2270FC43003918DC /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		7193BE562282287600B8D34E /* BikeSharing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BikeSharing-Bridging-Header.h"; sourceTree = "<group>"; };
 		71DBA586226E63F4005A5278 /* BikeSharingCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BikeSharingCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71DBA588226E63F4005A5278 /* BikeSharingCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSharingCore.h; sourceTree = "<group>"; };
 		71DBA589226E63F4005A5278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -204,6 +205,7 @@
 				710D3D182263D4190031FBB6 /* LaunchScreen.storyboard */,
 				710D3D1B2263D4190031FBB6 /* Info.plist */,
 				71F2A76B2275FAC90058283A /* AnalyticsHelper.swift */,
+				7193BE562282287600B8D34E /* BikeSharing-Bridging-Header.h */,
 			);
 			path = BikeSharing;
 			sourceTree = "<group>";
@@ -376,6 +378,7 @@
 				TargetAttributes = {
 					710D3D082263D4170031FBB6 = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 1;
@@ -476,6 +479,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework",
@@ -497,6 +501,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectStoryboard.framework",
@@ -754,9 +759,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BikeSharing/BikeSharing.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9M3M8V7S76;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+					"PB_ENABLE_MALLOC=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				INFOPLIST_FILE = BikeSharing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -765,6 +780,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.hse.Bike-Sharing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BikeSharing/BikeSharing-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -776,9 +793,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BikeSharing/BikeSharing.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9M3M8V7S76;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+					"PB_ENABLE_MALLOC=1",
+					STRIPE_ENABLE_APPLEPAY,
+				);
 				INFOPLIST_FILE = BikeSharing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -787,6 +814,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.hse.Bike-Sharing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BikeSharing/BikeSharing-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     fileprivate static func createAssembler() -> Assembler {
-        let assemblies: [Assembly] = [RidesAssembly()]
+        let assemblies: [Assembly] = [BikeMapAssembly(), RidesAssembly()]
         return Assembler(assemblies, container: SwinjectStoryboard.defaultContainer)
     }
 }
