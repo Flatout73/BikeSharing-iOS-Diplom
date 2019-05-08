@@ -12,6 +12,11 @@ import PassKit
 import Alamofire
 import RxSwift
 
+struct PaymentBike {
+    let token: STPToken
+    let bike: BikeViewModel
+}
+
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -21,7 +26,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let SupportedPaymentNetworks: [PKPaymentNetwork] = [.visa, .masterCard]
     let merchantID = "merchant.ru.hse.Bike-Sharing"
     
-    let paymentToken = PublishSubject<STPToken>()
+    let paymentBike = PublishSubject<PaymentBike>()
+    
+    var token: STPToken?
+    var bike: BikeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,36 +158,13 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
             guard let token = token else {
                 if let error = error {
                     print(error)
-                    self.paymentToken.onError(error)
+                    self.paymentBike.onError(error)
                     completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
                 }
                 return
             }
             
-            self.paymentToken.onNext(token)
-
-//            let headers: HTTPHeaders = [
-//                "Content-Type" : "application/json",
-//                "Accept": "application/json"
-//            ]
-//
-//            let body: [String : Any] = ["token": token.tokenId,
-//                        "amount": 1,
-//                        "description": "Поездка",
-//                ]
-
-
-//            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { (response, data, error) -> Void in
-//                if (error != nil) {
-//                    completion(PKPaymentAuthorizationStatus.Failure)
-//                } else {
-//                    completion(PKPaymentAuthorizationStatus.Success)
-//                }
-//            }
-//
-//            Alamofire.request(ApiService.serverURL + "/pay", method: .post, parameters: body, headers: headers).response(completionHandler: { data in
-//                print(data)
-//            })
+            self.token = token
         }
 
         
@@ -188,7 +173,9 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true, completion: {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                self.paymentBike.onNext(PaymentBike(token: self.token!, bike: self.bike))
+            }
         })
     }
 }

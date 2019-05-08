@@ -42,6 +42,6 @@ class BaseBikeMapViewModel: BikeMapViewModel {
     }
     
     func rentBike(_ bike: BikeViewModel) {
-        router.scanQR()
+        router.scanQR(for: bike)
     }
 }

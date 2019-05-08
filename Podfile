@@ -18,5 +18,6 @@ target 'BikeSharing' do
   pod 'Crashlytics', '~> 3.12.0'
   pod 'Fabric', '~> 1.9.0'
   pod 'Stripe/ApplePay'
+  pod 'NotificationBannerSwift'
 end
 
