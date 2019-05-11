@@ -11,7 +11,7 @@ import RxSwift
 
 protocol BikeMapRouter {
     func scanQR(for bike: BikeViewModel)
-    func startRide(token: PaymentBike)
+    func startRide(token: PaymentModel)
 }
 
 class BaseBikeMapRouter: Router, BikeMapRouter {
@@ -26,12 +26,16 @@ class BaseBikeMapRouter: Router, BikeMapRouter {
         }, onError: { error in
             
         }).disposed(by: disposeBag)
+        controller.startLocation = bike.location
         viewController?.present(controller, animated: true, completion: nil)
     }
     
-    func startRide(token: PaymentBike) {
+    func startRide(token: PaymentModel) {
         guard let controller = viewController?.storyboard?.instantiateViewController(withIdentifier: "RidingViewController") as? RidingViewController else { return }
         controller.paymentInfo = token
-        viewController?.present(controller, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.navigationBar.barStyle = .blackTranslucent
+        navigationController.navigationBar.tintColor = .white
+        viewController?.present(navigationController, animated: true, completion: nil)
     }
 }

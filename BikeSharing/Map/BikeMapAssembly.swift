@@ -15,8 +15,8 @@ class BikeMapAssembly: Assembly {
             return BaseBikeMapRouter(viewController: viewController)
         }
         
-        container.register(BikeMapService.self) { _ in
-            return BaseBikeMapService()
+        container.register(BikeMapService.self) { resolver in
+            return BaseBikeMapService(coreDataManager: resolver.resolve(CoreDataManager.self)!, apiService: resolver.resolve(ApiService.self)!)
         }
         
         container.register(BikeMapViewModel.self) { (resolver: Resolver, viewController: UIViewController) in

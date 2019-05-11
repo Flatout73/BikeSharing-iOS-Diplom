@@ -39,6 +39,10 @@ class BaseBikeMapViewModel: BikeMapViewModel {
             }
             //make sure all subscribers use the same exact subscription
             .share(replay: 1)
+        
+        service.apiService.sessionManager.asObservable().subscribe(onNext: { value in
+            self.triggerText.value = ""
+        })
     }
     
     func rentBike(_ bike: BikeViewModel) {

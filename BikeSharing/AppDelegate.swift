@@ -68,3 +68,29 @@ extension AppDelegate {
 extension DefaultsKeys {
     static let userId = DefaultsKey<Int?>("userId")
 }
+
+extension SwinjectStoryboard {
+    @objc class func setup() {
+        defaultContainer.register(CoreDataManager.self) { _ in
+            return CoreDataManager()
+        }
+        
+        defaultContainer.register(ApiService.self) { _ in
+            return ApiService()
+        }
+        
+        defaultContainer.storyboardInitCompleted(RidingViewController.self) { resolver, controller in
+            controller.coreDataManager = resolver.resolve(CoreDataManager.self)
+            controller.apiService = resolver.resolve(ApiService.self)
+        }
+        
+        defaultContainer.storyboardInitCompleted(ScannerViewController.self) { resolver, controller in
+            controller.apiService = resolver.resolve(ApiService.self)
+            controller.coreDataManager = resolver.resolve(CoreDataManager.self)
+        }
+        
+        defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, controller in
+            controller.apiService = resolver.resolve(ApiService.self)
+        }
+    }
+}

@@ -8,20 +8,30 @@
 
 import RxSwift
 import RxAlamofire
+import Alamofire
 
 protocol BikeMapService {
+    var apiService: ApiService { get }
     func getAllBikes() -> Observable<[BikeViewModel]>
 }
 
 class BaseBikeMapService: BikeMapService {
     let jsonDecoder = JSONDecoder()
     
+    let coreDataManager: CoreDataManager
+    let apiService: ApiService
+    
+    init(coreDataManager: CoreDataManager, apiService: ApiService) {
+        self.coreDataManager = coreDataManager
+        self.apiService = apiService
+    }
+    
     func getAllBikes() -> Observable<[BikeViewModel]> {
         return Observable.concat([getBikesFromCoreData(), getBikesFromServer()])
     }
     
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
-        let observable = request(.get, ApiService.serverURL + "/api/bike", parameters: nil)
+        let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/bikes", parameters: nil)
             .data()
             .flatMap { data -> Observable<[BikeViewModel]> in
                 guard let bikes = try? self.jsonDecoder.decode([BikeViewModel].self, from: data) else {
@@ -31,18 +41,16 @@ class BaseBikeMapService: BikeMapService {
                 return Observable.just(bikes)
         }
         
-        
-        
         return observable.do(onNext: { viewModels in
-            CoreDataManager.shared.saveBike(viewModels: viewModels)
-        }).catchErrorJustReturn(CoreDataManager.shared.fetchBikes().map({ BikeViewModel(id: $0.serverID, location: Point(latitude: $0.latitude, longitude: $0.longitude)) }))
+            self.coreDataManager.saveBike(viewModels: viewModels)
+        }).catchErrorJustReturn(self.coreDataManager.fetchBikes().map({ $0.viewModel }))
     }
     
     private func getBikesFromCoreData() -> Observable<[BikeViewModel]> {
         let observable = Observable<[BikeViewModel]>.create() { subscriber in
             
-            let bikes = CoreDataManager.shared.fetchBikes()
-            subscriber.onNext(bikes.map({ BikeViewModel(id: $0.serverID, location: Point(latitude: $0.latitude, longitude: $0.longitude)) }))
+            let bikes = self.coreDataManager.fetchBikes()
+            subscriber.onNext(bikes.map({ $0.viewModel }))
             subscriber.onCompleted()
             
             return Disposables.create()

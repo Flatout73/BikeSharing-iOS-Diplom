@@ -14,17 +14,34 @@ class RideInfoViewController: UIViewController {
     
     var completionHandler: (()->())?
     
+    
+    @IBOutlet var dateTimeLabel: UILabel!
+    @IBOutlet var startLabel: UILabel!
+    @IBOutlet var endLabel: UILabel!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var costLabel: UILabel!
+    
+    
+    @IBOutlet var backgroundView: UIView!
+    
+    @IBOutlet var bottomButton: BSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if self.navigationItem.backBarButtonItem == nil {
-            self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.close)), animated: false)
-        }
+        backgroundView.layer.cornerRadius = 8
+        backgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        if self.navigationItem.backBarButtonItem == nil {
+//            self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.close)), animated: false)
+//        }
     }
     
-    @objc
-    func close() {
-        self.dismiss(animated: true, completion: nil)
+    @IBAction func close() {
+        if let navigationController = navigationController {
+            navigationController.dismiss(animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
         completionHandler?()
     }
 }

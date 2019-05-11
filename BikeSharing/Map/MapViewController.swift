@@ -38,7 +38,6 @@ class MapViewController: UIViewController {
             })
         })
         
-        
         mapView.delegate = self
         
         checkLocationAuthorization()

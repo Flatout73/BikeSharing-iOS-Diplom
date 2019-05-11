@@ -11,6 +11,7 @@ import Foundation
 enum BSError: Error {
     case userError
     case parseError
+    case unknownError
     
     case paymentError(String)
 }

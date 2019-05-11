@@ -19,6 +19,14 @@ protocol RideListService {
 
 class BaseRideListService: RideListService {
     let jsonDecoder = JSONDecoder()
+    let coreDataManager: CoreDataManager
+    
+    let apiService: ApiService
+    
+    init(coreDataManager: CoreDataManager, apiService: ApiService) {
+        self.coreDataManager = coreDataManager
+        self.apiService = apiService
+    }
     
     func getAllRides() -> Observable<[RideViewModel]> {
         return Observable.concat([getRidesFromCoreData(), getRidesFromServer()])
@@ -26,7 +34,7 @@ class BaseRideListService: RideListService {
     
     private func getRidesFromServer() -> Observable<[RideViewModel]> {
         
-        let observable = request(.get, ApiService.serverURL + "/api/rides/\(Defaults[.userId]!)", parameters: nil)
+        let observable = apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/rides", parameters: nil)
             .data()
             .flatMap { data -> Observable<[RideViewModel]> in
                 guard let rides = try? self.jsonDecoder.decode([RideViewModel].self, from: data) else {
@@ -39,15 +47,15 @@ class BaseRideListService: RideListService {
         
         
         return observable.do(onNext: { viewModels in
-            CoreDataManager.shared.saveRide(viewModels: viewModels)
-        }).catchErrorJustReturn(CoreDataManager.shared.fetchRides().map({ RideViewModel(id: $0.serverId) }))
+            self.coreDataManager.saveRide(viewModels: viewModels)
+        }).catchErrorJustReturn(coreDataManager.fetchRides().map({ $0.viewModel }))
     }
     
     private func getRidesFromCoreData() -> Observable<[RideViewModel]> {
         let observable = Observable<[RideViewModel]>.create() { subscriber in
            
-            let rides = CoreDataManager.shared.fetchRides()
-            subscriber.onNext(rides.map({ RideViewModel(id: $0.serverId) }))
+            let rides = self.coreDataManager.fetchRides()
+            subscriber.onNext(rides.map({ $0.viewModel }))
             subscriber.onCompleted()
             
             return Disposables.create()

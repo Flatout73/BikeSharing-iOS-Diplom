@@ -15,6 +15,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet var googleLoginButton: GIDSignInButton!
     @IBOutlet var fbLoginButton: FBSDKLoginButton!
     
+    var apiService: ApiService!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +46,7 @@ extension LoginViewController: GIDSignInDelegate {
             let familyName = user.profile.familyName
             let email = user.profile.email
             
-            ApiService.loginRequest(idToken: idToken) { _ in
+            apiService.loginRequest(idToken: idToken) { _ in
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }

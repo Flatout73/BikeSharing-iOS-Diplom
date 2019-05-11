@@ -38,7 +38,7 @@ public class DataStore {
 
     public lazy var persistentContainer: MyPersistentContainer = {
         
-        let container = MyPersistentContainer(name: "Zighter", managedObjectModel: managedObjectModel)
+        let container = MyPersistentContainer(name: "BikeSharing", managedObjectModel: managedObjectModel)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             container.viewContext.automaticallyMergesChangesFromParent = true

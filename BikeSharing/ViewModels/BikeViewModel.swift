@@ -11,7 +11,7 @@ import Foundation
 struct BikeViewModel: Codable {
     let id: Int64
     let location: Point
-    
+    let name: String?
 }
 
 struct Point: Codable {

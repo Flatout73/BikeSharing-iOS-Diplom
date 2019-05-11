@@ -9,5 +9,15 @@
 import Foundation
 
 struct RideViewModel: Codable {
-    let id: Int64
+    let id: Int64?
+
+    let startLocation: Point
+    var endLocation: Point?
+    
+    let startTime: Date
+    var endTime: Date?
+    
+    var cost: Double?
+    
+    var bike: BikeViewModel?
 }

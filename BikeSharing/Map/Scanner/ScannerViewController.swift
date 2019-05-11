@@ -12,9 +12,9 @@ import PassKit
 import Alamofire
 import RxSwift
 
-struct PaymentBike {
+struct PaymentModel {
     let token: STPToken
-    let bike: BikeViewModel
+    let ride: RideViewModel
 }
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
@@ -26,7 +26,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     let SupportedPaymentNetworks: [PKPaymentNetwork] = [.visa, .masterCard]
     let merchantID = "merchant.ru.hse.Bike-Sharing"
     
-    let paymentBike = PublishSubject<PaymentBike>()
+    let paymentBike = PublishSubject<PaymentModel>()
+    
+    var apiService: ApiService!
+    var coreDataManager: CoreDataManager!
+    var startLocation: Point!
     
     var token: STPToken?
     var bike: BikeViewModel!
@@ -165,17 +169,25 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
             }
             
             self.token = token
+            
+            completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
         }
-
-        
-        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        controller.dismiss(animated: true, completion: {
-            self.dismiss(animated: true) {
-                self.paymentBike.onNext(PaymentBike(token: self.token!, bike: self.bike))
+        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike)) { result in
+            switch result {
+            case .success(let ride):
+                self.coreDataManager.saveOrCreateRide(by: ride)
+                controller.dismiss(animated: true, completion: {
+                    self.dismiss(animated: true) {
+                        self.paymentBike.onNext(PaymentModel(token: self.token!, ride: ride))
+                    }
+                })
+            case .failure(let error):
+                NotificationBanner.showErrorBanner(error.localizedDescription)
             }
-        })
+           
+        }
     }
 }

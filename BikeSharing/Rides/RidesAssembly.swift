@@ -16,8 +16,8 @@ class RidesAssembly: Assembly {
             return BaseRideListRouter(viewController: viewController)
         }
         
-        container.register(RideListService.self) { _ in
-            return BaseRideListService()
+        container.register(RideListService.self) { resolver in
+            return BaseRideListService(coreDataManager: resolver.resolve(CoreDataManager.self)!, apiService: resolver.resolve(ApiService.self)!)
         }
         
         container.register(RideListViewModel.self) { (resolver: Resolver, viewController: UIViewController) in
