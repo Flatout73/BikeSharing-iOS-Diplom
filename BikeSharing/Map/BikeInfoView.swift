@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 @IBDesignable class BikeInfoView: UIView {
 
@@ -14,6 +15,11 @@ import UIKit
 
     @IBOutlet var scanButton: BSButton!
     @IBOutlet var routeButton: BSButton!
+    
+    @IBOutlet var addressLabel: UILabel!
+    
+    let geocoder = CLGeocoder()
+    let locale = Locale(identifier: "ru")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,11 +43,23 @@ import UIKit
         self.clipsToBounds = true
         self.layer.cornerRadius = 8
         self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-    }
-    
-    @IBAction func scan(_ sender: Any) {
         
+        self.transform = CGAffineTransform.init(translationX: 0, y: -self.frame.height)
     }
     
+    func show(for bike: BikeViewModel) {
+        self.bike = bike
+        
+        self.geocoder.reverseGeocodeLocation(CLLocation(latitude: bike.location.latitude, longitude: bike.location.longitude), preferredLocale: self.locale) { placemarks, error in
+            let address = placemarks?.first?.locality
+            DispatchQueue.main.async {
+                self.addressLabel.text = address
+            }
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.transform = .identity
+        }
+    }
     
 }

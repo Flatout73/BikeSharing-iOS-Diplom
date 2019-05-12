@@ -175,10 +175,10 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike)) { result in
+        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: nil, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, locations: nil, imageURL: nil)) { result in
             switch result {
             case .success(let ride):
-                self.coreDataManager.saveOrCreateRide(by: ride)
+                self.coreDataManager.saveOneRide(by: ride)
                 controller.dismiss(animated: true, completion: {
                     self.dismiss(animated: true) {
                         self.paymentBike.onNext(PaymentModel(token: self.token!, ride: ride))

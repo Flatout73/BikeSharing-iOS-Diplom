@@ -99,8 +99,11 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        bikeInfoView.isHidden = false
-        bikeInfoView.bike = (view.annotation as? BikeAnnotation)?.bike
+        guard let bike = (view.annotation as? BikeAnnotation)?.bike else {
+            return
+        }
+        
+        bikeInfoView.show(for: bike)
     }
 }
 
@@ -108,7 +111,7 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let location = userLocation.location?.coordinate {
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 100, longitudinalMeters: 100)
             //mapView.setRegion(region, animated: true)
         }
     }

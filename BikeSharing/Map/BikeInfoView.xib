@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
             <connections>
+                <outlet property="addressLabel" destination="q7X-Xe-SSd" id="wEu-r9-h33"/>
                 <outlet property="routeButton" destination="9D5-IM-9wX" id="1G6-XZ-inp"/>
                 <outlet property="scanButton" destination="Eyu-0a-xH4" id="ICb-2Z-4rk"/>
             </connections>
@@ -41,9 +42,6 @@
                             </fragment>
                         </attributedString>
                     </state>
-                    <connections>
-                        <action selector="scan:" destination="-1" eventType="touchUpInside" id="ROm-z9-ZbL"/>
-                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9D5-IM-9wX" customClass="BSButton" customModule="BikeSharing" customModuleProvider="target">
                     <rect key="frame" x="192" y="106" width="97" height="48"/>

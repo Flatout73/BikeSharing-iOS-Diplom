@@ -22,7 +22,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -99,6 +99,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xtf-qI-epc">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <connections>
+                                    <outlet property="delegate" destination="22F-ad-x3e" id="bH0-8T-EqI"/>
+                                </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACE-eU-6vs">
                                 <rect key="frame" x="0.0" y="669" width="414" height="227"/>
@@ -162,6 +165,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="sha-l2-QHF"/>
                     <connections>
+                        <outlet property="mapView" destination="xtf-qI-epc" id="M97-UX-J3f"/>
                         <outlet property="timeLabel" destination="MbL-CV-Z4E" id="W7E-qP-ZiQ"/>
                     </connections>
                 </viewController>

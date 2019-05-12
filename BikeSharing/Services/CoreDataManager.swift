@@ -11,30 +11,46 @@ import BikeSharingCore
 
 class CoreDataManager {
     
-    func saveOrCreateRide(by viewModel: RideViewModel) {
+    func saveOneRide(by viewModel: RideViewModel) {
         DataStore.shared.persistentContainer.performBackgroundTask { context in
-            let fetchRequest: NSFetchRequest<Ride> = Ride.fetchRequest()
-            let id = viewModel.id!
-            fetchRequest.predicate = NSPredicate(format: "serverID == %ld", id)
-            let ride: Ride
-            if let saved = try? context.fetch(fetchRequest).first {
-                ride = saved
-            } else {
-                ride = Ride(context: context)
+            self.saveOrCreateRide(by: viewModel, in: context)
+            try? context.save()
+        }
+    }
+    
+    func saveOrCreateRide(by viewModel: RideViewModel, in context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<Ride> = Ride.fetchRequest()
+        let id = viewModel.id!
+        fetchRequest.predicate = NSPredicate(format: "serverID == %ld", id)
+        let ride: Ride
+        if let saved = try? context.fetch(fetchRequest).first {
+            ride = saved
+        } else {
+            ride = Ride(context: context)
+        }
+        ride.serverID = viewModel.id!
+        ride.cost = viewModel.cost ?? 0
+        ride.endDate = viewModel.endTime as Date?
+        ride.startDate = viewModel.startTime
+        ride.startLatitude = viewModel.startLocation.latitude
+        ride.startLongitude = viewModel.startLocation.longitude
+        ride.endLatitude = viewModel.endLocation?.latitude ?? viewModel.startLocation.latitude
+        ride.endLongitude = viewModel.endLocation?.longitude ?? viewModel.startLocation.longitude
+        
+        if let locations = viewModel.locations {
+            for l in locations {
+                let loc = Location(context: context)
+                loc.latitude = l.latitude
+                loc.longitude = l.longitude
+                loc.ride = ride
             }
-            ride.serverID = viewModel.id!
-            ride.cost = viewModel.cost ?? 0
-            ride.endDate = viewModel.endTime as Date?
-            ride.startDate = viewModel.startTime
-            ride.startLatitude = viewModel.startLocation.latitude
-            ride.startLongitude = viewModel.startLocation.longitude
-            ride.endLatitude = viewModel.endLocation?.latitude ?? viewModel.startLocation.latitude
-            ride.endLongitude = viewModel.endLocation?.longitude ?? viewModel.startLocation.longitude
-            
-            if let bikeVM = viewModel.bike {
-                let bike = self.saveOrCreateBike(by: bikeVM, in: context)
-                ride.bike = bike
-            }
+        }
+        
+        if let bikeVM = viewModel.bike {
+            let bike = self.saveOrCreateBike(by: bikeVM, in: context)
+            ride.bike = bike
+        } else {
+            print("kek")
         }
     }
     
@@ -52,7 +68,8 @@ class CoreDataManager {
             bike.latitude = viewModel.location.latitude
             bike.longitude = viewModel.location.longitude
             bike.name = viewModel.name
-            
+            bike.address = viewModel.address
+        
             return bike
        // }
     }
@@ -60,22 +77,20 @@ class CoreDataManager {
     func saveRide(viewModels: [RideViewModel]) {
         DataStore.shared.persistentContainer.performBackgroundTask { context in
             viewModels.forEach { viewModel in
-                let model = Ride(context: context)
-                model.serverID = viewModel.id!
-                try! context.save()
+                self.saveOrCreateRide(by: viewModel, in: context)
             }
+            
+            try! context.save()
         }
     }
     
     func saveBike(viewModels: [BikeViewModel]) {
         DataStore.shared.persistentContainer.performBackgroundTask { context in
             viewModels.forEach { viewModel in
-                let model = Bike(context: context)
-                model.serverID = viewModel.id
-                model.latitude = viewModel.location.latitude
-                model.longitude = viewModel.location.longitude
-                try! context.save()
+                self.saveOrCreateBike(by: viewModel, in: context)
             }
+            
+            try! context.save()
         }
     }
     

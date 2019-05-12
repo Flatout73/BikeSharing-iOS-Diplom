@@ -14,10 +14,17 @@ struct RideViewModel: Codable {
     let startLocation: Point
     var endLocation: Point?
     
+    var startAddress: String?
+    var endAddress: String?
+    
     let startTime: Date
     var endTime: Date?
     
     var cost: Double?
     
     var bike: BikeViewModel?
+    
+    var locations: [Point]?
+    
+    var imageURL: URL?
 }

@@ -11,7 +11,7 @@ import BikeSharingCore
 extension Bike {
 
     var viewModel: BikeViewModel {
-        return BikeViewModel(id: self.serverID, location: Point(latitude: self.latitude, longitude: self.longitude), name: self.name)
+        return BikeViewModel(id: self.serverID, location: Point(latitude: self.latitude, longitude: self.longitude), name: self.name, address: self.address)
     }
 
 }

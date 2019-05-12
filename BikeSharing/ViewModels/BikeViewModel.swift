@@ -12,6 +12,7 @@ struct BikeViewModel: Codable {
     let id: Int64
     let location: Point
     let name: String?
+    var address: String?
 }
 
 struct Point: Codable {

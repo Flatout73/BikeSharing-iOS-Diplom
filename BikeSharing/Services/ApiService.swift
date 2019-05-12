@@ -115,29 +115,70 @@ class ApiService {
         }
     }
     
-    func endRide(_ ride: RideViewModel, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
-        var request = URLRequest(url: URL(string: ApiService.serverURL + "/api/rides/end")!)
-        request.httpMethod = HTTPMethod.put.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try! jsonEncoder.encode(ride)
+    func endRide(_ ride: RideViewModel, with image: UIImage, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
+//        var request = URLRequest(url: URL(string: ApiService.serverURL + "/api/rides/end")!)
+//        request.httpMethod = HTTPMethod.put.rawValue
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.httpBody = try! jsonEncoder.encode(ride)
         
-        sessionManager.value.request(request).validate(validate).response { response in
-            if let error = response.error {
-                completion(.failure(error))
-                return
-            }
-            guard let rideData = response.data else {
-                completion(.failure(response.error ?? BSError.unknownError))
-                return
-            }
+        let headers = [
+            "Content-type": "multipart/form-data",
+            "Content-Disposition" : "form-data"
+        ]
+        
+        sessionManager.value.upload(multipartFormData: { formData in
+            formData.append(try! self.jsonEncoder.encode(ride), withName: "ride")
+            formData.append(image.pngData()!, withName: "file", fileName: "file.png", mimeType: "image/png")
             
-            do {
-                let ride = try self.jsonDecoder.decode(RideViewModel.self, from: rideData)
-                completion(.success(ride))
-            } catch {
-                completion(.failure(BSError.parseError))
+        }, usingThreshold: UInt64.init(),
+           to: ApiService.serverURL + "/api/rides/end",
+           method: .put,
+           headers: headers,
+           encodingCompletion: { response in
+            print(response)
+            switch response {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    print("the resopnse code is : \(response.response?.statusCode)")
+                    print("the response is : \(response)")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+
             }
-        }
+//            if let error = response.error {
+//                completion(.failure(error))
+//                return
+//            }
+//            guard let rideData = response.data else {
+//                completion(.failure(response.error ?? BSError.unknownError))
+//                return
+//            }
+//
+//            do {
+//                let ride = try self.jsonDecoder.decode(RideViewModel.self, from: rideData)
+//                completion(.success(ride))
+//            } catch {
+//                completion(.failure(BSError.parseError))
+//            }
+        })
+//        sessionManager.value.request(request).validate(validate).response { response in
+//            if let error = response.error {
+//                completion(.failure(error))
+//                return
+//            }
+//            guard let rideData = response.data else {
+//                completion(.failure(response.error ?? BSError.unknownError))
+//                return
+//            }
+//
+//            do {
+//                let ride = try self.jsonDecoder.decode(RideViewModel.self, from: rideData)
+//                completion(.success(ride))
+//            } catch {
+//                completion(.failure(BSError.parseError))
+//            }
+//        }
         
     }
 }

@@ -18,7 +18,6 @@ protocol RideListService {
 }
 
 class BaseRideListService: RideListService {
-    let jsonDecoder = JSONDecoder()
     let coreDataManager: CoreDataManager
     
     let apiService: ApiService
@@ -34,10 +33,10 @@ class BaseRideListService: RideListService {
     
     private func getRidesFromServer() -> Observable<[RideViewModel]> {
         
-        let observable = apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/rides", parameters: nil)
+        let observable = apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/rides/all", parameters: nil)
             .data()
             .flatMap { data -> Observable<[RideViewModel]> in
-                guard let rides = try? self.jsonDecoder.decode([RideViewModel].self, from: data) else {
+                guard let rides = try? self.apiService.jsonDecoder.decode([RideViewModel].self, from: data) else {
                     return Observable.error(BSError.parseError)
                 }
                 
