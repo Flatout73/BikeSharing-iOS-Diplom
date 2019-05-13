@@ -94,6 +94,22 @@ class ApiService {
         return .failure(BSError.paymentError(message))
     }
     
+    func getBike(by id: Int64, completion: @escaping (Swift.Result<BikeViewModel, Error>)->()) {
+        sessionManager.value.request(ApiService.serverURL + "/api/bikes", method: .get, parameters: ["id": id]).validate().response { response in
+            guard let rideData = response.data else {
+                completion(.failure(response.error ?? BSError.unknownError))
+                return
+            }
+            
+            do {
+                let bike = try self.jsonDecoder.decode(BikeViewModel.self, from: rideData)
+                completion(.success(bike))
+            } catch {
+                completion(.failure(BSError.parseError))
+            }
+        }
+    }
+    
     func createRide(_ ride: RideViewModel, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
         var request = URLRequest(url: URL(string: ApiService.serverURL + "/api/rides/start")!)
         request.httpMethod = HTTPMethod.post.rawValue
@@ -141,6 +157,14 @@ class ApiService {
                 upload.responseJSON { response in
                     print("the resopnse code is : \(response.response?.statusCode)")
                     print("the response is : \(response)")
+                    
+                    guard let data = response.data else { return }
+                    do {
+                        let ride = try self.jsonDecoder.decode(RideViewModel.self, from: data)
+                        completion(.success(ride))
+                    } catch {
+                        completion(.failure(BSError.parseError))
+                    }
                 }
             case .failure(let error):
                 print(error.localizedDescription)

@@ -15,6 +15,7 @@
 		710F7AC52273DDDC003C69E6 /* BikeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */; };
 		710F7AC72273DDEF003C69E6 /* BikeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */; };
 		711B457A228332DE009CDB06 /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B4579228332DE009CDB06 /* NotificationBanner.swift */; };
+		7122A19222899D8A001AE383 /* UtilExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7122A19122899D8A001AE383 /* UtilExtensions.swift */; };
 		714D62F6226FD834003918DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F5226FD834003918DC /* UserViewModel.swift */; };
 		714D62F8226FDF76003918DC /* RideListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F7226FDF76003918DC /* RideListRouter.swift */; };
 		714D62FA226FDFB8003918DC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F9226FDFB8003918DC /* Router.swift */; };
@@ -95,6 +96,7 @@
 		710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInfoView.swift; sourceTree = "<group>"; };
 		710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BikeInfoView.xib; sourceTree = "<group>"; };
 		711B4579228332DE009CDB06 /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
+		7122A19122899D8A001AE383 /* UtilExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilExtensions.swift; sourceTree = "<group>"; };
 		714D62F5226FD834003918DC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		714D62F7226FDF76003918DC /* RideListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RideListRouter.swift; path = ../RideListRouter.swift; sourceTree = "<group>"; };
 		714D62F9226FDFB8003918DC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				714D630C2270A89F003918DC /* BSError.swift */,
 				711B4579228332DE009CDB06 /* NotificationBanner.swift */,
 				7178372B22870E6D008482E0 /* AddressManager.swift */,
+				7122A19122899D8A001AE383 /* UtilExtensions.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BikeSharing/Pods-BikeSharing-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -508,6 +512,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -603,6 +608,7 @@
 				71F2A774227616FA0058283A /* BikeMapAssembly.swift in Sources */,
 				714D6300226FE6C9003918DC /* AccountViewController.swift in Sources */,
 				71F2A77A2276182C0058283A /* BikeMapRouter.swift in Sources */,
+				7122A19222899D8A001AE383 /* UtilExtensions.swift in Sources */,
 				71F2A771227614690058283A /* BikeViewModel.swift in Sources */,
 				7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */,
 				71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */,

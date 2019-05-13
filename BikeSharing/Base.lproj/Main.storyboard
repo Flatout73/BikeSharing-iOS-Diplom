@@ -257,6 +257,7 @@
                         <outlet property="costLabel" destination="Vap-tx-ymz" id="EnC-lb-5rn"/>
                         <outlet property="dateTimeLabel" destination="GWw-ej-Gk6" id="1qy-Wx-2FE"/>
                         <outlet property="endLabel" destination="S2l-RL-s7Y" id="bkJ-Hi-Vo6"/>
+                        <outlet property="imageView" destination="Fxt-2L-bC9" id="FqI-tg-9T6"/>
                         <outlet property="startLabel" destination="Dya-7n-4IC" id="Gst-X5-IYS"/>
                         <outlet property="timeLabel" destination="x8B-8A-giw" id="YND-Ne-wTs"/>
                     </connections>

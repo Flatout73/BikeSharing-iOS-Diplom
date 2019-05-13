@@ -29,6 +29,8 @@ class RidingViewController: UIViewController {
     
     var locationList: [CLLocation] = []
     
+    var endingRide: RideViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,7 +69,7 @@ class RidingViewController: UIViewController {
         
         let coordinates = locations.compactMap { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
         // for Retina screen
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 400, height: 400), true, 0)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 600, height: 500), true, 0)
         
         // draw original image into the context
         image.draw(at: CGPoint.zero)
@@ -79,7 +81,7 @@ class RidingViewController: UIViewController {
         context!.setLineWidth(2.0)
         context!.setStrokeColor(UIColor.black.cgColor)
         
-        #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: coordinates[0]))
+        #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: viewModel.startLocation.coordinate))
         #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: coordinates.last!))
         
         // Here is the trick :
@@ -108,13 +110,13 @@ class RidingViewController: UIViewController {
         let mapSnapshotOptions = MKMapSnapshotter.Options()
         
         // Set the region of the map that is rendered.
-        let location = CLLocationCoordinate2DMake(37.332077, -122.02962) // Apple HQ
+     //   let location = CLLocationCoordinate2DMake(37.332077, -122.02962) // Apple HQ
 //        let region = MKCoordinateRegion(MKMapRect(origin: MKMapPoint(CLLocationCoordinate2D(latitude: viewModel.startLocation.latitude, longitude: viewModel.startLocation.longitude)), size: MKMapSize(width: <#T##Double#>, height: <#T##Double#>)))
         
         var r = MKMapRect.null
-        for coordinates in [viewModel.startLocation, Point(latitude: location.latitude, longitude: location.longitude)] {
+        for coordinates in [viewModel.startLocation, viewModel.endLocation!] {
             let mapPoint = MKMapPoint(CLLocationCoordinate2D(latitude: coordinates.latitude, longitude: coordinates.longitude))
-            r = r.union(MKMapRect(x: mapPoint.x, y: mapPoint.y, width: 1, height: 1))
+            r = r.union(MKMapRect(x: mapPoint.x - 25000, y: mapPoint.y - 25000, width: 50000, height: 75000))
         }
         let region = MKCoordinateRegion(r)
         mapSnapshotOptions.region = region
@@ -123,7 +125,7 @@ class RidingViewController: UIViewController {
         mapSnapshotOptions.scale = UIScreen.main.scale
         
         // Set the size of the image output.
-        mapSnapshotOptions.size = CGSize(width: 400, height: 400)
+        mapSnapshotOptions.size = CGSize(width: 600, height: 500)
         
         // Show buildings and Points of Interest on the snapshot
         mapSnapshotOptions.showsBuildings = true
@@ -140,40 +142,51 @@ class RidingViewController: UIViewController {
     }
     
     @IBAction func close(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var endRide = paymentInfo.ride
         // endRide.endTime = Date()
-        endRide.endLocation = Point(latitude: 40, longitude: 45)
+        endRide.endLocation = locationList.last?.coordinate.point
         endRide.locations = locationList.map({ Point(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude) })
         
-        makeSnapshot(for: endRide) { image in
-            self.apiService.endRide(endRide, with: image) { result in
-                switch result {
-                case .success(let ride):
-                    self.coreDataManager.saveOneRide(by: ride)
-                    self.apiService.payRequest(token: self.paymentInfo.token, amount: ride.cost ?? 50.0) { error in
-                        if let error = error {
+        if let endingRide = endingRide {
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController") as? RideInfoViewController else { return }
+            controller.ride = endingRide
+            self.navigationController?.pushViewController(controller, animated: true)
+        } else {
+            makeSnapshot(for: endRide) { image in
+                AddressManager.shared.address(for: endRide.endLocation!) { address in
+                    endRide.endAddress = address
+                    self.apiService.endRide(endRide, with: image) { result in
+                        switch result {
+                        case .success(let ride):
+                            self.coreDataManager.saveOneRide(by: ride)
+                            self.apiService.payRequest(token: self.paymentInfo.token, amount: ride.cost ?? 50.0) { error in
+                                if let error = error {
+                                    NotificationBanner.showErrorBanner(error.localizedDescription)
+                                } else {
+                                    self.timer?.invalidate()
+                                    self.endingRide = ride
+                                    guard let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController") as? RideInfoViewController else { return }
+                                    controller.ride = ride
+                                    //                let navigationItem = UINavigationItem(title: "Info")
+                                    //                navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismiss))
+                                    //
+                                    //                let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
+                                    //                navigationBar.setItems([navigationItem], animated: false)
+                                    //                controller.view.addSubview(navigationBar)
+                                    
+                                    //                (controller as? RideInfoViewController)?.completionHandler = {
+                                    //                    self.dismiss(animated: false, completion: nil)
+                                    //                }
+                                    
+                                    self.navigationController?.pushViewController(controller, animated: true)
+                                    //self.present(controller, animated: true, completion: nil)
+                                }
+                            }
+                        case .failure(let error):
                             NotificationBanner.showErrorBanner(error.localizedDescription)
-                        } else {
-                            self.timer?.invalidate()
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController")
-                            //                let navigationItem = UINavigationItem(title: "Info")
-                            //                navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismiss))
-                            //
-                            //                let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
-                            //                navigationBar.setItems([navigationItem], animated: false)
-                            //                controller.view.addSubview(navigationBar)
-                            
-                            //                (controller as? RideInfoViewController)?.completionHandler = {
-                            //                    self.dismiss(animated: false, completion: nil)
-                            //                }
-                            
-                            self.navigationController?.pushViewController(controller, animated: true)
-                            //self.present(controller, animated: true, completion: nil)
                         }
                     }
-                case .failure(let error):
-                    NotificationBanner.showErrorBanner(error.localizedDescription)
                 }
             }
         }

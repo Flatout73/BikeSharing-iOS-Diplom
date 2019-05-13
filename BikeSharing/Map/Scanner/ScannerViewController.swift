@@ -125,8 +125,22 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func found(code: String) {
-        print(code)
-        createPayment()
+        guard let jsonData = code.data(using: .utf8),
+            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+            let id = json["id"] as? Int64 else {
+                createPayment() //заменить
+                return
+            }
+        apiService.getBike(by: id) { result in
+            switch result{
+            case .success(let bike):
+                self.bike = bike
+                self.createPayment()
+            case .failure(let error):
+                NotificationBanner.showErrorBanner(error.localizedDescription)
+            }
+        }
+        
     }
     
     func createPayment() {
@@ -175,7 +189,7 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: nil, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, locations: nil, imageURL: nil)) { result in
+        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, locations: nil, imageURL: nil)) { result in
             switch result {
             case .success(let ride):
                 self.coreDataManager.saveOneRide(by: ride)

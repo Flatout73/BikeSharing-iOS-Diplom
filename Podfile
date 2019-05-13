@@ -19,5 +19,6 @@ target 'BikeSharing' do
   pod 'Fabric', '~> 1.9.0'
   pod 'Stripe/ApplePay'
   pod 'NotificationBannerSwift'
+  pod 'AlamofireImage', '~> 3.5'
 end
 

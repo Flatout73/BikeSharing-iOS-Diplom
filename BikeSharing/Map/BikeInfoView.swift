@@ -18,9 +18,6 @@ import MapKit
     
     @IBOutlet var addressLabel: UILabel!
     
-    let geocoder = CLGeocoder()
-    let locale = Locale(identifier: "ru")
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -50,12 +47,11 @@ import MapKit
     func show(for bike: BikeViewModel) {
         self.bike = bike
         
-        self.geocoder.reverseGeocodeLocation(CLLocation(latitude: bike.location.latitude, longitude: bike.location.longitude), preferredLocale: self.locale) { placemarks, error in
-            let address = placemarks?.first?.locality
-            DispatchQueue.main.async {
-                self.addressLabel.text = address
-            }
+        AddressManager.shared.address(for: bike.location) { address in
+            self.bike?.address = address
+            self.addressLabel.text = address
         }
+
         
         UIView.animate(withDuration: 0.2) {
             self.transform = .identity
