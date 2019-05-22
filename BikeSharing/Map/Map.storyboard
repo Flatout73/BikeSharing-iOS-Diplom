@@ -22,7 +22,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yop-q3-yiZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qo-3j-xX0" customClass="BikeInfoView" customModule="BikeSharing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

@@ -28,8 +28,7 @@ class RideInfoViewController: UIViewController {
     
     @IBOutlet var bottomButton: BSButton!
     
-    let dateFormatter = DateFormatter()
-    let components = DateComponentsFormatter()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +39,7 @@ class RideInfoViewController: UIViewController {
 //            self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.close)), animated: false)
 //        }
         
-        dateFormatter.timeStyle = .short
-        dateFormatter.dateStyle = .short
-        
-        components.allowedUnits = [.hour, .minute, .second]
-        components.unitsStyle = .short
+
         
         if let url = ride.imageURL {
             imageView.af_setImage(withURL: url)
@@ -53,9 +48,9 @@ class RideInfoViewController: UIViewController {
         startLabel.text = ride.startAddress
         endLabel.text = ride.endAddress
         
-        dateTimeLabel.text = dateFormatter.string(from: ride.endTime!)
+        dateTimeLabel.text = ShortDateFormatter.string(from: ride.endTime!)
         costLabel.text = String(format: "%.2f", ride.cost!)
-        timeLabel.text = components.string(from: ride.startTime, to: ride.endTime!)
+        timeLabel.text = ComponentsFormatter.string(from: ride.startTime, to: ride.endTime!)
     }
     
     @IBAction func close() {

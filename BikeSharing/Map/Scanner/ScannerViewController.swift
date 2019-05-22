@@ -98,6 +98,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if captureSession?.isRunning == false {
             captureSession.startRunning()
         }
+        
+         BluetoothManager.shared.scan()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+             BluetoothManager.shared.sendMessageToDevice("OPENLOCK")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -125,17 +130,24 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func found(code: String) {
-        guard let jsonData = code.data(using: .utf8),
-            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-            let id = json["id"] as? Int64 else {
+        guard
+            let id = Int64(code)
+//            let jsonData = code.data(using: .utf8),
+//            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+//            let id = json["id"] as? Int64
+            else {
                 createPayment() //заменить
                 return
             }
+        
         apiService.getBike(by: id) { result in
-            switch result{
+            switch result {
             case .success(let bike):
                 self.bike = bike
-                self.createPayment()
+                AddressManager.shared.address(for: self.bike.location) { address in
+                    self.bike.address = address
+                    self.createPayment()
+                }
             case .failure(let error):
                 NotificationBanner.showErrorBanner(error.localizedDescription)
             }

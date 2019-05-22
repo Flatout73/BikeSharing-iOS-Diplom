@@ -112,7 +112,7 @@ extension MapViewController: CLLocationManagerDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let location = userLocation.location?.coordinate {
             let region = MKCoordinateRegion(center: location, latitudinalMeters: 100, longitudinalMeters: 100)
-            //mapView.setRegion(region, animated: true)
+            mapView.setRegion(region, animated: true)
         }
     }
     

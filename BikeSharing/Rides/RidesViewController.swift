@@ -26,10 +26,15 @@ class RidesViewController: UIViewController {
         viewModel.items.asObservable().bind(to: tableView.rx.items(cellIdentifier: "rideCell")) { row, ride, cell in
             guard let cell = cell as? RideTableViewCell else { return }
             cell.selectionStyle = .none
-            //cell.startLabel.text = ride.startLocation
+            cell.startLabel.text = ride.startAddress
+            cell.endLabel.text = ride.endAddress
+            if let image = ride.imageURL {
+                cell.mapImageView.af_setImage(withURL: image)
+            }
+            cell.dateTimeLabel.text = ShortDateFormatter.string(from: ride.endTime!)
         }.disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(RideViewModel.self).bind(onNext: viewModel.showArticleInfo).disposed(by: disposeBag)
+        tableView.rx.modelSelected(RideViewModel.self).bind(onNext: viewModel.showRideInfo).disposed(by: disposeBag)
         
         self.tableView.refreshControl = refreshControler
         

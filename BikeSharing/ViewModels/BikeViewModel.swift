@@ -9,7 +9,7 @@
 import Foundation
 
 struct BikeViewModel: Codable {
-    let id: Int64
+    let id: String
     let location: Point
     let name: String?
     var address: String?

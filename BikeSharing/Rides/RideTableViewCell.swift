@@ -11,6 +11,8 @@ import UIKit
 class RideTableViewCell: UITableViewCell {
 
     @IBOutlet var startLabel: UILabel!
+    @IBOutlet var endLabel: UILabel!
+    @IBOutlet var dateTimeLabel: UILabel!
     @IBOutlet var mapImageView: UIImageView!
     
     @IBOutlet var mainContentView: UIView!
@@ -21,11 +23,4 @@ class RideTableViewCell: UITableViewCell {
         mainContentView.layer.cornerRadius = 8
         mapImageView.layer.masksToBounds = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

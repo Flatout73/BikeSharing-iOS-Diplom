@@ -14,7 +14,7 @@ import SwiftyUserDefaults
 import RxSwift
 
 class ApiService {
-    static let serverURL = "http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
+    static let serverURL = "https://my-bike-sharing.herokuapp.com"//"http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
     
     var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
     

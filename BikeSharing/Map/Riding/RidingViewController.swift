@@ -49,6 +49,11 @@ class RidingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+        
+        if let location = mapView.userLocation.location?.coordinate {
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
+            mapView.setRegion(region, animated: true)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,16 +87,18 @@ class RidingViewController: UIViewController {
         context!.setStrokeColor(UIColor.black.cgColor)
         
         #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: viewModel.startLocation.coordinate))
-        #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: coordinates.last!))
+        #imageLiteral(resourceName: "BikeIcon.png").draw(at: snapshot.point(for: mapView.userLocation.location!.coordinate))
         
         // Here is the trick :
         // We use addLine() and move() to draw the line, this should be easy to understand.
         // The diificult part is that they both take CGPoint as parameters, and it would be way too complex for us to calculate by ourselves
         // Thus we use snapshot.point() to save the pain.
-        context!.move(to: snapshot.point(for: coordinates[0]))
-        for i in 0..<coordinates.count {
-            context!.addLine(to: snapshot.point(for: coordinates[i]))
-            context!.move(to: snapshot.point(for: coordinates[i]))
+        if !coordinates.isEmpty {
+            context!.move(to: snapshot.point(for: coordinates[0]))
+            for i in 0..<coordinates.count {
+                context!.addLine(to: snapshot.point(for: coordinates[i]))
+                context!.move(to: snapshot.point(for: coordinates[i]))
+            }
         }
         
         // apply the stroke to the context
@@ -145,7 +152,7 @@ class RidingViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var endRide = paymentInfo.ride
         // endRide.endTime = Date()
-        endRide.endLocation = locationList.last?.coordinate.point
+        endRide.endLocation = mapView.userLocation.location!.coordinate.point
         endRide.locations = locationList.map({ Point(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude) })
         
         if let endingRide = endingRide {

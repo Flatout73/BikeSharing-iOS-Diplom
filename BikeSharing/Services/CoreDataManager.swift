@@ -36,6 +36,9 @@ class CoreDataManager {
         ride.startLongitude = viewModel.startLocation.longitude
         ride.endLatitude = viewModel.endLocation?.latitude ?? viewModel.startLocation.latitude
         ride.endLongitude = viewModel.endLocation?.longitude ?? viewModel.startLocation.longitude
+        ride.imageURL = viewModel.imageURL
+        ride.startAddress = viewModel.startAddress
+        ride.endAddress = viewModel.endAddress
         
         if let locations = viewModel.locations {
             for l in locations {
@@ -76,11 +79,12 @@ class CoreDataManager {
     
     func saveRide(viewModels: [RideViewModel]) {
         DataStore.shared.persistentContainer.performBackgroundTask { context in
-            viewModels.forEach { viewModel in
+            for viewModel in viewModels {
                 self.saveOrCreateRide(by: viewModel, in: context)
             }
             
             try! context.save()
+            
         }
     }
     
@@ -89,8 +93,6 @@ class CoreDataManager {
             viewModels.forEach { viewModel in
                 self.saveOrCreateBike(by: viewModel, in: context)
             }
-            
-            try! context.save()
         }
     }
     

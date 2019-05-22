@@ -13,11 +13,11 @@ protocol RideListViewModel {
     
     var items: Observable<[RideViewModel]> { get }
     //var loadItems: Action<Void, [ArticleCellViewModel], AnyError> { get }
-    func showArticleInfo(_ articleViewModel: RideViewModel)
+    func showRideInfo(_ articleViewModel: RideViewModel)
     var triggerText: Variable<String> { get set }
 }
 
-struct BaseRideListViewModel: RideListViewModel {
+class BaseRideListViewModel: RideListViewModel {
     var items: Observable<[RideViewModel]>
     
     
@@ -45,9 +45,13 @@ struct BaseRideListViewModel: RideListViewModel {
             }
             //make sure all subscribers use the same exact subscription
             .share(replay: 1)
+        
+        service.apiService.sessionManager.asObservable().subscribe(onNext: { value in
+            self.triggerText.value = ""
+        })
     }
     
-    func showArticleInfo(_ rideViewModel: RideViewModel) {
+    func showRideInfo(_ rideViewModel: RideViewModel) {
         router.showRideInfo(with: rideViewModel)
     }
     

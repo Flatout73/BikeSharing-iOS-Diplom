@@ -8,6 +8,22 @@
 
 import MapKit
 
+public let ShortDateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeStyle = .short
+    dateFormatter.dateStyle = .short
+    
+    return dateFormatter
+}()
+
+public let ComponentsFormatter: DateComponentsFormatter = {
+    let components = DateComponentsFormatter()
+    components.allowedUnits = [.hour, .minute, .second]
+    components.unitsStyle = .short
+    
+    return components
+}()
+
 extension CLLocationCoordinate2D {
     var point: Point {
         return Point(latitude: self.latitude, longitude: self.longitude)

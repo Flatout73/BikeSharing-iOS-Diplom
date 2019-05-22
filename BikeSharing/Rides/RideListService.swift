@@ -14,6 +14,8 @@ import SwiftyUserDefaults
 import CoreData
 
 protocol RideListService {
+    var apiService: ApiService { get }
+    
     func getAllRides() -> Observable<[RideViewModel]>
 }
 

@@ -36,7 +36,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="121"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адрес 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7X-Ne-Btf">
-                                                            <rect key="frame" x="40" y="163.5" width="62.5" height="21"/>
+                                                            <rect key="frame" x="40" y="162" width="62.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -48,20 +48,20 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адрес 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-og-pgD">
-                                                            <rect key="frame" x="40" y="192" width="64.5" height="21"/>
+                                                            <rect key="frame" x="40" y="189" width="64.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapMarker" translatesAutoresizingMaskIntoConstraints="NO" id="uy1-IT-U3X">
-                                                            <rect key="frame" x="16" y="165" width="16" height="19.5"/>
+                                                            <rect key="frame" x="16" y="163.5" width="16" height="19.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="uy1-IT-U3X" secondAttribute="height" multiplier="24:29" id="BgA-eX-Ba0"/>
                                                                 <constraint firstAttribute="width" constant="16" id="jzi-Wh-0SD"/>
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapMarker" translatesAutoresizingMaskIntoConstraints="NO" id="KY2-mq-GhA">
-                                                            <rect key="frame" x="16" y="193.5" width="16" height="19.5"/>
+                                                            <rect key="frame" x="16" y="191" width="16" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="16" id="CwE-rM-uYC"/>
                                                                 <constraint firstAttribute="width" secondItem="KY2-mq-GhA" secondAttribute="height" multiplier="24:29" id="Rd1-nm-rFQ"/>
@@ -77,14 +77,14 @@
                                                         <constraint firstItem="uRT-Ew-xyr" firstAttribute="leading" secondItem="bBY-Pf-u8S" secondAttribute="leading" id="OHw-ZJ-9ND"/>
                                                         <constraint firstItem="SZx-og-pgD" firstAttribute="leading" secondItem="KY2-mq-GhA" secondAttribute="trailing" constant="8" id="OhV-EW-VUH"/>
                                                         <constraint firstItem="uRT-Ew-xyr" firstAttribute="top" secondItem="bBY-Pf-u8S" secondAttribute="top" id="dN9-Ki-41z"/>
-                                                        <constraint firstItem="f7X-Ne-Btf" firstAttribute="top" secondItem="RBr-6g-We1" secondAttribute="bottom" constant="8" id="f1o-e6-tpC"/>
+                                                        <constraint firstItem="KY2-mq-GhA" firstAttribute="top" secondItem="uy1-IT-U3X" secondAttribute="bottom" constant="8" id="ecN-E7-nbp"/>
                                                         <constraint firstItem="uRT-Ew-xyr" firstAttribute="height" secondItem="bBY-Pf-u8S" secondAttribute="height" multiplier="0.5" id="jSv-UV-cRB"/>
                                                         <constraint firstItem="KY2-mq-GhA" firstAttribute="leading" secondItem="bBY-Pf-u8S" secondAttribute="leading" constant="16" id="jgc-lR-GU4"/>
                                                         <constraint firstItem="RBr-6g-We1" firstAttribute="top" secondItem="uRT-Ew-xyr" secondAttribute="bottom" constant="8" id="kpr-uM-7cA"/>
                                                         <constraint firstItem="uy1-IT-U3X" firstAttribute="bottom" secondItem="f7X-Ne-Btf" secondAttribute="bottom" id="q6c-Rn-jqg"/>
                                                         <constraint firstAttribute="trailing" secondItem="uRT-Ew-xyr" secondAttribute="trailing" id="tx6-xf-gsX"/>
-                                                        <constraint firstItem="SZx-og-pgD" firstAttribute="top" secondItem="f7X-Ne-Btf" secondAttribute="bottom" constant="7.5" id="uIT-8F-d10"/>
                                                         <constraint firstItem="KY2-mq-GhA" firstAttribute="bottom" secondItem="SZx-og-pgD" secondAttribute="bottom" id="xg2-dZ-YqG"/>
+                                                        <constraint firstItem="uy1-IT-U3X" firstAttribute="top" secondItem="RBr-6g-We1" secondAttribute="bottom" constant="8" id="yJL-Ka-gsw"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -97,6 +97,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="dateTimeLabel" destination="RBr-6g-We1" id="G2g-Ff-99M"/>
+                                            <outlet property="endLabel" destination="SZx-og-pgD" id="ncL-0n-bw6"/>
                                             <outlet property="mainContentView" destination="bBY-Pf-u8S" id="wxw-67-9iy"/>
                                             <outlet property="mapImageView" destination="uRT-Ew-xyr" id="7ON-lm-YGh"/>
                                             <outlet property="startLabel" destination="f7X-Ne-Btf" id="JMq-os-BjV"/>
