@@ -52,6 +52,46 @@ class MapViewController: UIViewController {
             guard let bike = self.bikeInfoView.bike else { return }
             self.viewModel.rentBike(bike)
         }.disposed(by: disposeBag)
+        
+        bikeInfoView.routeButton.rx.tap.bind {
+            guard let bike = self.bikeInfoView.bike else { return }
+            self.showRoute(destinationLocation: bike.location.coordinate)
+        }.disposed(by: disposeBag)
+    }
+    
+    func showRoute(destinationLocation: CLLocationCoordinate2D) {
+        guard let sourceLocation = mapView.userLocation.location?.coordinate else { return }
+        
+        let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .walking
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate { response, error in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            let route = response.routes[0]
+            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
     }
     
     func checkLocationAuthorization() {
@@ -104,6 +144,14 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         bikeInfoView.show(for: bike)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+        
+        return renderer
     }
 }
 

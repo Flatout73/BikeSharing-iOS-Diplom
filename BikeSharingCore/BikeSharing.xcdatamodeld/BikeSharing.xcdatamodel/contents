@@ -27,17 +27,29 @@
         <attribute name="startLongitude" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="bike" maxCount="1" deletionRule="Nullify" destinationEntity="Bike" inverseName="ride" inverseEntity="Bike" syncable="YES"/>
         <relationship name="locations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Location" inverseName="ride" inverseEntity="Location" syncable="YES"/>
+        <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transaction" inverseName="ride" inverseEntity="Transaction" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="User" inverseName="ride" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
+        <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ride" maxCount="1" deletionRule="Nullify" destinationEntity="Ride" inverseName="transaction" inverseEntity="Ride" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="avatarURL" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="serverID" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="ride" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ride" inverseName="user" inverseEntity="Ride" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Bike" positionX="223.27734375" positionY="0.31640625" width="128" height="135"/>
-        <element name="Location" positionX="96.625" positionY="-99.5859375" width="128" height="90"/>
-        <element name="Ride" positionX="-63" positionY="-18" width="128" height="255"/>
-        <element name="User" positionX="160.1484375" positionY="238.93359375" width="128" height="88"/>
+        <element name="Bike" positionX="194.8828125" positionY="58.96875" width="128" height="135"/>
+        <element name="Location" positionX="96.625" positionY="-99.5859375" width="128" height="88"/>
+        <element name="Ride" positionX="-191.71484375" positionY="-71.62109375" width="128" height="268"/>
+        <element name="User" positionX="-151.90234375" positionY="311.171875" width="128" height="118"/>
+        <element name="Transaction" positionX="173.22265625" positionY="241.953125" width="128" height="135"/>
     </elements>
 </model>

@@ -35,7 +35,7 @@ class BaseRideListService: RideListService {
     
     private func getRidesFromServer() -> Observable<[RideViewModel]> {
         
-        let observable = apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/rides/all", parameters: nil)
+        let observable = apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/rides/all", parameters: nil)
             .data()
             .flatMap { data -> Observable<[RideViewModel]> in
                 guard let rides = try? self.apiService.jsonDecoder.decode([RideViewModel].self, from: data) else {

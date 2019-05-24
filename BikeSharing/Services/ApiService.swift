@@ -14,7 +14,7 @@ import SwiftyUserDefaults
 import RxSwift
 
 class ApiService {
-    static let serverURL = "https://my-bike-sharing.herokuapp.com"//"http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
+    static let serverURL = "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com"
     
     var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
     
@@ -44,17 +44,18 @@ class ApiService {
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = idToken?.data(using: .utf8)
         
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let data = data {
-                let user = try! JSONDecoder().decode(UserViewModel.self, from: data)
-                UserDefaults.standard.set(user.id, forKey: "userId")
-                UserDefaults.standard.synchronize()
-                self.setUserID()
-                completion(.success(user))
-            } else {
+        sessionManager.value.request(urlRequest).responseData { response in
+            guard let data = response.data else {
                 completion(.failure(BSError.userError))
+                return
             }
-            }.resume()
+            
+            let user = try! JSONDecoder().decode(UserViewModel.self, from: data)
+            UserDefaults.standard.set(user.id, forKey: "userId")
+            UserDefaults.standard.synchronize()
+            self.setUserID()
+            completion(.success(user))
+        }
     }
     
     func payRequest(token: STPToken, amount: Double, completion: @escaping (Error?)->()) {
@@ -68,15 +69,6 @@ class ApiService {
                                     "description": "Поездка",
                                     "currency": "RUB"
         ]
-        
-//
-//        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) { (response, data, error) -> Void in
-//            if (error != nil) {
-//                completion(PKPaymentAuthorizationStatus.Failure)
-//            } else {
-//                completion(PKPaymentAuthorizationStatus.Success)
-//            }
-//        }
         
         sessionManager.value.request(ApiService.serverURL + "/pay", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers).validate(validate).response(completionHandler: { response in
             print(String(data: response.data!, encoding: .utf8))
@@ -95,7 +87,7 @@ class ApiService {
     }
     
     func getBike(by id: Int64, completion: @escaping (Swift.Result<BikeViewModel, Error>)->()) {
-        sessionManager.value.request(ApiService.serverURL + "/api/bikes", method: .get, parameters: ["id": id]).validate().response { response in
+        sessionManager.value.request(ApiService.serverURL + "/bikes", method: .get, parameters: ["id": id]).validate().response { response in
             guard let rideData = response.data else {
                 completion(.failure(response.error ?? BSError.unknownError))
                 return
@@ -111,7 +103,7 @@ class ApiService {
     }
     
     func createRide(_ ride: RideViewModel, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
-        var request = URLRequest(url: URL(string: ApiService.serverURL + "/api/rides/start")!)
+        var request = URLRequest(url: URL(string: ApiService.serverURL + "/rides/start")!)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(ride)
@@ -147,7 +139,7 @@ class ApiService {
             formData.append(image.pngData()!, withName: "file", fileName: "file.png", mimeType: "image/png")
             
         }, usingThreshold: UInt64.init(),
-           to: ApiService.serverURL + "/api/rides/end",
+           to: ApiService.serverURL + "/rides/end",
            method: .put,
            headers: headers,
            encodingCompletion: { response in

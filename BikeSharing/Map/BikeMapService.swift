@@ -29,7 +29,7 @@ class BaseBikeMapService: BikeMapService {
     }
     
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
-        let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/api/bikes/all", parameters: nil)
+        let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/bikes/all", parameters: nil)
             .data()
 //            .map { data -> Observable<[BikeViewModel]> in
 //                guard let bikes = try? self.jsonDecoder.decode([BikeViewModel].self, from: data) else {
