@@ -117,6 +117,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func help(_ sender: Any) {
+        let alert = UIAlertController(title: "Помощь", message: "Чтобы разблокировать велосипед, найдите на нем QR-код и просканируйте", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()

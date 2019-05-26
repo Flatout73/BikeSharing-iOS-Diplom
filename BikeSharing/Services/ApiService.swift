@@ -14,7 +14,7 @@ import SwiftyUserDefaults
 import RxSwift
 
 class ApiService {
-    static let serverURL = "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com"
+    static let serverURL = "https://my-bike-sharing.herokuapp.com/api"// "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
     
     var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
     
@@ -50,9 +50,12 @@ class ApiService {
                 return
             }
             
-            let user = try! JSONDecoder().decode(UserViewModel.self, from: data)
-            UserDefaults.standard.set(user.id, forKey: "userId")
-            UserDefaults.standard.synchronize()
+            guard let user = try? JSONDecoder().decode(UserViewModel.self, from: data) else {
+                completion(.failure(.parseError))
+                return
+            }
+            Defaults[.userId] = Int(user.id)
+            Defaults.synchronize()
             self.setUserID()
             completion(.success(user))
         }

@@ -18,6 +18,8 @@ class BaseRideListRouter: Router, RideListRouter {
         guard let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController") as? RideInfoViewController else { return }
         controller.hidesBottomBarWhenPushed = true
         controller.ride = ride
+        controller.shouldHideBottomButton = true
+        
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
 }

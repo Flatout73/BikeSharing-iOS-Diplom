@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -34,7 +34,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>FacebookAppID</key>
 	<string>417024999083480</string>
 	<key>FacebookDisplayName</key>
@@ -53,14 +53,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Для открытия замка</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Scan qr code</string>
+	<string>Сканирвование QR-кода</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To rent a bike</string>
+	<string>Для поиска и аренды велосипедов</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To rent a bike</string>
+	<string>Для поиска и аренды велосипедов</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To rent a bike</string>
+	<string>Для поиска и аренды велосипедов</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

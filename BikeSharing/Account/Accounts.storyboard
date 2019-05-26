@@ -29,8 +29,8 @@
                                         <constraint firstAttribute="width" secondItem="zcw-Ro-YIo" secondAttribute="height" id="Vk5-ts-B7g"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBO-ae-Qvp">
-                                    <rect key="frame" x="112" y="45.5" width="33.5" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Леонид Лядвейкин" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBO-ae-Qvp">
+                                    <rect key="frame" x="112" y="45.5" width="152.5" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -115,6 +115,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="c0L-0y-p2G"/>
+                    <connections>
+                        <outlet property="avatarImage" destination="zcw-Ro-YIo" id="Eo3-6P-sLA"/>
+                        <outlet property="nameLabel" destination="eBO-ae-Qvp" id="iTk-cp-PaK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KCc-zd-7Kp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,7 +128,9 @@
         <scene sceneID="LkQ-rz-QPs">
             <objects>
                 <navigationController title="Account" automaticallyAdjustsScrollViewInsets="NO" id="bdf-28-aZm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Аккаунт" image="Account" id="4Nh-GM-rsM"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="5kg-WX-X0b">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -140,6 +146,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Account" width="20" height="21"/>
         <image name="avatar-placeholder" width="300" height="250"/>
     </resources>
 </document>

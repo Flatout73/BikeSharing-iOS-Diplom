@@ -28,18 +28,20 @@ class RideInfoViewController: UIViewController {
     
     @IBOutlet var bottomButton: BSButton!
     
-    
+    var shouldHideBottomButton = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         backgroundView.layer.cornerRadius = 8
         backgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        if self.navigationItem.backBarButtonItem == nil {
+ //       if self.navigationController == nil {
 //            self.navigationItem.setLeftBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.close)), animated: false)
 //        }
         
-
+        if shouldHideBottomButton {
+            bottomButton.isHidden = true
+        }
         
         if let url = ride.imageURL {
             imageView.af_setImage(withURL: url)

@@ -9,7 +9,10 @@
 import UIKit
 
 class AccountTableViewController: UITableViewController {
-
+    
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var avatarImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,20 +20,36 @@ class AccountTableViewController: UITableViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func exit() {
+        
     }
-    */
+    
+    func sendFeedback() {
+        
+    }
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.backgroundColor = .black
         if let header = view as? UITableViewHeaderFooterView {
             header.contentView.backgroundColor = .black
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                break
+            case 1:
+                sendFeedback()
+            case 3:
+                self.exit()
+            default:
+                break
+            }
+        default:
+            break
         }
     }
 }
