@@ -77,6 +77,37 @@ class CoreDataManager {
        // }
     }
     
+    @discardableResult
+    func saveOrCreateEntity<T: BSModelProtocol>(by viewModel: T, in context: NSManagedObjectContext) -> T.CoreDataType {
+        let fetchRequest: NSFetchRequest<T.CoreDataType> = T.CoreDataType.fetchRequest() as! NSFetchRequest<T.CoreDataType>
+        fetchRequest.predicate = NSPredicate(format: "serverID == %ld", viewModel.id)
+        let entity: T.CoreDataType
+        if let saved = try? context.fetch(fetchRequest).first {
+            entity = saved
+        } else {
+            entity = T.CoreDataType(context: context)
+        }
+
+        viewModel.saveModel(for: entity)
+        
+        return entity
+    }
+    
+    func saveModel<T: BSModelProtocol>(viewModel: T) {
+        DataStore.shared.persistentContainer.performBackgroundTask { context in
+            self.saveOrCreateEntity(by: viewModel, in: context)
+            
+            try! context.save()
+        }
+    }
+    
+    func fetchEntity<T: NSManagedObject>() -> T? {
+        let fetchRequest: NSFetchRequest<T> = T.fetchRequest() as! NSFetchRequest<T>
+        let entity = try! DataStore.shared.persistentContainer.viewContext.fetch(fetchRequest).first
+        
+        return entity
+    }
+    
     func saveRide(viewModels: [RideViewModel]) {
         DataStore.shared.persistentContainer.performBackgroundTask { context in
             for viewModel in viewModels {
@@ -95,6 +126,7 @@ class CoreDataManager {
             }
         }
     }
+    
     
     func fetchRides() -> [Ride] {
         let fetchRequest: NSFetchRequest<Ride> = Ride.fetchRequest()

@@ -31,7 +31,9 @@ class RidesViewController: UIViewController {
             if let image = ride.imageURL {
                 cell.mapImageView.af_setImage(withURL: image)
             }
-            cell.dateTimeLabel.text = ShortDateFormatter.string(from: ride.endTime!)
+            if let endTime = ride.endTime {
+                cell.dateTimeLabel.text = ShortDateFormatter.string(from: endTime)
+            }
         }.disposed(by: disposeBag)
         
         tableView.rx.modelSelected(RideViewModel.self).bind(onNext: viewModel.showRideInfo).disposed(by: disposeBag)

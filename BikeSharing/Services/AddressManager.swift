@@ -16,7 +16,11 @@ class AddressManager {
     
     func address(for location: Point, completion: @escaping(String?)->()) {
         self.geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude), preferredLocale: self.locale) { placemarks, error in
-            let address = placemarks?.first?.locality
+            guard let placemark = placemarks?.first else {
+                completion(nil)
+                return
+            }
+            let address = "\(placemark.thoroughfare ?? ""), \(placemark.subThoroughfare ?? "")"
             DispatchQueue.main.async {
                 completion(address)
             }

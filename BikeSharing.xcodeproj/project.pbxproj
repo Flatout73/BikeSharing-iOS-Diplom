@@ -14,6 +14,7 @@
 		710D3D1A2263D4190031FBB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 710D3D182263D4190031FBB6 /* LaunchScreen.storyboard */; };
 		710F7AC52273DDDC003C69E6 /* BikeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */; };
 		710F7AC72273DDEF003C69E6 /* BikeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */; };
+		711733C6229B2B3000AF2235 /* BSModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711733C5229B2B3000AF2235 /* BSModelProtocol.swift */; };
 		711B457A228332DE009CDB06 /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B4579228332DE009CDB06 /* NotificationBanner.swift */; };
 		7122A19222899D8A001AE383 /* UtilExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7122A19122899D8A001AE383 /* UtilExtensions.swift */; };
 		714D62F6226FD834003918DC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D62F5226FD834003918DC /* UserViewModel.swift */; };
@@ -30,6 +31,10 @@
 		714D630D2270A89F003918DC /* BSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630C2270A89F003918DC /* BSError.swift */; };
 		714D63102270FC43003918DC /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714D630F2270FC43003918DC /* DataStore.swift */; };
 		7178372C22870E6D008482E0 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7178372B22870E6D008482E0 /* AddressManager.swift */; };
+		717CC246229B306600D4777F /* User+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CC245229B306600D4777F /* User+Extension.swift */; };
+		717CC248229B31D300D4777F /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CC247229B31D300D4777F /* AccountService.swift */; };
+		717CC24B229B3FA300D4777F /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CC24A229B3FA300D4777F /* FeedbackViewController.swift */; };
+		717F2834229B426700494037 /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717F2833229B426700494037 /* PaymentMethodViewController.swift */; };
 		71897C1E228F954D00712185 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71897C1D228F954D00712185 /* BluetoothManager.swift */; };
 		7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195DC1522863270008B65C4 /* Ride+Extension.swift */; };
 		7195DC1C22863378008B65C4 /* Bike+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195DC1622863270008B65C4 /* Bike+Extension.swift */; };
@@ -96,6 +101,7 @@
 		710D3D1B2263D4190031FBB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		710F7AC42273DDDC003C69E6 /* BikeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInfoView.swift; sourceTree = "<group>"; };
 		710F7AC62273DDEF003C69E6 /* BikeInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BikeInfoView.xib; sourceTree = "<group>"; };
+		711733C5229B2B3000AF2235 /* BSModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSModelProtocol.swift; sourceTree = "<group>"; };
 		711B4579228332DE009CDB06 /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
 		7122A19122899D8A001AE383 /* UtilExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilExtensions.swift; sourceTree = "<group>"; };
 		714D62F5226FD834003918DC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +118,10 @@
 		714D630C2270A89F003918DC /* BSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSError.swift; sourceTree = "<group>"; };
 		714D630F2270FC43003918DC /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		7178372B22870E6D008482E0 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
+		717CC245229B306600D4777F /* User+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Extension.swift"; sourceTree = "<group>"; };
+		717CC247229B31D300D4777F /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
+		717CC24A229B3FA300D4777F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		717F2833229B426700494037 /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		71897C1D228F954D00712185 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		7193BE562282287600B8D34E /* BikeSharing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BikeSharing-Bridging-Header.h"; sourceTree = "<group>"; };
 		7195DC1522863270008B65C4 /* Ride+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ride+Extension.swift"; sourceTree = "<group>"; };
@@ -229,6 +239,7 @@
 				714D62F5226FD834003918DC /* UserViewModel.swift */,
 				714D630422709430003918DC /* RideViewModel.swift */,
 				71F2A770227614690058283A /* BikeViewModel.swift */,
+				711733C5229B2B3000AF2235 /* BSModelProtocol.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -266,6 +277,22 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		717CC249229B3F9400D4777F /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				717CC24A229B3FA300D4777F /* FeedbackViewController.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		717F2832229B423E00494037 /* PaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				717F2833229B426700494037 /* PaymentMethodViewController.swift */,
+			);
+			path = PaymentMethod;
+			sourceTree = "<group>";
+		};
 		71DBA587226E63F4005A5278 /* BikeSharingCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +310,7 @@
 			children = (
 				7195DC1522863270008B65C4 /* Ride+Extension.swift */,
 				7195DC1622863270008B65C4 /* Bike+Extension.swift */,
+				717CC245229B306600D4777F /* User+Extension.swift */,
 				71DBA598226E8A93005A5278 /* CoreDataManager.swift */,
 				714D630A2270A6D4003918DC /* ApiService.swift */,
 				714D630C2270A89F003918DC /* BSError.swift */,
@@ -315,8 +343,11 @@
 		71F2A772227616A80058283A /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				717F2832229B423E00494037 /* PaymentMethod */,
+				717CC249229B3F9400D4777F /* Feedback */,
 				714D62FF226FE6C9003918DC /* AccountViewController.swift */,
 				71DBA59F226E93FC005A5278 /* Accounts.storyboard */,
+				717CC247229B31D300D4777F /* AccountService.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -605,9 +636,11 @@
 				714D62F8226FDF76003918DC /* RideListRouter.swift in Sources */,
 				710D3D0D2263D4170031FBB6 /* AppDelegate.swift in Sources */,
 				71F2A7662275EA170058283A /* RideInfoAssembly.swift in Sources */,
+				717CC24B229B3FA300D4777F /* FeedbackViewController.swift in Sources */,
 				71F2A776227617FA0058283A /* BikeMapViewModel.swift in Sources */,
 				7195DC1C22863378008B65C4 /* Bike+Extension.swift in Sources */,
 				7178372C22870E6D008482E0 /* AddressManager.swift in Sources */,
+				711733C6229B2B3000AF2235 /* BSModelProtocol.swift in Sources */,
 				71F2A75F2275D86F0058283A /* BSButton.swift in Sources */,
 				714D630D2270A89F003918DC /* BSError.swift in Sources */,
 				71FB5B0B226E4458004FCAC2 /* RidesAssembly.swift in Sources */,
@@ -616,12 +649,14 @@
 				71F2A77A2276182C0058283A /* BikeMapRouter.swift in Sources */,
 				7122A19222899D8A001AE383 /* UtilExtensions.swift in Sources */,
 				71F2A771227614690058283A /* BikeViewModel.swift in Sources */,
+				717CC246229B306600D4777F /* User+Extension.swift in Sources */,
 				7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */,
 				71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */,
 				71F2A7642275E96C0058283A /* RideInfoViewModel.swift in Sources */,
 				71897C1E228F954D00712185 /* BluetoothManager.swift in Sources */,
 				71F2A76F2275FD5D0058283A /* ScannerViewController.swift in Sources */,
 				71F2A778227618120058283A /* BikeMapService.swift in Sources */,
+				717CC248229B31D300D4777F /* AccountService.swift in Sources */,
 				71DBA596226E8898005A5278 /* RideListService.swift in Sources */,
 				71F2A77D22766F8D0058283A /* RidingViewController.swift in Sources */,
 				711B457A228332DE009CDB06 /* NotificationBanner.swift in Sources */,
@@ -629,6 +664,7 @@
 				71F2A76C2275FAC90058283A /* AnalyticsHelper.swift in Sources */,
 				714D63092270A10B003918DC /* RideTableViewCell.swift in Sources */,
 				714D630322708D51003918DC /* RideListViewModel.swift in Sources */,
+				717F2834229B426700494037 /* PaymentMethodViewController.swift in Sources */,
 				714D62FC226FE061003918DC /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

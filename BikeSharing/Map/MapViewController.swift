@@ -44,7 +44,7 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
         }
         
@@ -109,12 +109,19 @@ class MapViewController: UIViewController {
         }
     }
     
+    var regionWasChanged = false
+    func changeMapRegion() {
+        if !regionWasChanged, let location = mapView.userLocation.location?.coordinate {
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            mapView.setRegion(region, animated: true)
+            regionWasChanged = true
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let location = mapView.userLocation.location?.coordinate {
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 10000, longitudinalMeters: 10000)
-            mapView.setRegion(region, animated: true)
-        }
+      
+        changeMapRegion()
     }
 }
 
@@ -158,10 +165,7 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if let location = userLocation.location?.coordinate {
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 100, longitudinalMeters: 100)
-            mapView.setRegion(region, animated: true)
-        }
+        changeMapRegion()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

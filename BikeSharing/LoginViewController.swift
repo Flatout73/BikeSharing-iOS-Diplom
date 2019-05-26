@@ -9,6 +9,7 @@
 import GoogleSignIn
 import BikeSharingCore
 import FBSDKLoginKit
+import MBProgressHUD
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
@@ -16,6 +17,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet var fbLoginButton: FBSDKLoginButton!
     
     var apiService: ApiService!
+    
+    var coreDataManager: CoreDataManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +49,19 @@ extension LoginViewController: GIDSignInDelegate {
             let familyName = user.profile.familyName
             let email = user.profile.email
             
-            apiService.loginRequest(idToken: idToken) { _ in
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            apiService.loginRequest(idToken: idToken) { result in
+                MBProgressHUD.hide(for: self.view, animated: true)
+                switch result {
+                case .success(let user):
+                    self.coreDataManager?.saveModel(viewModel: user)
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                case .failure(let error):
+                    NotificationBanner.showErrorBanner(error.localizedDescription)
                 }
+                
             }
             
         }

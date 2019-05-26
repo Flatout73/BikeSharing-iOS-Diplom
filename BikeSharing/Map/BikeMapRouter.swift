@@ -36,6 +36,6 @@ class BaseBikeMapRouter: Router, BikeMapRouter {
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.navigationBar.barStyle = .blackTranslucent
         navigationController.navigationBar.tintColor = .white
-        viewController?.present(navigationController, animated: true, completion: nil)
+        viewController?.present(navigationController, animated: false, completion: nil)
     }
 }

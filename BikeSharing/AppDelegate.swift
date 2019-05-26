@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.async {
                 self.window?.rootViewController?.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
+        } else {
+            registerForPushNotifications()
         }
-        
-        registerForPushNotifications()
         
         return true
     }
@@ -59,8 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func registerForPushNotifications() {
-        UNUserNotificationCenter.current() // 1
-            .requestAuthorization(options: [.alert, .sound, .badge]) { // 2
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.alert, .sound, .badge]) {
                 granted, error in
                 guard granted else { return }
                 UNUserNotificationCenter.current()
@@ -126,6 +126,10 @@ extension SwinjectStoryboard {
             return ApiService()
         }
         
+        defaultContainer.register(AccountService.self) { resolver in
+            return AccountService(coreDataManager: resolver.resolve(CoreDataManager.self)!)
+        }
+        
         defaultContainer.storyboardInitCompleted(RidingViewController.self) { resolver, controller in
             controller.coreDataManager = resolver.resolve(CoreDataManager.self)
             controller.apiService = resolver.resolve(ApiService.self)
@@ -138,6 +142,11 @@ extension SwinjectStoryboard {
         
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, controller in
             controller.apiService = resolver.resolve(ApiService.self)
+            controller.coreDataManager = resolver.resolve(CoreDataManager.self)
+        }
+        
+        defaultContainer.storyboardInitCompleted(AccountTableViewController.self) { resolver, controller in
+            controller.service = resolver.resolve(AccountService.self)
         }
     }
 }

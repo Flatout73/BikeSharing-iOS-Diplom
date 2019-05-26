@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import MBProgressHUD
 
 class RidingViewController: UIViewController {
     @IBOutlet var timeLabel: UILabel!
@@ -160,6 +161,7 @@ class RidingViewController: UIViewController {
             controller.ride = endingRide
             self.navigationController?.pushViewController(controller, animated: true)
         } else {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
             makeSnapshot(for: endRide) { image in
                 AddressManager.shared.address(for: endRide.endLocation!) { address in
                     endRide.endAddress = address
@@ -168,6 +170,7 @@ class RidingViewController: UIViewController {
                         case .success(let ride):
                             self.coreDataManager.saveOneRide(by: ride)
                             self.apiService.payRequest(token: self.paymentInfo.token, amount: ride.cost ?? 50.0) { error in
+                                MBProgressHUD.hide(for: self.view, animated: true)
                                 if let error = error {
                                     NotificationBanner.showErrorBanner(error.localizedDescription)
                                 } else {

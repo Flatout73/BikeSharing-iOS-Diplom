@@ -50,9 +50,13 @@ class RideInfoViewController: UIViewController {
         startLabel.text = ride.startAddress
         endLabel.text = ride.endAddress
         
-        dateTimeLabel.text = ShortDateFormatter.string(from: ride.endTime!)
-        costLabel.text = String(format: "%.2f", ride.cost!)
-        timeLabel.text = ComponentsFormatter.string(from: ride.startTime, to: ride.endTime!)
+        if let endTime = ride.endTime {
+            dateTimeLabel.text = ShortDateFormatter.string(from: endTime)
+            timeLabel.text = ComponentsFormatter.string(from: ride.startTime, to: endTime)
+        }
+        if let cost = ride.cost {
+            costLabel.text = String(format: "%.2f", cost)
+        }
     }
     
     @IBAction func close() {

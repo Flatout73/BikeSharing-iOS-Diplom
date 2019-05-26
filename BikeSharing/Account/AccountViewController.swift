@@ -7,25 +7,39 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class AccountTableViewController: UITableViewController {
     
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var avatarImage: UIImageView!
     
+    var service: AccountService!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let user = service.getUser() {
+            nameLabel.text = user.name
+            
+            if let url = user.pictureURL {
+                avatarImage.af_setImage(withURL: URL(string: url)!, filter: CircleFilter())
+            }
+        }
     }
     
+    func paymentMethod() {
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "PaymentMethodController") else { return }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 
     func exit() {
         
     }
     
     func sendFeedback() {
-        
+        guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "FeedbackController") else { return }
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -40,7 +54,7 @@ class AccountTableViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                break
+                paymentMethod()
             case 1:
                 sendFeedback()
             case 3:

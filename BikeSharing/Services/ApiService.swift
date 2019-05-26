@@ -50,7 +50,7 @@ class ApiService {
                 return
             }
             
-            guard let user = try? JSONDecoder().decode(UserViewModel.self, from: data) else {
+            guard let user = try? self.jsonDecoder.decode(UserViewModel.self, from: data) else {
                 completion(.failure(.parseError))
                 return
             }
