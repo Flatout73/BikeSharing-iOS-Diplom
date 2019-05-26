@@ -141,4 +141,11 @@ class CoreDataManager {
         
         return rides
     }
+    
+    func destroyDatabase() {
+        guard let url = DataStore.shared.persistentContainer.persistentStoreCoordinator.persistentStores.first?.url else {
+            return
+        }
+        try! DataStore.shared.persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: url, ofType: NSSQLiteStoreType, options: nil)
+    }
 }

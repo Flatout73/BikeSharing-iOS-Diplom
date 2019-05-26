@@ -9,14 +9,14 @@
 import BikeSharingCore
 
 class AccountService {
-    var coreDataManager: CoreDataManager?
+    var coreDataManager: CoreDataManager
     
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
     }
     
     func getUser() -> UserViewModel? {
-        guard let user: User = coreDataManager?.fetchEntity() else { return nil }
+        guard let user: User = coreDataManager.fetchEntity() else { return nil }
         return user.viewModel
     }
 }

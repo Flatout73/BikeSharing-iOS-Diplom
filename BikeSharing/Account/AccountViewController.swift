@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import SwiftyUserDefaults
 
 class AccountTableViewController: UITableViewController {
     
@@ -33,8 +34,11 @@ class AccountTableViewController: UITableViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
-    func exit() {
+    func exitFromApp() {
+        service.coreDataManager.destroyDatabase()
+        Defaults[.userId] = nil
         
+        exit(0)
     }
     
     func sendFeedback() {
@@ -57,8 +61,8 @@ class AccountTableViewController: UITableViewController {
                 paymentMethod()
             case 1:
                 sendFeedback()
-            case 3:
-                self.exit()
+            case 2:
+                exitFromApp()
             default:
                 break
             }
