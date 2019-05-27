@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import MBProgressHUD
+import RxSwift
 
 class RidingViewController: UIViewController {
     @IBOutlet var timeLabel: UILabel!
@@ -32,6 +33,8 @@ class RidingViewController: UIViewController {
     
     var endingRide: RideViewModel?
     
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +48,12 @@ class RidingViewController: UIViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
+        BluetoothManager.shared.statusFromLock.asObservable().subscribe(onNext: { status in
+            if status == "CLOSED" {
+                self.close(self)
+            }
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

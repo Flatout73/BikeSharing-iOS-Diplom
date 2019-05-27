@@ -14,7 +14,7 @@ import SwiftyUserDefaults
 import RxSwift
 
 class ApiService {
-    static let serverURL = "https://my-bike-sharing.herokuapp.com/api"// "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
+    static let serverURL = "https://my-bike-sharing.herokuapp.com/api" //"http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
     
     var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
     
@@ -199,5 +199,26 @@ class ApiService {
 //            }
 //        }
         
+    }
+    
+    func sendFeedback(_ feedback: FeedBackViewModel, completion: @escaping (Swift.Result<FeedBackViewModel, Error>)->Void) {
+        var request = URLRequest(url: URL(string: ApiService.serverURL + "/rides/start")!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! jsonEncoder.encode(feedback)
+        
+        sessionManager.value.request(request).validate(validate).response { response in
+            guard let data = response.data else {
+                completion(.failure(response.error ?? BSError.unknownError))
+                return
+            }
+            
+            do {
+                let feedback = try self.jsonDecoder.decode(FeedBackViewModel.self, from: data)
+                completion(.success(feedback))
+            } catch {
+                completion(.failure(BSError.parseError))
+            }
+        }
     }
 }

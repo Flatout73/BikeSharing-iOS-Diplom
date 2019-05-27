@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FeedbackViewController: UIViewController {
     
     @IBOutlet var feedbackTextView: UITextView!
     @IBOutlet var bikeNumberField: UITextField!
     @IBOutlet var placeField: UITextField!
+    
+    var apiService: ApiService!
+    var coreDataManager: CoreDataManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +27,21 @@ class FeedbackViewController: UIViewController {
     }
     
     @IBAction func sendFeedback(_ sender: Any) {
+        guard let text = feedbackTextView.text else {
+            NotificationBanner.showErrorBanner("Напишите фидбек")
+            return
+        }
         
+        let feedback = FeedBackViewModel(text: text, address: placeField.text ?? "", bike: nil)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        apiService.sendFeedback(feedback) { result in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            switch (result) {
+            case .success(let feedback):
+                NotificationBanner.showSuccessBanner("Отзыв отправлен")
+            case .failure(let error):
+                NotificationBanner.showErrorBanner("Ошибка: \(error.localizedDescription)")
+            }
+        }
     }
 }

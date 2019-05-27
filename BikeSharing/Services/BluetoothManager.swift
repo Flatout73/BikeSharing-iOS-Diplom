@@ -7,6 +7,7 @@
 //
 
 import CoreBluetooth
+import RxSwift
 
 enum LockState {
     case sendUnlock
@@ -27,6 +28,8 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
     var data: Data?
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
+    
+    let statusFromLock = Variable<String>("")
     
     var isReady: Bool {
         get {
@@ -192,16 +195,17 @@ extension BluetoothManager: CBPeripheralDelegate {
             return
         }
         
-        let string = String(data: characteristic.value!, encoding: .utf8)
+        guard let string = String(data: characteristic.value!, encoding: .utf8) else { return }
         
         switch string {
-            
         case "CLOSED":
             if lockState == .sendUnlock {
                 break
             } else if lockState == .unlocked {
                 lockState = .locked
                 NotificationBanner.showSuccessBanner("Замок закрыт!")
+                
+                statusFromLock.value = string
                 
                 peripheral.setNotifyValue(false, for: characteristic)
                 centralManager.cancelPeripheralConnection(peripheral)

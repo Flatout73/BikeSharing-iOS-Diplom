@@ -38,6 +38,7 @@
 		71897C1E228F954D00712185 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71897C1D228F954D00712185 /* BluetoothManager.swift */; };
 		7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195DC1522863270008B65C4 /* Ride+Extension.swift */; };
 		7195DC1C22863378008B65C4 /* Bike+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7195DC1622863270008B65C4 /* Bike+Extension.swift */; };
+		71CFFD7A229B49C200888C3C /* FeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CFFD79229B49C200888C3C /* FeedbackViewModel.swift */; };
 		71DBA58A226E63F4005A5278 /* BikeSharingCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 71DBA588226E63F4005A5278 /* BikeSharingCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71DBA58D226E63F4005A5278 /* BikeSharingCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DBA586226E63F4005A5278 /* BikeSharingCore.framework */; };
 		71DBA58E226E63F4005A5278 /* BikeSharingCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 71DBA586226E63F4005A5278 /* BikeSharingCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -126,6 +127,7 @@
 		7193BE562282287600B8D34E /* BikeSharing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BikeSharing-Bridging-Header.h"; sourceTree = "<group>"; };
 		7195DC1522863270008B65C4 /* Ride+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ride+Extension.swift"; sourceTree = "<group>"; };
 		7195DC1622863270008B65C4 /* Bike+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bike+Extension.swift"; sourceTree = "<group>"; };
+		71CFFD79229B49C200888C3C /* FeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewModel.swift; sourceTree = "<group>"; };
 		71DBA586226E63F4005A5278 /* BikeSharingCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BikeSharingCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71DBA588226E63F4005A5278 /* BikeSharingCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BikeSharingCore.h; sourceTree = "<group>"; };
 		71DBA589226E63F4005A5278 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				714D62F5226FD834003918DC /* UserViewModel.swift */,
 				714D630422709430003918DC /* RideViewModel.swift */,
 				71F2A770227614690058283A /* BikeViewModel.swift */,
+				71CFFD79229B49C200888C3C /* FeedbackViewModel.swift */,
 				711733C5229B2B3000AF2235 /* BSModelProtocol.swift */,
 			);
 			path = ViewModels;
@@ -651,6 +654,7 @@
 				71F2A771227614690058283A /* BikeViewModel.swift in Sources */,
 				717CC246229B306600D4777F /* User+Extension.swift in Sources */,
 				7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */,
+				71CFFD7A229B49C200888C3C /* FeedbackViewModel.swift in Sources */,
 				71DBA599226E8A93005A5278 /* CoreDataManager.swift in Sources */,
 				71F2A7642275E96C0058283A /* RideInfoViewModel.swift in Sources */,
 				71897C1E228F954D00712185 /* BluetoothManager.swift in Sources */,

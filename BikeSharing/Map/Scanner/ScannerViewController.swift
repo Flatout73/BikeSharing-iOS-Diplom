@@ -100,9 +100,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         
          BluetoothManager.shared.scan()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-             BluetoothManager.shared.sendMessageToDevice("OPENLOCK")
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -214,6 +211,7 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
                 controller.dismiss(animated: true, completion: {
                     self.dismiss(animated: true) {
                         self.paymentBike.onNext(PaymentModel(token: self.token!, ride: ride))
+                        BluetoothManager.shared.sendMessageToDevice("OPENLOCK")
                     }
                 })
             case .failure(let error):
