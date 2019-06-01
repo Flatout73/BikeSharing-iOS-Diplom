@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="height" constant="32" id="jel-mY-iww"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-vM-Z7a" customClass="FBSDKLoginButton">
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-vM-Z7a" customClass="FBLoginButton">
                                 <rect key="frame" x="127" y="501" width="161" height="32"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -53,7 +53,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="fbLoginButton" destination="ajY-vM-Z7a" id="wXk-vn-RwO"/>
+                        <outlet property="fbLoginButton" destination="ajY-vM-Z7a" id="yOf-d0-KWu"/>
                         <outlet property="googleLoginButton" destination="XpF-yT-KWB" id="41E-67-wiK"/>
                     </connections>
                 </viewController>

@@ -152,6 +152,8 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
         // Search only for services that match our UUID
         peripheral.discoverServices([CBUUID(string: id)])
     }
+    
+     var longString = ""
 }
 
 extension BluetoothManager: CBPeripheralDelegate {
@@ -196,6 +198,16 @@ extension BluetoothManager: CBPeripheralDelegate {
         }
         
         guard let string = String(data: characteristic.value!, encoding: .utf8) else { return }
+        
+        if string.hasPrefix("@COORD") {
+            longString = string
+        } else if string.hasSuffix("@") {
+            longString += string
+            statusFromLock.value = longString
+            longString = ""
+        } else if !longString.isEmpty {
+            longString += string
+        }
         
         switch string {
         case "CLOSED":

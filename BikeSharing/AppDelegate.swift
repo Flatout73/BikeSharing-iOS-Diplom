@@ -11,6 +11,8 @@ import CoreData
 import Swinject
 import SwinjectStoryboard
 import GoogleSignIn
+import FacebookLogin
+import FBSDKLoginKit
 import FBSDKCoreKit
 import SwiftyUserDefaults
 import Firebase
@@ -26,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         GIDSignIn.sharedInstance().clientID = "680941561279-iblnhng1op6pm79k0gk6dj6igd3eu7ch.apps.googleusercontent.com"
-        FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         
         if Defaults[.userId] == nil {
@@ -46,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                  annotation: options[UIApplication.OpenURLOptionsKey.annotation])
         
         if !handled {
-            handled = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, options: options) ?? false
+            handled = ApplicationDelegate.shared.application(app, open: url, options: options)
         }
         
         return handled

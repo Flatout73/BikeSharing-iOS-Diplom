@@ -36,7 +36,7 @@ class BaseRideListViewModel: RideListViewModel {
         
         items = triggerText.asObservable()
             //wait 0.3 s after the last value to fire a new value
-            .debounce(0.3, scheduler: MainScheduler.instance)
+            .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
             //only fire if the value is different than the last one
             //.distinctUntilChanged()
             //convert Observable<String> to Observable<Weather>

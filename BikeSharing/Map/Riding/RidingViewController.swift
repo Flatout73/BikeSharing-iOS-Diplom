@@ -35,6 +35,8 @@ class RidingViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    var currentBikeLocation: Point?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +54,14 @@ class RidingViewController: UIViewController {
         BluetoothManager.shared.statusFromLock.asObservable().subscribe(onNext: { status in
             if status == "CLOSED" {
                 self.close(self)
+            } else if status.contains("@") {
+                let words = status.split(separator: " ")
+                guard let lat = Double(words[1]),
+                    let lon = Double(words[2].substring(to: words[2].index(before: words[2].endIndex))) else {
+                        return
+                    }
+                
+                self.currentBikeLocation = Point(latitude: lat, longitude: lon)
             }
         }).disposed(by: disposeBag)
     }
@@ -164,6 +174,10 @@ class RidingViewController: UIViewController {
         // endRide.endTime = Date()
         endRide.endLocation = mapView.userLocation.location!.coordinate.point
         endRide.locations = locationList.map({ Point(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude) })
+        
+        if let bikeLoc = currentBikeLocation {
+            endRide.bike?.location = bikeLoc
+        }
         
         if let endingRide = endingRide {
             guard let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController") as? RideInfoViewController else { return }

@@ -9,12 +9,14 @@
 import GoogleSignIn
 import BikeSharingCore
 import FBSDKLoginKit
+import FacebookCore
+import FacebookLogin
 import MBProgressHUD
 
 class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
     @IBOutlet var googleLoginButton: GIDSignInButton!
-    @IBOutlet var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet var fbLoginButton: FBLoginButton!
     
     var apiService: ApiService!
     
@@ -27,10 +29,11 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        fbLoginButton.readPermissions = ["public_profile", "email"]
-        if FBSDKAccessToken.currentAccessTokenIsActive() {
-            
-        }
+        fbLoginButton.permissions = [Permission.publicProfile.name, Permission.email.name]
+        fbLoginButton.delegate = self
+//        if AccessToken.isCurrentAccessTokenActive {
+//           // token.userID
+//        }
     }
 
 }
@@ -50,7 +53,7 @@ extension LoginViewController: GIDSignInDelegate {
             let email = user.profile.email
             
             MBProgressHUD.showAdded(to: self.view, animated: true)
-            apiService.loginRequest(idToken: idToken) { result in
+            apiService.loginRequest(idToken: idToken!) { result in
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch result {
                 case .success(let user):
@@ -74,3 +77,22 @@ extension LoginViewController: GIDSignInDelegate {
     }
 }
 
+extension LoginViewController: LoginButtonDelegate {
+    func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
+        let token = result.token!
+        apiService.loginRequest(idToken: token.tokenString, isGoogle: false) { result in
+            switch result {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton!) {
+
+    }
+    
+    
+}

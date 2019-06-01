@@ -10,7 +10,7 @@ import Foundation
 
 struct BikeViewModel: Codable {
     let id: String
-    let location: Point
+    var location: Point
     let name: String?
     var address: String?
 }

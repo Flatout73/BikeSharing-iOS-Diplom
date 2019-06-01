@@ -14,7 +14,7 @@ import SwiftyUserDefaults
 import RxSwift
 
 class ApiService {
-    static let serverURL = "https://my-bike-sharing.herokuapp.com/api" //"http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
+    static let serverURL = "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
     
     var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
     
@@ -38,11 +38,12 @@ class ApiService {
         }
     }
     
-    func loginRequest(idToken: String?, completion: @escaping (Swift.Result<UserViewModel, BSError>) -> Void) {
-        var urlRequest = URLRequest(url: URL(string: ApiService.serverURL + "/tokensignin")!)
-        urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    func loginRequest(idToken: String, isGoogle: Bool = true, completion: @escaping (Swift.Result<UserViewModel, BSError>) -> Void) {
+        var urlRequest = URLRequest(url: URL(string: ApiService.serverURL + "/tokensignin" + (isGoogle ? "/true" : "/false"))!)
+       // urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = idToken?.data(using: .utf8)
+        urlRequest.httpBody = idToken.data(using: .utf8)
+        
         
         sessionManager.value.request(urlRequest).responseData { response in
             guard let data = response.data else {
@@ -107,7 +108,7 @@ class ApiService {
     
     func createRide(_ ride: RideViewModel, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
         var request = URLRequest(url: URL(string: ApiService.serverURL + "/rides/start")!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(ride)
 
@@ -203,7 +204,7 @@ class ApiService {
     
     func sendFeedback(_ feedback: FeedBackViewModel, completion: @escaping (Swift.Result<FeedBackViewModel, Error>)->Void) {
         var request = URLRequest(url: URL(string: ApiService.serverURL + "/rides/start")!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(feedback)
         
