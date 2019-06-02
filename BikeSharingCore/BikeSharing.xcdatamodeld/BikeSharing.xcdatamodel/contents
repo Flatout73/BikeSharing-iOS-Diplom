@@ -34,8 +34,8 @@
         <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="serverID" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="token" attributeType="String" syncable="YES"/>
         <relationship name="ride" maxCount="1" deletionRule="Nullify" destinationEntity="Ride" inverseName="transaction" inverseEntity="Ride" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">

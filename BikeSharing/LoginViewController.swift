@@ -87,7 +87,10 @@ extension LoginViewController: GIDSignInDelegate {
 
 extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
-        let token = result.token!
+        guard let token = result.token else {
+            NotificationBanner.showErrorBanner("Ошибка входа")
+            return
+        }
         MBProgressHUD.showAdded(to: self.view, animated: true)
         apiService.loginRequest(idToken: token.tokenString, isGoogle: false) { result in
             MBProgressHUD.hide(for: self.view, animated: true)

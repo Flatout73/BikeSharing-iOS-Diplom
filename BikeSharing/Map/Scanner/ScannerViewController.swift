@@ -31,6 +31,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var apiService: ApiService!
     var coreDataManager: CoreDataManager!
     var mapkitManager: MapKitManager!
+    var bluetoothManager: BluetoothManager!
     
     var startLocation: Point!
     
@@ -101,7 +102,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             captureSession.startRunning()
         }
         
-         BluetoothManager.shared.scan()
+         bluetoothManager.scan()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -206,14 +207,23 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        guard let paymentToken = self.token else {
+            self.dismiss(animated: true)
+            return
+        }
         apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, locations: nil, imageURL: nil)) { result in
             switch result {
             case .success(let ride):
                 self.coreDataManager.saveOneRide(by: ride)
                 controller.dismiss(animated: true, completion: {
                     self.dismiss(animated: true) {
-                        self.paymentBike.onNext(PaymentModel(token: self.token!, ride: ride))
-                        BluetoothManager.shared.sendMessageToDevice("OPENLOCK")
+                        self.paymentBike.onNext(PaymentModel(token: paymentToken, ride: ride))
+                    
+                        if self.bluetoothManager.isReady {
+                            self.bluetoothManager.sendMessageToDevice("OPENLOCK")
+                        } else {
+                            NotificationBanner.showErrorBanner("Нет подключения к замку")
+                        }
                     }
                 })
             case .failure(let error):

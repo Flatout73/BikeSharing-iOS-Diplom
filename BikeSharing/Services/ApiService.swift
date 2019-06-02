@@ -47,15 +47,12 @@ class ApiService {
         urlRequest.httpBody = idToken.data(using: .utf8)
         
         
-        sessionManager.value.request(urlRequest).responseData { response in
-            guard let data = response.data else {
+        sessionManager.value.request(urlRequest).validate(validate).responseData { response in
+            guard let data = response.data, let jwttoken = String(data: data, encoding: .utf8) else {
                 completion(.failure(BSError.userError))
                 return
             }
-            
-            guard let jwttoken = String(data: data, encoding: .utf8) else {
-                return
-            }
+        
 //            guard let user = try? self.jsonDecoder.decode(UserViewModel.self, from: data) else {
 //                completion(.failure(.parseError))
 //                return
@@ -67,22 +64,29 @@ class ApiService {
         }
     }
     
-    func payRequest(token: STPToken, amount: Double, completion: @escaping (Error?)->()) {
-        let headers: HTTPHeaders = [
-            "Content-Type" : "application/json",
-            "Accept": "application/json"
-        ]
+    func payRequest(token: STPToken, ride: RideViewModel, completion: @escaping (Swift.Result<TransactionViewModel, Error>)->()) {
         
-        let body: [String : Any] = ["token": token.tokenId,
-                                    "cost": amount,
-                                    "description": "Поездка",
-                                    "currency": "RUB"
-        ]
+        let transaction = TransactionViewModel(id: nil, token: token.tokenId, cost: ride.cost ?? 50.0, description: "Поездка", currency: "RUB")
         
-        sessionManager.value.request(ApiService.serverURL + "/pay", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers).validate(validate).response(completionHandler: { response in
-            print(String(data: response.data!, encoding: .utf8))
-            completion(response.error)
-        })
+        var request = URLRequest(url: URL(string: ApiService.serverURL + "/pay/" + String(ride.id!))!)
+        request.httpMethod = "POST"
+        request.httpBody = try! jsonEncoder.encode(transaction)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        sessionManager.value.request(request).validate(validate).responseData { response in
+            guard let data = response.data else {
+                completion(.failure(response.error ?? BSError.parseError))
+                return
+            }
+            
+            guard let transaction = try? self.jsonDecoder.decode(TransactionViewModel.self, from: data) else {
+                completion(.failure(BSError.parseError))
+                return
+            }
+            
+            completion(.success(transaction))
+        }
     }
     
     private func validate(request: URLRequest?, response: HTTPURLResponse, data: Data?) -> Request.ValidationResult {

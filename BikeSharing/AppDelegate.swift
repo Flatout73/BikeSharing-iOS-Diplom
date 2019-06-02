@@ -21,7 +21,7 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
     
     let assembler = AppDelegate.createAssembler()
     
@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = "680941561279-iblnhng1op6pm79k0gk6dj6igd3eu7ch.apps.googleusercontent.com"
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
         
         if Defaults[.token] == nil {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
@@ -137,6 +135,11 @@ extension SwinjectStoryboard {
             return MapKitManager()
         }
         
+        let bluetoothManager = BluetoothManager()
+        defaultContainer.register(BluetoothManager.self) { _ in
+            return bluetoothManager
+        }
+        
         defaultContainer.register(AccountService.self) { resolver in
             return AccountService(coreDataManager: resolver.resolve(CoreDataManager.self)!)
         }
@@ -145,12 +148,14 @@ extension SwinjectStoryboard {
             controller.coreDataManager = resolver.resolve(CoreDataManager.self)
             controller.apiService = resolver.resolve(ApiService.self)
             controller.mapkitManager = resolver.resolve(MapKitManager.self)
+            controller.bluetoothManager = resolver.resolve(BluetoothManager.self)
         }
         
         defaultContainer.storyboardInitCompleted(ScannerViewController.self) { resolver, controller in
             controller.apiService = resolver.resolve(ApiService.self)
             controller.coreDataManager = resolver.resolve(CoreDataManager.self)
             controller.mapkitManager = resolver.resolve(MapKitManager.self)
+            controller.bluetoothManager = resolver.resolve(BluetoothManager.self)
         }
         
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, controller in

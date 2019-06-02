@@ -49,6 +49,8 @@
 		71DBA59C226E93E2005A5278 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59B226E93E2005A5278 /* Map.storyboard */; };
 		71DBA59E226E93ED005A5278 /* Rides.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59D226E93ED005A5278 /* Rides.storyboard */; };
 		71DBA5A0226E93FC005A5278 /* Accounts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71DBA59F226E93FC005A5278 /* Accounts.storyboard */; };
+		71DC28F022A473FF008B51F6 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DC28EF22A473FF008B51F6 /* TransactionViewModel.swift */; };
+		71DC28F222A474A9008B51F6 /* Transaction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DC28F122A474A9008B51F6 /* Transaction+Extension.swift */; };
 		71F2A75F2275D86F0058283A /* BSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A75E2275D86F0058283A /* BSButton.swift */; };
 		71F2A7622275E92B0058283A /* RideInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7612275E92B0058283A /* RideInfoViewController.swift */; };
 		71F2A7642275E96C0058283A /* RideInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2A7632275E96C0058283A /* RideInfoViewModel.swift */; };
@@ -139,6 +141,8 @@
 		71DBA59B226E93E2005A5278 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		71DBA59D226E93ED005A5278 /* Rides.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Rides.storyboard; sourceTree = "<group>"; };
 		71DBA59F226E93FC005A5278 /* Accounts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Accounts.storyboard; sourceTree = "<group>"; };
+		71DC28EF22A473FF008B51F6 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		71DC28F122A474A9008B51F6 /* Transaction+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Transaction+Extension.swift"; path = "../Transaction+Extension.swift"; sourceTree = "<group>"; };
 		71F2A75E2275D86F0058283A /* BSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSButton.swift; sourceTree = "<group>"; };
 		71F2A7612275E92B0058283A /* RideInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideInfoViewController.swift; sourceTree = "<group>"; };
 		71F2A7632275E96C0058283A /* RideInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideInfoViewModel.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				71F2A770227614690058283A /* BikeViewModel.swift */,
 				71CFFD79229B49C200888C3C /* FeedbackViewModel.swift */,
 				711733C5229B2B3000AF2235 /* BSModelProtocol.swift */,
+				71DC28EF22A473FF008B51F6 /* TransactionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 		71DBA594226E887C005A5278 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				71DC28F122A474A9008B51F6 /* Transaction+Extension.swift */,
 				7195DC1522863270008B65C4 /* Ride+Extension.swift */,
 				7195DC1622863270008B65C4 /* Bike+Extension.swift */,
 				717CC245229B306600D4777F /* User+Extension.swift */,
@@ -638,6 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71DC28F022A473FF008B51F6 /* TransactionViewModel.swift in Sources */,
 				714D630722709646003918DC /* RidesViewController.swift in Sources */,
 				710D3D0F2263D4170031FBB6 /* LoginViewController.swift in Sources */,
 				714D62FE226FE224003918DC /* BikeAnnotation.swift in Sources */,
@@ -661,6 +668,7 @@
 				71F2A77A2276182C0058283A /* BikeMapRouter.swift in Sources */,
 				71134BCD22A44B6000628E36 /* FlipPresentAnimationController.swift in Sources */,
 				7122A19222899D8A001AE383 /* UtilExtensions.swift in Sources */,
+				71DC28F222A474A9008B51F6 /* Transaction+Extension.swift in Sources */,
 				71F2A771227614690058283A /* BikeViewModel.swift in Sources */,
 				717CC246229B306600D4777F /* User+Extension.swift in Sources */,
 				7195DC1B22863372008B65C4 /* Ride+Extension.swift in Sources */,

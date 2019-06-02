@@ -8,6 +8,7 @@
 
 import CoreBluetooth
 import RxSwift
+import RxCocoa
 
 enum LockState {
     case sendUnlock
@@ -16,7 +17,7 @@ enum LockState {
 }
 
 class BluetoothManager: NSObject, CBCentralManagerDelegate {
-    public static let shared = BluetoothManager()
+   // public static let shared = BluetoothManager()
     
     var centralManager: CBCentralManager!
     
@@ -29,7 +30,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     
-    let statusFromLock = Variable<String>("")
+    let statusFromLock = PublishRelay<String>()
     
     var isReady: Bool {
         get {
@@ -203,7 +204,7 @@ extension BluetoothManager: CBPeripheralDelegate {
             longString = string
         } else if string.hasSuffix("@") {
             longString += string
-            statusFromLock.value = longString
+            statusFromLock.accept(longString)
             longString = ""
         } else if !longString.isEmpty {
             longString += string
@@ -217,7 +218,7 @@ extension BluetoothManager: CBPeripheralDelegate {
                 lockState = .locked
                 NotificationBanner.showSuccessBanner("Замок закрыт!")
                 
-                statusFromLock.value = string
+                statusFromLock.accept(string)
                 
                 peripheral.setNotifyValue(false, for: characteristic)
                 centralManager.cancelPeripheralConnection(peripheral)

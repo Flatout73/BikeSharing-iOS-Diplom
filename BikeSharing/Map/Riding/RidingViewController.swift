@@ -25,6 +25,7 @@ class RidingViewController: UIViewController {
     var coreDataManager: CoreDataManager! //injected
     var apiService: ApiService!
     var mapkitManager: MapKitManager!
+    var bluetoothManager: BluetoothManager!
     
     @IBOutlet var mapView: MKMapView!
     
@@ -52,7 +53,7 @@ class RidingViewController: UIViewController {
             locationManager.startUpdatingLocation()
         }
         
-        BluetoothManager.shared.statusFromLock.asObservable().subscribe(onNext: { status in
+        bluetoothManager.statusFromLock.asObservable().subscribe(onNext: { status in
             if status == "CLOSED" {
                 self.close(self)
             } else if status.contains("@") {
@@ -193,31 +194,25 @@ class RidingViewController: UIViewController {
                         switch result {
                         case .success(let ride):
                             self.coreDataManager.saveOneRide(by: ride)
-                            self.apiService.payRequest(token: self.paymentInfo.token, amount: ride.cost ?? 50.0) { error in
-                                MBProgressHUD.hide(for: self.view, animated: true)
-                                if let error = error {
-                                    NotificationBanner.showErrorBanner(error.localizedDescription)
-                                } else {
+                            
+                            self.apiService.payRequest(token: self.paymentInfo.token, ride: ride) { response in
+                                switch response {
+                                case .success(let transaction):
+                                    MBProgressHUD.hide(for: self.view, animated: true)
+                                    
                                     self.timer?.invalidate()
                                     self.endingRide = ride
                                     guard let controller = storyboard.instantiateViewController(withIdentifier: "RideInfoViewController") as? RideInfoViewController else { return }
                                     controller.ride = ride
-                                    //                let navigationItem = UINavigationItem(title: "Info")
-                                    //                navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.dismiss))
-                                    //
-                                    //                let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: 300, height: 40))
-                                    //                navigationBar.setItems([navigationItem], animated: false)
-                                    //                controller.view.addSubview(navigationBar)
-                                    
-                                    //                (controller as? RideInfoViewController)?.completionHandler = {
-                                    //                    self.dismiss(animated: false, completion: nil)
-                                    //                }
-                                    
                                     self.navigationController?.pushViewController(controller, animated: true)
-                                    //self.present(controller, animated: true, completion: nil)
+                                    
+                                case .failure(let error):
+                                    MBProgressHUD.hide(for: self.view, animated: true)
+                                    NotificationBanner.showErrorBanner(error.localizedDescription)
                                 }
                             }
                         case .failure(let error):
+                            MBProgressHUD.hide(for: self.view, animated: true)
                             NotificationBanner.showErrorBanner(error.localizedDescription)
                         }
                     }

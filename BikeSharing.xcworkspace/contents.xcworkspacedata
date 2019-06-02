@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:BikeSharing/Transaction+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
       location = "group:BikeSharing.xcodeproj">
    </FileRef>
    <FileRef
