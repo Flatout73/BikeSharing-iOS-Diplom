@@ -18,6 +18,18 @@ import MapKit
     
     @IBOutlet var addressLabel: UILabel!
     
+    var occupied = false {
+        didSet {
+            if occupied {
+                let str = NSAttributedString(string: "Отменить бронирование", attributes: routeButton.attributedTitle(for: .normal)?.attributes(at: 0, effectiveRange: nil))
+                routeButton.setAttributedTitle(str, for: .normal)
+            } else {
+                let str = NSAttributedString(string: "Построить маршрут и забронировать", attributes: routeButton.attributedTitle(for: .normal)?.attributes(at: 0, effectiveRange: nil))
+                routeButton.setAttributedTitle(str, for: .normal)
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

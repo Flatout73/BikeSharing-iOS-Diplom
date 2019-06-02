@@ -24,10 +24,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapMarker" translatesAutoresizingMaskIntoConstraints="NO" id="dM9-0N-eNa">
-                    <rect key="frame" x="31" y="32" width="24" height="41"/>
+                    <rect key="frame" x="8" y="32" width="24" height="41"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eyu-0a-xH4" customClass="BSButton" customModule="BikeSharing" customModuleProvider="target">
-                    <rect key="frame" x="31" y="89" width="97" height="65"/>
+                    <rect key="frame" x="8" y="89" width="120" height="65"/>
                     <color key="backgroundColor" name="TintColor"/>
                     <state key="normal">
                         <attributedString key="attributedTitle">
@@ -44,13 +44,13 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9D5-IM-9wX" customClass="BSButton" customModule="BikeSharing" customModuleProvider="target">
-                    <rect key="frame" x="192" y="106" width="97" height="48"/>
+                    <rect key="frame" x="192" y="89" width="120" height="65"/>
                     <color key="backgroundColor" name="TintColor"/>
                     <state key="normal">
                         <attributedString key="attributedTitle">
                             <fragment>
                                 <string key="content">Построить
- маршрут</string>
+ маршрут и забронировать</string>
                                 <attributes>
                                     <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <font key="NSFont" metaFont="system" size="15"/>
@@ -61,7 +61,7 @@
                     </state>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Баклавский проспект, д. 16" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7X-Xe-SSd">
-                    <rect key="frame" x="71" y="52" width="218.5" height="21"/>
+                    <rect key="frame" x="48" y="52" width="218.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -76,6 +76,7 @@
                 <constraint firstItem="XKB-og-qIa" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="0Mr-VV-p1D"/>
                 <constraint firstItem="q7X-Xe-SSd" firstAttribute="bottom" secondItem="dM9-0N-eNa" secondAttribute="bottom" id="4sL-L4-Olz"/>
                 <constraint firstItem="XKB-og-qIa" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.2" id="9En-Na-ecR"/>
+                <constraint firstItem="9D5-IM-9wX" firstAttribute="height" secondItem="Eyu-0a-xH4" secondAttribute="height" id="Ilp-o9-gan"/>
                 <constraint firstItem="dM9-0N-eNa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="Jl1-aX-gLw"/>
                 <constraint firstItem="9D5-IM-9wX" firstAttribute="width" secondItem="Eyu-0a-xH4" secondAttribute="width" id="NHP-Ga-KZK"/>
                 <constraint firstAttribute="bottom" secondItem="Eyu-0a-xH4" secondAttribute="bottom" constant="16" id="RIK-yb-9Wa"/>

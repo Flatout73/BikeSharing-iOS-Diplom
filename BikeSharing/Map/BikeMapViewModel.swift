@@ -15,7 +15,8 @@ protocol BikeMapViewModel {
     var items: Observable<[BikeViewModel]> { get }
     var mapkitManager: MapKitManager { get }
     
-    func rentBike(_ articleViewModel: BikeViewModel)
+    func bookBike(_ bike: BikeViewModel, occupied: Bool) -> Observable<String>
+    func rentBike(_ bike: BikeViewModel)
     func calculateRoute(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D, completion: @escaping (MKRoute?)->Void)
 }
 
@@ -60,6 +61,19 @@ class BaseBikeMapViewModel: BikeMapViewModel {
             print("disposed")
         })
             .disposed(by: disposeBag)
+    }
+    
+    func bookBike(_ bike: BikeViewModel, occupied: Bool) -> Observable<String> {
+        return service.apiService.sessionManager.value.rx.request(.put, ApiService.serverURL + "/bikes/booking", parameters: ["id": bike.id, "occupied": occupied])
+            .data()
+            .flatMap { data -> Observable<String> in
+                guard let string = String(data: data, encoding: .utf8) else {
+                    return Observable.error(BSError.parseError)
+                }
+                
+                return Observable.just(string)
+                
+        }
     }
     
     func rentBike(_ bike: BikeViewModel) {

@@ -55,15 +55,35 @@ class MapViewController: UIViewController {
             guard let bike = self.bikeInfoView.bike,
                     let sourceLocation = self.mapView.userLocation.location?.coordinate
                 else { return }
-            self.viewModel.calculateRoute(sourceLocation: sourceLocation, destinationLocation: bike.location.coordinate) { route in
-                guard let route = route else {
-                    NotificationBanner.showErrorBanner("Не удалось построить маршрут")
-                    return
+            
+            if !self.bikeInfoView.occupied {
+                self.viewModel.calculateRoute(sourceLocation: sourceLocation, destinationLocation: bike.location.coordinate) { route in
+                    guard let route = route else {
+                        NotificationBanner.showErrorBanner("Не удалось построить маршрут")
+                        return
+                    }
+                    self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+                    
+                    let rect = route.polyline.boundingMapRect
+                    self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
                 }
-                self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
                 
-                let rect = route.polyline.boundingMapRect
-                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+                self.viewModel.bookBike(bike, occupied: true).subscribeOn(MainScheduler.instance).subscribe(onNext: { string in
+                    NotificationBanner.showSuccessBanner("Велосипед успешно забронирован")
+                    self.bikeInfoView.occupied = true
+                    
+                }, onError: { error in
+                    NotificationBanner.showErrorBanner(error.localizedDescription)
+                })
+            } else {
+                self.mapView.removeOverlays(self.mapView.overlays)
+                
+                self.viewModel.bookBike(bike, occupied: false).subscribe(onNext: { string in
+                    NotificationBanner.showSuccessBanner("Бронирование отменено")
+                    self.bikeInfoView.occupied = false
+                }, onError: { error in
+                    NotificationBanner.showErrorBanner(error.localizedDescription)
+                })
             }
         }.disposed(by: disposeBag)
     }
@@ -120,7 +140,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let bike = (view.annotation as? BikeAnnotation)?.bike else {
+        guard let bike = (view.annotation as? BikeAnnotation)?.bike, !bikeInfoView.occupied else {
             return
         }
         
