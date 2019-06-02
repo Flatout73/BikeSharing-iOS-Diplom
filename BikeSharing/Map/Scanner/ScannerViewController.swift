@@ -30,6 +30,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     var apiService: ApiService!
     var coreDataManager: CoreDataManager!
+    var mapkitManager: MapKitManager!
+    
     var startLocation: Point!
     
     var token: STPToken?
@@ -147,7 +149,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             switch result {
             case .success(let bike):
                 self.bike = bike
-                AddressManager.shared.address(for: self.bike.location) { address in
+                self.mapkitManager.address(for: self.bike.location) { address in
                     self.bike.address = address
                     self.createPayment()
                 }

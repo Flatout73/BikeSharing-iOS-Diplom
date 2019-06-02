@@ -40,8 +40,6 @@ class MapViewController: UIViewController {
         
         mapView.delegate = self
         
-        checkLocationAuthorization()
-        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -54,44 +52,20 @@ class MapViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         bikeInfoView.routeButton.rx.tap.bind {
-            guard let bike = self.bikeInfoView.bike else { return }
-            self.showRoute(destinationLocation: bike.location.coordinate)
-        }.disposed(by: disposeBag)
-    }
-    
-    func showRoute(destinationLocation: CLLocationCoordinate2D) {
-        guard let sourceLocation = mapView.userLocation.location?.coordinate else { return }
-        
-        let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
-        let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
-        
-        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-        
-        let directionRequest = MKDirections.Request()
-        directionRequest.source = sourceMapItem
-        directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .walking
-        
-        // Calculate the direction
-        let directions = MKDirections(request: directionRequest)
-        
-        directions.calculate { response, error in
-            
-            guard let response = response else {
-                if let error = error {
-                    print("Error: \(error)")
+            guard let bike = self.bikeInfoView.bike,
+                    let sourceLocation = self.mapView.userLocation.location?.coordinate
+                else { return }
+            self.viewModel.calculateRoute(sourceLocation: sourceLocation, destinationLocation: bike.location.coordinate) { route in
+                guard let route = route else {
+                    NotificationBanner.showErrorBanner("Не удалось построить маршрут")
+                    return
                 }
+                self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
                 
-                return
+                let rect = route.polyline.boundingMapRect
+                self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
-            
-            let route = response.routes[0]
-            self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
-            
-            let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-        }
+        }.disposed(by: disposeBag)
     }
     
     func checkLocationAuthorization() {
@@ -120,7 +94,7 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
+        checkLocationAuthorization()
         changeMapRegion()
     }
 }
@@ -150,7 +124,7 @@ extension MapViewController: MKMapViewDelegate {
             return
         }
         
-        bikeInfoView.show(for: bike)
+        bikeInfoView.show(for: bike, mapkitManager: viewModel.mapkitManager)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

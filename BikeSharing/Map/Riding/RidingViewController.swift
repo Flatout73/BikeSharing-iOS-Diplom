@@ -24,6 +24,7 @@ class RidingViewController: UIViewController {
     
     var coreDataManager: CoreDataManager! //injected
     var apiService: ApiService!
+    var mapkitManager: MapKitManager!
     
     @IBOutlet var mapView: MKMapView!
     
@@ -186,7 +187,7 @@ class RidingViewController: UIViewController {
         } else {
             MBProgressHUD.showAdded(to: self.view, animated: true)
             makeSnapshot(for: endRide) { image in
-                AddressManager.shared.address(for: endRide.endLocation!) { address in
+                self.mapkitManager.address(for: endRide.endLocation!) { address in
                     endRide.endAddress = address
                     self.apiService.endRide(endRide, with: image) { result in
                         switch result {

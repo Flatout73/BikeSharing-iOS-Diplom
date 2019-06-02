@@ -44,10 +44,10 @@ import MapKit
         self.transform = CGAffineTransform.init(translationX: 0, y: -self.frame.height)
     }
     
-    func show(for bike: BikeViewModel) {
+    func show(for bike: BikeViewModel, mapkitManager: MapKitManager) {
         self.bike = bike
         
-        AddressManager.shared.address(for: bike.location) { address in
+        mapkitManager.address(for: bike.location) { address in
             self.bike?.address = address
             self.addressLabel.text = address
         }

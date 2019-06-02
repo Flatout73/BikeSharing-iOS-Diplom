@@ -31,11 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         
-        if Defaults[.userId] == nil {
-            DispatchQueue.main.async {
-                self.window?.rootViewController?.performSegue(withIdentifier: "loginSegue", sender: nil)
-            }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        if Defaults[.token] == nil {
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+                self.window?.rootViewController = vc
+                //self.window?.rootViewController?.performSegue(withIdentifier: "loginSegue", sender: nil)
+            
         } else {
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarVC")
+            self.window?.rootViewController = vc
             registerForPushNotifications()
         }
         
@@ -115,7 +120,7 @@ extension AppDelegate {
 }
 
 extension DefaultsKeys {
-    static let userId = DefaultsKey<Int?>("userId")
+    static let token = DefaultsKey<String?>("token")
 }
 
 extension SwinjectStoryboard {
@@ -128,6 +133,10 @@ extension SwinjectStoryboard {
             return ApiService()
         }
         
+        defaultContainer.register(MapKitManager.self) { _ in
+            return MapKitManager()
+        }
+        
         defaultContainer.register(AccountService.self) { resolver in
             return AccountService(coreDataManager: resolver.resolve(CoreDataManager.self)!)
         }
@@ -135,11 +144,13 @@ extension SwinjectStoryboard {
         defaultContainer.storyboardInitCompleted(RidingViewController.self) { resolver, controller in
             controller.coreDataManager = resolver.resolve(CoreDataManager.self)
             controller.apiService = resolver.resolve(ApiService.self)
+            controller.mapkitManager = resolver.resolve(MapKitManager.self)
         }
         
         defaultContainer.storyboardInitCompleted(ScannerViewController.self) { resolver, controller in
             controller.apiService = resolver.resolve(ApiService.self)
             controller.coreDataManager = resolver.resolve(CoreDataManager.self)
+            controller.mapkitManager = resolver.resolve(MapKitManager.self)
         }
         
         defaultContainer.storyboardInitCompleted(LoginViewController.self) { resolver, controller in

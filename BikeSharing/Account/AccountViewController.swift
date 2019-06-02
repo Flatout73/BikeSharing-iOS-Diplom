@@ -36,7 +36,7 @@ class AccountTableViewController: UITableViewController {
 
     func exitFromApp() {
         service.coreDataManager.destroyDatabase()
-        Defaults[.userId] = nil
+        Defaults[.token] = nil
         
         exit(0)
     }

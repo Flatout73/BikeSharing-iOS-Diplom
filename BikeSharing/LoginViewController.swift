@@ -18,6 +18,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet var googleLoginButton: GIDSignInButton!
     @IBOutlet var fbLoginButton: FBLoginButton!
     
+    
+    
     var apiService: ApiService!
     
     var coreDataManager: CoreDataManager?
@@ -34,6 +36,14 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
 //        if AccessToken.isCurrentAccessTokenActive {
 //           // token.userID
 //        }
+    }
+    
+    func presentTabBar() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
+        vc.transitioningDelegate = self
+     
+        self.present(vc, animated: true, completion: nil)
     }
 
 }
@@ -57,10 +67,8 @@ extension LoginViewController: GIDSignInDelegate {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch result {
                 case .success(let user):
-                    self.coreDataManager?.saveModel(viewModel: user)
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
+                 //   self.coreDataManager?.saveModel(viewModel: user)
+                    self.presentTabBar()
                 case .failure(let error):
                     NotificationBanner.showErrorBanner(error.localizedDescription)
                 }
@@ -80,10 +88,13 @@ extension LoginViewController: GIDSignInDelegate {
 extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
         let token = result.token!
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         apiService.loginRequest(idToken: token.tokenString, isGoogle: false) { result in
+            MBProgressHUD.hide(for: self.view, animated: true)
             switch result {
             case .success(let user):
                 print(user)
+                self.presentTabBar()
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -95,4 +106,10 @@ extension LoginViewController: LoginButtonDelegate {
     }
     
     
+}
+
+extension LoginViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FlipPresentAnimationController()
+    }
 }

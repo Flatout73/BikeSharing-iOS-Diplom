@@ -12,11 +12,13 @@ import FBSDKCoreKit
 import Alamofire
 import SwiftyUserDefaults
 import RxSwift
+import RxCocoa
 
 class ApiService {
-    static let serverURL = "http://localhost:8443/api" //"https://my-bike-sharing.herokuapp.com/api"
+    static let serverURLWithoutApi = "http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
+    static let serverURL = serverURLWithoutApi + "/api"
     
-    var sessionManager = Variable<SessionManager>(Alamofire.SessionManager.default)
+    let sessionManager = BehaviorRelay<SessionManager>(value: Alamofire.SessionManager.default)
     
     let jsonEncoder = JSONEncoder()
     let jsonDecoder = JSONDecoder()
@@ -28,18 +30,18 @@ class ApiService {
     }
     
     func setUserID() {
-        if let userID = Defaults[.userId] {
+        if let userID = Defaults[.token] {
             var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
-            defaultHeaders["BS-User"] = String(userID)
+            defaultHeaders["Authorization"] = "Bearer \(userID)" //String(userID)
             
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = defaultHeaders
-            sessionManager.value = Alamofire.SessionManager(configuration: configuration)
+            sessionManager.accept(Alamofire.SessionManager(configuration: configuration))
         }
     }
     
-    func loginRequest(idToken: String, isGoogle: Bool = true, completion: @escaping (Swift.Result<UserViewModel, BSError>) -> Void) {
-        var urlRequest = URLRequest(url: URL(string: ApiService.serverURL + "/tokensignin" + (isGoogle ? "/true" : "/false"))!)
+    func loginRequest(idToken: String, isGoogle: Bool = true, completion: @escaping (Swift.Result<String, BSError>) -> Void) {
+        var urlRequest = URLRequest(url: URL(string: ApiService.serverURLWithoutApi + "/tokensignin" + (isGoogle ? "/true" : "/false"))!)
        // urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = idToken.data(using: .utf8)
@@ -51,14 +53,17 @@ class ApiService {
                 return
             }
             
-            guard let user = try? self.jsonDecoder.decode(UserViewModel.self, from: data) else {
-                completion(.failure(.parseError))
+            guard let jwttoken = String(data: data, encoding: .utf8) else {
                 return
             }
-            Defaults[.userId] = Int(user.id)
+//            guard let user = try? self.jsonDecoder.decode(UserViewModel.self, from: data) else {
+//                completion(.failure(.parseError))
+//                return
+//            }
+            Defaults[.token] = jwttoken
             Defaults.synchronize()
             self.setUserID()
-            completion(.success(user))
+            completion(.success(jwttoken))
         }
     }
     

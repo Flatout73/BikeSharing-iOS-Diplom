@@ -9,19 +9,29 @@
 import RxSwift
 import RxAlamofire
 import Alamofire
+import MapKit
 
 protocol BikeMapService {
     var apiService: ApiService { get }
+    var mapkitManager: MapKitManager { get }
+    
     func getAllBikes() -> Observable<[BikeViewModel]>
+    func getRouteForBike(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D, completion: @escaping (MKRoute?)->Void)
 }
 
 class BaseBikeMapService: BikeMapService {
     let coreDataManager: CoreDataManager
     let apiService: ApiService
+    let mapkitManager: MapKitManager
     
-    init(coreDataManager: CoreDataManager, apiService: ApiService) {
+    init(coreDataManager: CoreDataManager, mapkitManager: MapKitManager, apiService: ApiService) {
         self.coreDataManager = coreDataManager
+        self.mapkitManager = mapkitManager
         self.apiService = apiService
+    }
+    
+    func getRouteForBike(sourceLocation: CLLocationCoordinate2D, destinationLocation: CLLocationCoordinate2D, completion: @escaping (MKRoute?)->Void) {
+        mapkitManager.calculateRoute(sourceLocation: sourceLocation, destinationLocation: destinationLocation, completion: completion)
     }
     
     func getAllBikes() -> Observable<[BikeViewModel]> {
