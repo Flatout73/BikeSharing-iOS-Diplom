@@ -66,6 +66,8 @@ class RidingViewController: UIViewController {
                 self.currentBikeLocation = Point(latitude: lat, longitude: lon)
             }
         }).disposed(by: disposeBag)
+        
+        AnalyticsHelper.event(name: "riding_start")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,6 +201,8 @@ class RidingViewController: UIViewController {
                                 switch response {
                                 case .success(let transaction):
                                     MBProgressHUD.hide(for: self.view, animated: true)
+                                    
+                                    AnalyticsHelper.event(name: "riding_end")
                                     
                                     self.timer?.invalidate()
                                     self.endingRide = ride

@@ -58,16 +58,16 @@ extension LoginViewController: GIDSignInDelegate {
             let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
             let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
             let email = user.profile.email
+            let imageURL = user.profile.imageURL(withDimension: 400)
             
             MBProgressHUD.showAdded(to: self.view, animated: true)
             apiService.loginRequest(idToken: idToken!) { result in
                 MBProgressHUD.hide(for: self.view, animated: true)
                 switch result {
-                case .success(let user):
-                 //   self.coreDataManager?.saveModel(viewModel: user)
+                case .success(_):
+                    let user = UserViewModel(id: 1, email: email, googleID: userId, facebookID: nil, pictureURL: imageURL?.path, locale: nil, name: fullName)
+                    self.coreDataManager?.saveModel(viewModel: user)
                     self.presentTabBar()
                 case .failure(let error):
                     NotificationBanner.showErrorBanner(error.localizedDescription)
@@ -91,6 +91,8 @@ extension LoginViewController: LoginButtonDelegate {
             NotificationBanner.showErrorBanner("Ошибка входа")
             return
         }
+        
+ 
         MBProgressHUD.showAdded(to: self.view, animated: true)
         apiService.loginRequest(idToken: token.tokenString, isGoogle: false) { result in
             MBProgressHUD.hide(for: self.view, animated: true)

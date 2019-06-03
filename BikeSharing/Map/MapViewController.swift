@@ -116,6 +116,8 @@ class MapViewController: UIViewController {
         super.viewWillAppear(animated)
         checkLocationAuthorization()
         changeMapRegion()
+        
+        AnalyticsHelper.event(name: "show_map")
     }
 }
 

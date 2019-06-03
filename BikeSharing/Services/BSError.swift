@@ -8,10 +8,23 @@
 
 import Foundation
 
-enum BSError: Error {
+enum BSError: LocalizedError {
     case userError
     case parseError
     case unknownError
     
     case paymentError(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .userError:
+            return "Ошибка пользователя"
+        case .unknownError:
+            return "Неизвестная ошибка"
+        case .parseError:
+            return "Ошибка парсинга"
+        case .paymentError(let message):
+            return message
+        }
+    }
 }

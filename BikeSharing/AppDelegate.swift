@@ -102,6 +102,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         print("Device Token: \(token)")
+        
+        
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -165,6 +167,11 @@ extension SwinjectStoryboard {
         
         defaultContainer.storyboardInitCompleted(AccountTableViewController.self) { resolver, controller in
             controller.service = resolver.resolve(AccountService.self)
+        }
+        
+        defaultContainer.storyboardInitCompleted(FeedbackViewController.self) { resolver, controller in
+            controller.apiService = resolver.resolve(ApiService.self)
+            controller.coreDataManager = resolver.resolve(CoreDataManager.self)
         }
     }
 }

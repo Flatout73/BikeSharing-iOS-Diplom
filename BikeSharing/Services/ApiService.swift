@@ -212,7 +212,7 @@ class ApiService {
     }
     
     func sendFeedback(_ feedback: FeedBackViewModel, completion: @escaping (Swift.Result<FeedBackViewModel, Error>)->Void) {
-        var request = URLRequest(url: URL(string: ApiService.serverURL + "/rides/start")!)
+        var request = URLRequest(url: URL(string: ApiService.serverURL + "/feedback")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(feedback)
@@ -228,6 +228,14 @@ class ApiService {
                 completion(.success(feedback))
             } catch {
                 completion(.failure(BSError.parseError))
+            }
+        }
+    }
+    
+    func registerPushNotifications(token: String) {
+        sessionManager.value.request(ApiService.serverURL + "/register", method: .post, parameters: ["token": token], encoding: JSONEncoding.default, headers: nil).responseData { response in
+            guard let data = response.data else {
+                return
             }
         }
     }

@@ -102,7 +102,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             captureSession.startRunning()
         }
         
-         bluetoothManager.scan()
+        bluetoothManager.scan()
+        
+        AnalyticsHelper.event(name: "scan")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -145,6 +147,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 createPayment() //заменить
                 return
             }
+        
+        AnalyticsHelper.event(name: "found_QRcode")
         
         apiService.getBike(by: id) { result in
             switch result {
@@ -199,7 +203,7 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
                 }
                 return
             }
-            
+            AnalyticsHelper.event(name: "payment_success")
             self.token = token
             
             completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
@@ -220,8 +224,10 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
                         self.paymentBike.onNext(PaymentModel(token: paymentToken, ride: ride))
                     
                         if self.bluetoothManager.isReady {
+                            AnalyticsHelper.event(name: "lock_open")
                             self.bluetoothManager.sendMessageToDevice("OPENLOCK")
                         } else {
+                            AnalyticsHelper.event(name: "lock_noConnnections")
                             NotificationBanner.showErrorBanner("Нет подключения к замку")
                         }
                     }

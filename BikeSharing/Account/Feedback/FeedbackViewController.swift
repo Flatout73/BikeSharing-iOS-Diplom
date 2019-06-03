@@ -24,6 +24,8 @@ class FeedbackViewController: UIViewController {
         self.feedbackTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.feedbackTextView.layer.borderWidth = 1
         self.feedbackTextView.layer.cornerRadius = 8
+        
+        AnalyticsHelper.event(name: "feedback_open")
     }
     
     @IBAction func sendFeedback(_ sender: Any) {

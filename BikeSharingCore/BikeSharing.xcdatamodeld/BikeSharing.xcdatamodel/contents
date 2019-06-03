@@ -45,7 +45,7 @@
         <attribute name="googleID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="locale" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="serverID" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="serverID" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="ride" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ride" inverseName="user" inverseEntity="Ride" syncable="YES"/>
     </entity>
     <elements>
@@ -53,6 +53,6 @@
         <element name="Location" positionX="96.625" positionY="-99.5859375" width="128" height="88"/>
         <element name="Ride" positionX="-191.71484375" positionY="-71.62109375" width="128" height="268"/>
         <element name="Transaction" positionX="173.22265625" positionY="241.953125" width="128" height="135"/>
-        <element name="User" positionX="-151.90234375" positionY="311.171875" width="128" height="163"/>
+        <element name="User" positionX="-151.90234375" positionY="311.171875" width="128" height="165"/>
     </elements>
 </model>

@@ -41,21 +41,6 @@ class BaseBikeMapService: BikeMapService {
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
         let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/bikes/all", parameters: nil)
             .data()
-//            .map { data -> Observable<[BikeViewModel]> in
-//                guard let bikes = try? self.jsonDecoder.decode([BikeViewModel].self, from: data) else {
-//                    return Observable.error(BSError.parseError)
-//                }
-//                return Observable.create({ observer in
-//                    bikes.map { bike in
-//                        self.geocoder.reverseGeocodeLocation(CLLocation(latitude: bike.location.latitude, longitude: bike.location.longitude), preferredLocale: self.locale) { placemarks, error in
-//                            var newBike = bike
-//                            newBike.address = placemarks?.first?.name
-//                        }
-//                    }
-//
-//                    return Disposables.create()
-//                })
-//            }
             .flatMap { data -> Observable<[BikeViewModel]> in
                 guard let bikes = try? self.apiService.jsonDecoder.decode([BikeViewModel].self, from: data) else {
                     return Observable.error(BSError.parseError)
