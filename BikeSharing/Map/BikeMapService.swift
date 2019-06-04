@@ -41,6 +41,11 @@ class BaseBikeMapService: BikeMapService {
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
         let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/bikes/all", parameters: nil)
             .data()
+//            .catchError({ error -> Observable<Data> in
+//                NotificationBanner.showErrorBanner(error.localizedDescription)
+//        
+//                return Observable.error(BSError.unknownError)
+//            })
             .flatMap { data -> Observable<[BikeViewModel]> in
                 guard let bikes = try? self.apiService.jsonDecoder.decode([BikeViewModel].self, from: data) else {
                     return Observable.error(BSError.parseError)

@@ -28,6 +28,12 @@ class FeedbackViewController: UIViewController {
         AnalyticsHelper.event(name: "feedback_open")
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+         self.view.endEditing(true)
+    }
+    
     @IBAction func sendFeedback(_ sender: Any) {
         guard let text = feedbackTextView.text else {
             NotificationBanner.showErrorBanner("Напишите фидбек")

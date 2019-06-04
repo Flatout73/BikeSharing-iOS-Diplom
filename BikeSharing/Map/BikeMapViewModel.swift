@@ -53,12 +53,6 @@ class BaseBikeMapViewModel: BikeMapViewModel {
         
         self.service.apiService.sessionManager.asObservable().subscribe(onNext: { value in
             self.triggerText.accept("")
-        }, onError: {error in
-            print(error)
-        }, onCompleted: {
-            print("kek")
-        },onDisposed: {
-            print("disposed")
         })
             .disposed(by: disposeBag)
     }

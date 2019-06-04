@@ -36,6 +36,8 @@ class MapViewController: UIViewController {
             self.mapView.addAnnotations(bikes.map {
                 BikeAnnotation(bike: $0)
             })
+        }, onError: { error in
+            NotificationBanner.showErrorBanner(error.localizedDescription)
         })
         
         mapView.delegate = self

@@ -15,7 +15,7 @@ import RxSwift
 import RxCocoa
 
 class ApiService {
-    static let serverURLWithoutApi = "http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
+    static let serverURLWithoutApi = "https://my-bike-sharing.herokuapp.com"// "http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
     static let serverURL = serverURLWithoutApi + "/api"
     
     let sessionManager = BehaviorRelay<SessionManager>(value: Alamofire.SessionManager.default)
@@ -42,7 +42,6 @@ class ApiService {
     
     func loginRequest(idToken: String, isGoogle: Bool = true, completion: @escaping (Swift.Result<String, BSError>) -> Void) {
         var urlRequest = URLRequest(url: URL(string: ApiService.serverURLWithoutApi + "/tokensignin" + (isGoogle ? "/true" : "/false"))!)
-       // urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
         urlRequest.httpBody = idToken.data(using: .utf8)
         
@@ -53,10 +52,6 @@ class ApiService {
                 return
             }
         
-//            guard let user = try? self.jsonDecoder.decode(UserViewModel.self, from: data) else {
-//                completion(.failure(.parseError))
-//                return
-//            }
             Defaults[.token] = jwttoken
             Defaults.synchronize()
             self.setUserID()
@@ -137,11 +132,6 @@ class ApiService {
     }
     
     func endRide(_ ride: RideViewModel, with image: UIImage, completion: @escaping (Swift.Result<RideViewModel, Error>)->()) {
-//        var request = URLRequest(url: URL(string: ApiService.serverURL + "/api/rides/end")!)
-//        request.httpMethod = HTTPMethod.put.rawValue
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = try! jsonEncoder.encode(ride)
-        
         let headers = [
             "Content-type": "multipart/form-data",
             "Content-Disposition" : "form-data"
@@ -175,39 +165,7 @@ class ApiService {
                 print(error.localizedDescription)
 
             }
-//            if let error = response.error {
-//                completion(.failure(error))
-//                return
-//            }
-//            guard let rideData = response.data else {
-//                completion(.failure(response.error ?? BSError.unknownError))
-//                return
-//            }
-//
-//            do {
-//                let ride = try self.jsonDecoder.decode(RideViewModel.self, from: rideData)
-//                completion(.success(ride))
-//            } catch {
-//                completion(.failure(BSError.parseError))
-//            }
         })
-//        sessionManager.value.request(request).validate(validate).response { response in
-//            if let error = response.error {
-//                completion(.failure(error))
-//                return
-//            }
-//            guard let rideData = response.data else {
-//                completion(.failure(response.error ?? BSError.unknownError))
-//                return
-//            }
-//
-//            do {
-//                let ride = try self.jsonDecoder.decode(RideViewModel.self, from: rideData)
-//                completion(.success(ride))
-//            } catch {
-//                completion(.failure(BSError.parseError))
-//            }
-//        }
         
     }
     
@@ -232,8 +190,13 @@ class ApiService {
         }
     }
     
-    func registerPushNotifications(token: String) {
-        sessionManager.value.request(ApiService.serverURL + "/register", method: .post, parameters: ["token": token], encoding: JSONEncoding.default, headers: nil).responseData { response in
+    class func registerPushNotifications(token: String) {
+        guard let jwt = Defaults[.token] else { return }
+        Alamofire.request(ApiService.serverURL + "/notification/register?token=\(token)", method: .post,
+                          parameters: nil, encoding: JSONEncoding.default,
+                          headers: ["Authorization": "Bearer \(jwt)",
+                                    "Content-Type": "application/json"
+                            ]).responseData { response in
             guard let data = response.data else {
                 return
             }

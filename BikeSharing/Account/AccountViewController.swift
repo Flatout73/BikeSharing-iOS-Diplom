@@ -28,13 +28,12 @@ class AccountTableViewController: UITableViewController {
             }
         }
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         AnalyticsHelper.event(name: "account_show")
     }
-    
+  
     func paymentMethod() {
         guard let controller = self.storyboard?.instantiateViewController(withIdentifier: "PaymentMethodController") else { return }
         self.navigationController?.pushViewController(controller, animated: true)

@@ -137,7 +137,7 @@
                         <sections>
                             <tableViewSection id="NvL-Lx-kno">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="Xzu-Ah-bAT" style="IBUITableViewCellStyleDefault" id="O3j-jP-ag0">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" textLabel="Xzu-Ah-bAT" style="IBUITableViewCellStyleDefault" id="O3j-jP-ag0">
                                         <rect key="frame" x="0.0" y="35" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O3j-jP-ag0" id="ldt-Lo-l0c">
@@ -170,10 +170,10 @@
             </objects>
             <point key="canvasLocation" x="1412" y="868"/>
         </scene>
-        <!--Feedback View Controller-->
+        <!--Фидбек-->
         <scene sceneID="TDv-Hu-JHu">
             <objects>
-                <viewController storyboardIdentifier="FeedbackController" id="RmU-x4-X8K" customClass="FeedbackViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedbackController" title="Фидбек" id="RmU-x4-X8K" customClass="FeedbackViewController" customModule="BikeSharing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vs8-pa-opv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -205,13 +205,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xjg-nI-w6L">
-                                <rect key="frame" x="16" y="239" width="382" height="545"/>
+                                <rect key="frame" x="16" y="239" width="382" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7Lr-dU-7Rk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1v-Mq-fI6" customClass="BSButton" customModule="BikeSharing" customModuleProvider="target">
-                                <rect key="frame" x="16" y="800" width="382" height="30"/>
+                                <rect key="frame" x="16" y="355" width="382" height="30"/>
                                 <state key="normal" title="Отправить">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -242,7 +245,6 @@
                             <constraint firstItem="oyX-4w-zNB" firstAttribute="top" secondItem="fn7-Lq-H7e" secondAttribute="top" constant="16" id="bPj-EV-H2Z"/>
                             <constraint firstItem="HMC-ib-Ggr" firstAttribute="leading" secondItem="fn7-Lq-H7e" secondAttribute="leading" constant="16" id="fDP-QS-dae"/>
                             <constraint firstItem="fn7-Lq-H7e" firstAttribute="trailing" secondItem="wyw-V7-QUS" secondAttribute="trailing" constant="16" id="g9K-R0-h7Z"/>
-                            <constraint firstItem="fn7-Lq-H7e" firstAttribute="bottom" secondItem="K1v-Mq-fI6" secondAttribute="bottom" constant="32" id="ghA-8J-5h6"/>
                             <constraint firstItem="Xjg-nI-w6L" firstAttribute="trailing" secondItem="wyw-V7-QUS" secondAttribute="trailing" id="omT-fV-04a"/>
                             <constraint firstItem="HMC-ib-Ggr" firstAttribute="top" secondItem="oyX-4w-zNB" secondAttribute="bottom" constant="8" id="rYE-0b-ZGp"/>
                             <constraint firstItem="5Pk-RI-AOT" firstAttribute="top" secondItem="wyw-V7-QUS" secondAttribute="bottom" constant="16" id="sFB-J5-Bna"/>
