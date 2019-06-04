@@ -55,6 +55,31 @@ class CoreDataManager {
         } else {
             print("kek")
         }
+        
+        if let transcation = viewModel.transaction {
+            let trans = saveOrCreateTransaction(by: transcation, in: context)
+            ride.transaction = trans
+        }
+    }
+    
+    func saveOrCreateTransaction(by viewModel: TransactionViewModel, in context: NSManagedObjectContext) -> Transaction {
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "token == %ld", viewModel.token)
+        let transaction: Transaction
+        if let saved = try? context.fetch(fetchRequest).first {
+            transaction = saved
+        } else {
+            transaction = Transaction(context: context)
+        }
+        if let id = viewModel.id {
+            transaction.serverID = id
+        }
+        transaction.cost = viewModel.cost ?? 0
+        transaction.desc = viewModel.description
+        transaction.token = viewModel.token
+        transaction.currency = viewModel.currency
+        
+        return transaction
     }
     
     func saveOrCreateBike(by viewModel: BikeViewModel, in context: NSManagedObjectContext) -> Bike {
@@ -130,6 +155,7 @@ class CoreDataManager {
     
     func fetchRides() -> [Ride] {
         let fetchRequest: NSFetchRequest<Ride> = Ride.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
         let rides = try! DataStore.shared.persistentContainer.viewContext.fetch(fetchRequest)
         
         return rides
@@ -147,5 +173,14 @@ class CoreDataManager {
             return
         }
         try! DataStore.shared.persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: url, ofType: NSSQLiteStoreType, options: nil)
+    }
+    
+    func findUnfinishedRide() -> [Ride] {
+        let fetchRequest: NSFetchRequest<Ride> = Ride.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "endDate == NULL", argumentArray: nil)
+        
+        let rides = try! DataStore.shared.persistentContainer.viewContext.fetch(fetchRequest)
+        
+        return rides
     }
 }

@@ -46,9 +46,6 @@ class BaseRideListViewModel: RideListViewModel {
             //make sure all subscribers use the same exact subscription
             .share(replay: 1)
         
-        service.apiService.sessionManager.asObservable().subscribe(onNext: { value in
-            self.triggerText.value = ""
-        })
     }
     
     func showRideInfo(_ rideViewModel: RideViewModel) {

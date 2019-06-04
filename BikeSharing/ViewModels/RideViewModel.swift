@@ -23,7 +23,7 @@ struct RideViewModel: Codable {
     var cost: Double?
     
     var bike: BikeViewModel?
-   // var transaction: TransactionViewModel?
+    var transaction: TransactionViewModel?
     
     var locations: [Point]?
     

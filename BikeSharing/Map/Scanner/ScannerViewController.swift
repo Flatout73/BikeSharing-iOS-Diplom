@@ -13,7 +13,7 @@ import Alamofire
 import RxSwift
 
 struct PaymentModel {
-    let token: STPToken
+    let stpToken: String
     let ride: RideViewModel
 }
 
@@ -215,13 +215,15 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
             self.dismiss(animated: true)
             return
         }
-        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, locations: nil, imageURL: nil)) { result in
+        let trans = TransactionViewModel(id: nil, token: paymentToken.tokenId, cost: nil, description: nil, currency: nil)
+        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, transaction: trans, locations: nil, imageURL: nil)) { result in
             switch result {
-            case .success(let ride):
+            case .success(var ride):
+                ride.transaction = trans
                 self.coreDataManager.saveOneRide(by: ride)
                 controller.dismiss(animated: true, completion: {
                     self.dismiss(animated: true) {
-                        self.paymentBike.onNext(PaymentModel(token: paymentToken, ride: ride))
+                        self.paymentBike.onNext(PaymentModel(stpToken: paymentToken.tokenId, ride: ride))
                     
                         if self.bluetoothManager.isReady {
                             AnalyticsHelper.event(name: "lock_open")
@@ -233,7 +235,11 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
                     }
                 })
             case .failure(let error):
-                NotificationBanner.showErrorBanner(error.localizedDescription)
+                controller.dismiss(animated: true, completion: {
+                    self.dismiss(animated: true) {
+                        NotificationBanner.showErrorBanner(error.localizedDescription)
+                    }
+                })
             }
            
         }

@@ -50,15 +50,10 @@ class BaseBikeMapViewModel: BikeMapViewModel {
             }
             //make sure all subscribers use the same exact subscription
             .share(replay: 1)
-        
-        self.service.apiService.sessionManager.asObservable().subscribe(onNext: { value in
-            self.triggerText.accept("")
-        })
-            .disposed(by: disposeBag)
     }
     
     func bookBike(_ bike: BikeViewModel, occupied: Bool) -> Observable<String> {
-        return service.apiService.sessionManager.value.rx.request(.put, ApiService.serverURL + "/bikes/booking", parameters: ["id": bike.id, "occupied": occupied])
+        return service.apiService.sessionManager.rx.request(.put, ApiService.serverURL + "/bikes/booking", parameters: ["id": bike.id, "occupied": occupied])
             .data()
             .flatMap { data -> Observable<String> in
                 guard let string = String(data: data, encoding: .utf8) else {

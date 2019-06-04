@@ -13,6 +13,8 @@ import FacebookCore
 import FacebookLogin
 import MBProgressHUD
 
+import AlamofireImage
+
 class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
     @IBOutlet var googleLoginButton: GIDSignInButton!
@@ -39,6 +41,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     func presentTabBar() {
+        UIImageView.af_sharedImageDownloader = ImageDownloader(sessionManager: ApiService().sessionManager)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
         vc.transitioningDelegate = self

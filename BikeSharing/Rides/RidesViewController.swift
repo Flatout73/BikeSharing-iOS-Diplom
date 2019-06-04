@@ -28,6 +28,7 @@ class RidesViewController: UIViewController {
             cell.selectionStyle = .none
             cell.startLabel.text = ride.startAddress
             cell.endLabel.text = ride.endAddress
+        
             if let image = ride.imageURL {
                 cell.mapImageView.af_setImage(withURL: image)
             }

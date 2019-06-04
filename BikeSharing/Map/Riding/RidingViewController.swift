@@ -197,7 +197,7 @@ class RidingViewController: UIViewController {
                         case .success(let ride):
                             self.coreDataManager.saveOneRide(by: ride)
                             
-                            self.apiService.payRequest(token: self.paymentInfo.token, ride: ride) { response in
+                            self.apiService.payRequest(token: self.paymentInfo.stpToken, ride: ride) { response in
                                 switch response {
                                 case .success(let transaction):
                                     MBProgressHUD.hide(for: self.view, animated: true)

@@ -17,6 +17,7 @@ import FBSDKCoreKit
 import SwiftyUserDefaults
 import Firebase
 import UserNotifications
+import AlamofireImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,21 +26,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let assembler = AppDelegate.createAssembler()
     
+    let coreDataManager = CoreDataManager()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         GIDSignIn.sharedInstance().clientID = "680941561279-iblnhng1op6pm79k0gk6dj6igd3eu7ch.apps.googleusercontent.com"
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
+    
+        let unfinishedRides = coreDataManager.findUnfinishedRide()
         
         if Defaults[.token] == nil {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
                 self.window?.rootViewController = vc
-                //self.window?.rootViewController?.performSegue(withIdentifier: "loginSegue", sender: nil)
+                window?.makeKeyAndVisible()
             
         } else {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarVC")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TabBarVC")
             self.window?.rootViewController = vc
+            window?.makeKeyAndVisible()
             registerForPushNotifications()
+            
+            UIImageView.af_sharedImageDownloader = ImageDownloader(sessionManager: ApiService().sessionManager)
+            
+            if let ride = unfinishedRides.last, let token = ride.transaction?.token {
+                let ridingVC = UIStoryboard(name: "Map", bundle: nil).instantiateViewController(withIdentifier: "RidingViewController") as! RidingViewController
+                ridingVC.paymentInfo = PaymentModel(stpToken: token, ride: ride.viewModel)
+                vc.present(UINavigationController(rootViewController: ridingVC), animated: true, completion: nil)
+            }
         }
         
         return true

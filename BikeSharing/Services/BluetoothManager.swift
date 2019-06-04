@@ -14,6 +14,7 @@ enum LockState {
     case sendUnlock
     case unlocked
     case locked
+    case none
 }
 
 class BluetoothManager: NSObject, CBCentralManagerDelegate {
@@ -40,7 +41,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
         }
     }
     
-    var lockState: LockState = .locked
+    var lockState: LockState = .none
     
     override init() {
         super.init()
@@ -222,6 +223,8 @@ extension BluetoothManager: CBPeripheralDelegate {
                 
                 peripheral.setNotifyValue(false, for: characteristic)
                 centralManager.cancelPeripheralConnection(peripheral)
+            } else if lockState == .none {
+                lockState = .locked
             }
         case "OPENED":
             if lockState == .sendUnlock {
@@ -229,6 +232,10 @@ extension BluetoothManager: CBPeripheralDelegate {
                 NotificationBanner.showSuccessBanner("Замок открыт!")
             } else if lockState == .locked {
                 NotificationBanner.showErrorBanner("Мошенничество!")
+            } else if lockState == .none {
+                lockState = .unlocked
+                
+                statusFromLock.accept("CONTINUE")
             }
         default:
             break

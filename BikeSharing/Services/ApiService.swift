@@ -18,7 +18,7 @@ class ApiService {
     static let serverURLWithoutApi = "https://my-bike-sharing.herokuapp.com"// "http://localhost:8443" //"https://my-bike-sharing.herokuapp.com"
     static let serverURL = serverURLWithoutApi + "/api"
     
-    let sessionManager = BehaviorRelay<SessionManager>(value: Alamofire.SessionManager.default)
+    var sessionManager = Alamofire.SessionManager.default
     
     let jsonEncoder = JSONEncoder()
     let jsonDecoder = JSONDecoder()
@@ -36,7 +36,7 @@ class ApiService {
             
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = defaultHeaders
-            sessionManager.accept(Alamofire.SessionManager(configuration: configuration))
+            sessionManager = Alamofire.SessionManager(configuration: configuration)
         }
     }
     
@@ -46,7 +46,7 @@ class ApiService {
         urlRequest.httpBody = idToken.data(using: .utf8)
         
         
-        sessionManager.value.request(urlRequest).validate(validate).responseData { response in
+        sessionManager.request(urlRequest).validate(validate).responseData { response in
             guard let data = response.data, let jwttoken = String(data: data, encoding: .utf8) else {
                 completion(.failure(BSError.userError))
                 return
@@ -59,9 +59,9 @@ class ApiService {
         }
     }
     
-    func payRequest(token: STPToken, ride: RideViewModel, completion: @escaping (Swift.Result<TransactionViewModel, Error>)->()) {
+    func payRequest(token: String, ride: RideViewModel, completion: @escaping (Swift.Result<TransactionViewModel, Error>)->()) {
         
-        let transaction = TransactionViewModel(id: nil, token: token.tokenId, cost: ride.cost ?? 50.0, description: "Поездка", currency: "RUB")
+        let transaction = TransactionViewModel(id: nil, token: token, cost: ride.cost ?? 50.0, description: "Поездка", currency: "RUB")
         
         var request = URLRequest(url: URL(string: ApiService.serverURL + "/pay/" + String(ride.id!))!)
         request.httpMethod = "POST"
@@ -69,7 +69,7 @@ class ApiService {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        sessionManager.value.request(request).validate(validate).responseData { response in
+        sessionManager.request(request).validate(validate).responseData { response in
             guard let data = response.data else {
                 completion(.failure(response.error ?? BSError.parseError))
                 return
@@ -95,7 +95,7 @@ class ApiService {
     }
     
     func getBike(by id: Int64, completion: @escaping (Swift.Result<BikeViewModel, Error>)->()) {
-        sessionManager.value.request(ApiService.serverURL + "/bikes", method: .get, parameters: ["id": id]).validate().response { response in
+        sessionManager.request(ApiService.serverURL + "/bikes", method: .get, parameters: ["id": id]).validate().response { response in
             guard let rideData = response.data else {
                 completion(.failure(response.error ?? BSError.unknownError))
                 return
@@ -116,7 +116,7 @@ class ApiService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(ride)
 
-        sessionManager.value.request(request).validate(validate).response { response in
+        sessionManager.request(request).validate().responseData { response in
             guard let rideData = response.data else {
                 completion(.failure(response.error ?? BSError.unknownError))
                 return
@@ -137,7 +137,7 @@ class ApiService {
             "Content-Disposition" : "form-data"
         ]
         
-        sessionManager.value.upload(multipartFormData: { formData in
+        sessionManager.upload(multipartFormData: { formData in
             formData.append(try! self.jsonEncoder.encode(ride), withName: "ride")
             formData.append(image.pngData()!, withName: "file", fileName: "file.png", mimeType: "image/png")
             
@@ -175,7 +175,7 @@ class ApiService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! jsonEncoder.encode(feedback)
         
-        sessionManager.value.request(request).validate(validate).response { response in
+        sessionManager.request(request).validate(validate).response { response in
             guard let data = response.data else {
                 completion(.failure(response.error ?? BSError.unknownError))
                 return

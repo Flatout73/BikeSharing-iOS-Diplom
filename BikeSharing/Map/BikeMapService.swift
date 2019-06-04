@@ -39,7 +39,7 @@ class BaseBikeMapService: BikeMapService {
     }
     
     private func getBikesFromServer() -> Observable<[BikeViewModel]> {
-        let observable = self.apiService.sessionManager.value.rx.request(.get, ApiService.serverURL + "/bikes/all", parameters: nil)
+        let observable = self.apiService.sessionManager.rx.request(.get, ApiService.serverURL + "/bikes/all", parameters: nil)
             .data()
 //            .catchError({ error -> Observable<Data> in
 //                NotificationBanner.showErrorBanner(error.localizedDescription)
