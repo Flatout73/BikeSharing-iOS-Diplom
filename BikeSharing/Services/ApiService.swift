@@ -94,7 +94,7 @@ class ApiService {
         return .failure(BSError.paymentError(message))
     }
     
-    func getBike(by id: Int64, completion: @escaping (Swift.Result<BikeViewModel, Error>)->()) {
+    func getBike(by id: String, completion: @escaping (Swift.Result<BikeViewModel, Error>)->()) {
         sessionManager.request(ApiService.serverURL + "/bikes", method: .get, parameters: ["id": id]).validate().response { response in
             guard let rideData = response.data else {
                 completion(.failure(response.error ?? BSError.unknownError))

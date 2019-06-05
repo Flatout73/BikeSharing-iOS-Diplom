@@ -138,19 +138,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func found(code: String) {
-        guard
-            let id = Int64(code)
-//            let jsonData = code.data(using: .utf8),
-//            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-//            let id = json["id"] as? Int64
-            else {
-                createPayment() //заменить
-                return
-            }
-        
         AnalyticsHelper.event(name: "found_QRcode")
         
-        apiService.getBike(by: id) { result in
+        apiService.getBike(by: code) { result in
             switch result {
             case .success(let bike):
                 self.bike = bike
@@ -159,7 +149,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                     self.createPayment()
                 }
             case .failure(let error):
-                NotificationBanner.showErrorBanner(error.localizedDescription)
+                NotificationBanner.showErrorBanner(code + " " + error.localizedDescription)
+                self.createPayment()
             }
         }
         
@@ -213,16 +204,24 @@ extension ScannerViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         guard let paymentToken = self.token else {
             self.dismiss(animated: true)
+            if captureSession?.isRunning == false {
+                captureSession.startRunning()
+            }
             return
         }
         let trans = TransactionViewModel(id: nil, token: paymentToken.tokenId, cost: nil, description: nil, currency: nil)
-        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation, endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(), endTime: nil, cost: nil, bike: bike, transaction: trans, locations: nil, imageURL: nil)) { result in
+        apiService.createRide(RideViewModel(id: nil, startLocation: startLocation,
+                                            endLocation: nil, startAddress: bike.address, endAddress: nil, startTime: Date(),
+                                            endTime: nil, cost: nil, bike: bike,
+                                            transaction: trans, locations: nil, imageURL: nil)) { [weak self] result in
+                                                guard let self = self else { return }
             switch result {
             case .success(var ride):
                 ride.transaction = trans
                 self.coreDataManager.saveOneRide(by: ride)
-                controller.dismiss(animated: true, completion: {
-                    self.dismiss(animated: true) {
+                controller.dismiss(animated: true, completion: { [weak self] in
+                    self?.dismiss(animated: true) { [weak self] in
+                        guard let self = self else { return }
                         self.paymentBike.onNext(PaymentModel(stpToken: paymentToken.tokenId, ride: ride))
                     
                         if self.bluetoothManager.isReady {
